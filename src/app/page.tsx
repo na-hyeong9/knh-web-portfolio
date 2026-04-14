@@ -239,7 +239,6 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="relative inline-block">
-            <div className="absolute inset-x-[-2rem] inset-y-[-1rem] bg-white/40 dark:bg-white/5 backdrop-blur-xl rounded-[2rem] -z-10" />
             <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] px-4 relative">
               Web Publisher & <br />
               <span className="text-primary">Frontend Developer</span>
@@ -486,7 +485,7 @@ export default function HomePage() {
             Work Experience
           </h2>
           <p className="text-xl text-muted-foreground">
-            회사와 소속 단위의 굵직한 경력과 주요 성과를 소개합니다.
+            회사와 소속 단위의 경력과 주요 성과를 소개합니다.
           </p>
         </header>
         <div className="max-w-5xl mx-auto space-y-6">
@@ -541,8 +540,8 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="hidden md:flex w-12 h-12 rounded-full glass-button items-center justify-center group-hover:bg-primary transition-all duration-300">
-                      <ArrowRight className="h-6 w-6 group-hover:text-white transition-colors" />
+                    <div className="hidden md:flex w-12 h-12 rounded-full glass-button items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+                      <ArrowRight className="h-6 w-6 group-hover:text-primary transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
