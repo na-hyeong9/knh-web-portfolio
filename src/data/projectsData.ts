@@ -43,7 +43,7 @@ export interface Experience {
 export const projectsData: Project[] = [
   {
     id: "1",
-    title: "web- Portfolio",
+    title: "web-Portfolio",
     description: "Nest.js, Tail",
     period: "2024.01 - 2024.02",
     contribution: "100%",

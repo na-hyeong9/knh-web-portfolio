@@ -189,35 +189,69 @@ export default function HomePage() {
       {/* Hero Section */}
       <section
         id="home"
-        className="container mx-auto px-4 min-h-screen flex flex-col items-center justify-center text-center gap-12 py-20">
+        className="relative overflow-hidden min-h-screen flex flex-col items-center justify-center text-center gap-12 py-20">
+        {/* Dynamic blending background blobs - Full Screen */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <motion.div
+            animate={{
+              x: [0, 200, -100, 0],
+              y: [0, -100, 100, 0],
+              scale: [1, 1.5, 0.8, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-primary/20 rounded-full blur-[120px]"
+          />
+          <motion.div
+            animate={{
+              x: [0, -150, 120, 0],
+              y: [0, 120, -80, 0],
+              scale: [1, 0.7, 1.3, 1],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-400/20 rounded-full blur-[120px]"
+          />
+          <motion.div
+            animate={{
+              x: [0, 80, -120, 0],
+              y: [0, -150, 80, 0],
+              scale: [1, 1.2, 0.7, 1],
+            }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[30%] right-[10%] w-[50%] h-[50%] bg-cyan-400/20 rounded-full blur-[120px]"
+          />
+        </div>
+
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative w-full max-w-3xl aspect-[21/9] md:aspect-[3/1]">
+          className="relative w-full max-w-3xl aspect-[21/9] md:aspect-[3/1] z-10">
           <div className="relative w-full h-full flex items-center justify-center">
             <TypingHero />
           </div>
         </motion.div>
 
-        <div className="space-y-6 max-w-2xl">
-          <motion.h1
+        <div className="space-y-8 max-w-3xl relative z-10">
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-6xl font-display font-bold tracking-tight">
-            Web Publisher & <br />
-            <span className="text-primary">Frontend Developer</span>
-          </motion.h1>
+            className="relative inline-block">
+            <div className="absolute inset-x-[-2rem] inset-y-[-1rem] bg-white/40 dark:bg-white/5 backdrop-blur-xl rounded-[2rem] -z-10" />
+            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] px-4 relative">
+              Web Publisher & <br />
+              <span className="text-primary">Frontend Developer</span>
+            </h1>
+          </motion.div>
 
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="text-lg text-muted-foreground">
+            className="text-xl text-muted-foreground font-medium">
             사용자 경험을 최우선으로 생각하며,{" "}
             <br className="hidden sm:block" />
             깔끔하고 효율적인 코드를 작성하는 김나형입니다.
