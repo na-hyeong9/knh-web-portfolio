@@ -1,26 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { MainLayout } from "@/shared/components/main-layout";
-import { Button } from "@/shared/components/ui/button";
-import { motion } from "motion/react";
+import { MainLayout } from "@/shared/components/Main";
+import { Button } from "@/shared/components/ui/Button";
+
 import {
   ArrowRight,
-  Download,
   Mail,
-  Calendar,
   MapPin,
-  Phone,
-  Award,
   Github,
-  ExternalLink,
   Send,
   MessageSquare,
-  Building2,
   ShieldCheck,
   Code2,
   Users2,
-  Briefcase,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,19 +25,14 @@ import {
 } from "@/data/projectsData";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/shared/components/ui/accordion";
-import { Badge } from "@/shared/components/ui/badge";
-import { Card, CardContent } from "@/shared/components/ui/card";
+import { Badge } from "@/shared/components/ui/Badge";
+import { Card, CardContent } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/lib/utils";
 
 const skills = [
@@ -58,86 +46,164 @@ const skills = [
   { name: "Figma", icon: "/icons/skills/figma.svg" },
 ];
 
-const phrases = [
-  { title: "Team·work", desc: "협력(팀워크) 정신, 협동심." },
-  { title: "Creative", desc: "창의적인" },
-  { title: "Growing", desc: "성장하는" },
+const allProjects = [
+  ...workData.map((work) => ({
+    id: work.id,
+    title: work.company,
+    period: work.period,
+    techStack: work.techStack,
+    category: "work" as const,
+    link: `/work/${work.id}`,
+    thumbnail: work.thumbnail,
+  })),
+  ...projectsData.map((p) => ({
+    id: p.id,
+    title: p.title,
+    description: p.description,
+    period: p.period,
+    techStack: p.techStack ?? [],
+    category: p.category,
+    thumbnail: p.thumbnail,
+    link: `/project/${p.id}`,
+  })),
 ];
 
-function TypingHero() {
-  const [phraseIndex, setPhraseIndex] = React.useState(0);
-  const [displayText, setDisplayText] = React.useState("");
-  const [isDeleting, setIsDeleting] = React.useState(false);
+function BentoCard({
+  item,
+  index,
+}: {
+  item: (typeof allProjects)[0];
+  index: number;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative group overflow-hidden rounded-[2.5rem] liquid-glass bento-card opacity-0 translate-y-10 aspect-[4/3]",
+      )}>
+      <Link href={item.link} className="block w-full h-full">
+        {item.thumbnail ? (
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={item.thumbnail}
+              alt={item.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          </div>
+        ) : (
+          <div className="absolute inset-0 bg-secondary/30 -z-10" />
+        )}
+
+        <div className="absolute inset-0 p-8 flex flex-col justify-end gap-3 z-10">
+          <div className="flex items-center justify-between">
+            <Badge className="glass-button text-primary border-none rounded-full px-4 py-0.5 text-[10px] font-bold uppercase">
+              {item.category}
+            </Badge>
+            <span className="text-[10px] font-bold text-white/60">
+              {item.period}
+            </span>
+          </div>
+          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+            {item.title}
+          </h3>
+
+          <div className="flex flex-wrap gap-2 pt-2">
+            {item.techStack.slice(0, 3).map((tech) => (
+              <Badge
+                key={tech}
+                variant="secondary"
+                className="bg-white/10 hover:bg-white/20 text-white border-none text-[9px] rounded-full px-2 py-0">
+                {tech}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+function ProjectGrid() {
+  const [filter, setFilter] = React.useState<"all" | "work" | "project">("all");
+  const gridRef = React.useRef<HTMLDivElement>(null);
+
+  const filteredItems = allProjects.filter(
+    (item) => filter === "all" || item.category === filter,
+  );
 
   React.useEffect(() => {
-    const currentPhrase = phrases[phraseIndex];
-    const fullText = `${currentPhrase.title}\n${currentPhrase.desc}`;
+    if (!gridRef.current) return;
 
-    let timer: NodeJS.Timeout;
+    const cards = gridRef.current.querySelectorAll(".bento-card");
 
-    const handleTyping = () => {
-      const currentLen = displayText.length;
-
-      if (!isDeleting) {
-        if (currentLen < fullText.length) {
-          setDisplayText(fullText.slice(0, currentLen + 1));
-          const delay =
-            fullText[currentLen] === "\n" ? 400 : 100 + Math.random() * 100;
-          timer = setTimeout(handleTyping, delay);
-        } else {
-          timer = setTimeout(() => setIsDeleting(true), 2500);
-        }
-      } else {
-        if (currentLen > 0) {
-          setDisplayText(fullText.slice(0, currentLen - 1));
-          timer = setTimeout(handleTyping, 40);
-        } else {
-          setIsDeleting(false);
-          setPhraseIndex((prev) => (prev + 1) % phrases.length);
-          timer = setTimeout(handleTyping, 600);
-        }
-      }
-    };
-
-    timer = setTimeout(handleTyping, 100);
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, phraseIndex]);
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: gridRef.current,
+        start: "top bottom-=100",
+        toggleActions: "play none none none",
+      },
+    });
+  }, [filter]);
 
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 w-full h-full select-none">
-      <div className="mb-6">
-        <span className="text-sm md:text-base font-bold text-primary/60 uppercase tracking-[0.2em] mb-2 block">
-          나를 상징하는 키워드
-        </span>
-        <div className="h-px w-12 bg-primary/20 mx-auto" />
+    <div className="space-y-12">
+      <div className="flex justify-center gap-2 p-1 bg-secondary/30 backdrop-blur-md rounded-full w-fit mx-auto border border-white/10">
+        {["all", "work", "project"].map((t) => (
+          <button
+            key={t}
+            onClick={() => setFilter(t as "all" | "work" | "project")}
+            className={cn(
+              "px-8 py-2.5 rounded-full text-sm font-bold transition-all duration-300",
+              filter === t
+                ? "bg-white dark:bg-zinc-800 text-primary shadow-xl scale-105"
+                : "text-muted-foreground hover:text-foreground",
+            )}>
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+          </button>
+        ))}
       </div>
-      <div className="text-3xl md:text-5xl font-display font-bold tracking-tight leading-tight min-h-[5em] flex flex-col justify-center items-center">
-        <div className="relative">
-          {displayText.split("\n").map((line, i) => (
-            <div
-              key={i}
-              className={cn(
-                "transition-all duration-300",
-                i === 0
-                  ? "text-primary mb-3 text-4xl md:text-6xl"
-                  : "text-foreground/80 text-xl md:text-2xl font-medium",
-              )}>
-              {line}
-              {i === displayText.split("\n").length - 1 && (
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 0.8,
-                    ease: "linear",
-                  }}
-                  className="inline-block w-[4px] h-[1.1em] bg-primary ml-2 align-middle"
-                />
-              )}
-            </div>
-          ))}
-        </div>
+
+      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {filteredItems.map((item, index) => (
+          <BentoCard key={item.id} item={item} index={index} />
+        ))}
       </div>
+    </div>
+  );
+}
+
+const keywords = ["Teamwork", "Creative", "Growing"];
+
+function SlotMachine() {
+  const [index, setIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % keywords.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="w-full overflow-hidden relative flex justify-center select-none pointer-events-none">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="text-[15vw] md:text-[18vw] font-display font-bold tracking-tighter uppercase text-primary leading-none">
+          {keywords[index]}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
@@ -145,26 +211,47 @@ function TypingHero() {
 export default function HomePage() {
   const aboutRef = React.useRef<HTMLDivElement>(null);
   const profileRef = React.useRef<HTMLDivElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
+  const heroTitleRef = React.useRef<HTMLDivElement>(null);
+  const heroButtonsRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (!aboutRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Profile Image Entrance
-      gsap.from(profileRef.current, {
-        scrollTrigger: {
-          trigger: profileRef.current,
-          start: "top bottom-=100",
-          toggleActions: "play none none reverse",
-        },
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+      const heroTl = gsap.timeline({ delay: 0.2 });
 
-      // Reveal sub-sections on scroll
+      if (heroTitleRef.current) {
+        heroTl.from(heroTitleRef.current.children, {
+          y: 100,
+          opacity: 0,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "power4.out",
+        });
+      }
+
+      if (heroButtonsRef.current) {
+        heroTl.from(
+          heroButtonsRef.current,
+          { y: 40, opacity: 0, duration: 1, ease: "power3.out" },
+          "-=0.8",
+        );
+      }
+
+      if (profileRef.current) {
+        gsap.from(profileRef.current, {
+          scrollTrigger: {
+            trigger: profileRef.current,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+      }
+
       const subSections = gsap.utils.toArray(".gsap-reveal");
       subSections.forEach((section: any) => {
         gsap.from(section, {
@@ -179,7 +266,7 @@ export default function HomePage() {
           ease: "power3.out",
         });
       });
-    }, aboutRef);
+    });
 
     return () => ctx.revert();
   }, []);
@@ -189,9 +276,8 @@ export default function HomePage() {
       {/* Hero Section */}
       <section
         id="home"
-        className="relative overflow-hidden min-h-screen flex flex-col items-center justify-center text-center gap-12 py-20">
-        {/* Dynamic blending background blobs - Full Screen */}
-        <div className="absolute inset-0 -z-10 pointer-events-none">
+        className="relative overflow-hidden min-h-screen flex flex-col justify-between py-20">
+        <div className="absolute inset-0 -z-20 pointer-events-none">
           <motion.div
             animate={{
               x: [0, 200, -100, 0],
@@ -221,79 +307,52 @@ export default function HomePage() {
           />
         </div>
 
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative w-full max-w-3xl aspect-[21/9] md:aspect-[3/1] z-10">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <TypingHero />
-          </div>
-        </motion.div>
-
-        <div className="space-y-8 max-w-3xl relative z-10">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="relative inline-block">
-            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] px-4 relative">
-              Web Publisher & <br />
-              <span className="text-primary">Frontend Developer</span>
-            </h1>
-          </motion.div>
-
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="text-xl text-muted-foreground font-medium">
-            사용자 경험을 최우선으로 생각하며,{" "}
-            <br className="hidden sm:block" />
-            깔끔하고 효율적인 코드를 작성하는 김나형입니다.
-          </motion.p>
+        <div className="w-full pt-10">
+          <SlotMachine />
         </div>
 
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-          <Button
-            size="lg"
-            className="flex-1 rounded-full group shadow-lg hover:shadow-blue-500/20 transition-all"
-            onClick={() =>
-              document
-                .getElementById("work")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }>
-            경력기술서 바로가기
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="flex-1 rounded-full bg-white/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-all">
-            <Download className="mr-2 h-4 w-4" />
-            포트폴리오 PDF
-          </Button>
-          <Button
-            size="lg"
-            variant="ghost"
-            className="flex-1 rounded-full hover:bg-primary/5"
-            onClick={() =>
-              document
-                .getElementById("contact")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }>
-            <Mail className="mr-2 h-4 w-4" />
-            연락하기
-          </Button>
-        </motion.div>
+        <div className="container mx-auto px-1 flex flex-col items-center gap-12">
+          <div
+            ref={heroTitleRef}
+            className="space-y-6 max-w-5xl flex justify-center">
+            <div className="relative inline-block">
+              <h1 className="text-5xl font-display font-bold tracking-tighter leading-[1.1] px-4">
+                Web Publisher & <br />
+                <span className="text-primary">Frontend Developer</span>
+              </h1>
+            </div>
+            <p className="text-xl md:text-2xl flex flex-col text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+              안녕하세요, 꾸준한 성장을 지향하는 웹 퍼블리셔 김나형입니다.
+              <span className="inline-block mt-4" />
+              픽셀 하나하나에 의미를 담고 싶어 시작한 퍼블리싱이 어느새 사용자의
+              경험 전체를 설계하는 일이 되었습니다.{" "}
+              <span className="inline-block mt-4" />웹 표준과 접근성을
+              지키면서도 사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는
+              것을 가장 중요하게 생각합니다.
+            </p>
+          </div>
+
+          <div
+            ref={heroButtonsRef}
+            className="flex flex-col items-center gap-8 w-full max-w-2xl">
+            <motion.button
+              animate={{ y: [0, 15, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              onClick={() =>
+                document
+                  .getElementById("project")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="flex flex-col items-center gap-2 group">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
+                View Projects
+              </span>
+              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all">
+                <ArrowRight className="h-6 w-6 rotate-90 group-hover:text-primary transition-colors" />
+              </div>
+            </motion.button>
+          </div>
+        </div>
       </section>
 
       {/* About Section */}
@@ -301,7 +360,6 @@ export default function HomePage() {
         id="about"
         ref={aboutRef}
         className="container mx-auto px-4 py-32 border-t">
-        {/* Core Values Cards */}
         <div className="mb-24 space-y-8">
           <header className="text-center space-y-4 mb-12">
             <Badge className="glass-button text-primary border-none rounded-full px-6 py-1 text-sm font-bold">
@@ -357,7 +415,6 @@ export default function HomePage() {
                     </h3>
                   </div>
                 </div>
-
                 <div className="p-8 md:p-10 flex-1 flex flex-col">
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     {value.desc}
@@ -410,8 +467,6 @@ export default function HomePage() {
                 <h3 className="text-3xl font-display font-bold border-b pb-4">
                   Experience
                 </h3>
-
-                {/* Company Info Card */}
                 <div className="space-y-8">
                   {experienceData.map((exp) => (
                     <div key={exp.id} className="flex flex-col gap-2">
@@ -478,171 +533,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Work Section */}
-      <section id="work" className="container mx-auto px-4 py-32 border-t">
-        <header className="mb-20 space-y-4 text-center max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-display font-bold">
-            Work Experience
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            회사와 소속 단위의 경력과 주요 성과를 소개합니다.
-          </p>
-        </header>
-        <div className="max-w-5xl mx-auto space-y-6">
-          {workData.map((work, index) => (
-            <motion.div
-              key={work.id}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}>
-              <Link
-                href={`/work/${work.id}`}
-                aria-label={`${work.company} 경력 상세 보기`}>
-                <Card className="group border-none liquid-glass hover:bg-white/40 dark:hover:bg-zinc-800/40 transition-all duration-500 rounded-[2rem]">
-                  <CardContent className="p-8 flex flex-col md:flex-row items-center gap-8 relative z-10">
-                    <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-all duration-500">
-                      <Building2 className="h-10 w-10 group-hover:text-white transition-colors" />
-                    </div>
-
-                    <div className="flex-1 space-y-2 text-center md:text-left">
-                      <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
-                          {work.company}
-                        </h3>
-                        <Badge className="glass-button text-primary border-none rounded-full px-4 py-0.5 text-xs font-bold self-center md:self-auto">
-                          Work
-                        </Badge>
-                      </div>
-                      <p className="text-lg font-medium text-muted-foreground">
-                        {work.role}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-center md:items-end gap-2">
-                      <span className="text-sm font-bold text-muted-foreground">
-                        {work.period}
-                      </span>
-                      <div className="flex gap-2">
-                        {work.techStack.slice(0, 2).map((tech) => (
-                          <Badge
-                            key={tech}
-                            variant="secondary"
-                            className="rounded-full glass-button text-[10px] px-3">
-                            {tech}
-                          </Badge>
-                        ))}
-                        {work.techStack.length > 2 && (
-                          <span className="text-[10px] text-muted-foreground font-bold">
-                            +{work.techStack.length - 2}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="hidden md:flex w-12 h-12 rounded-full glass-button items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300">
-                      <ArrowRight className="h-6 w-6 group-hover:text-primary transition-colors" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Project Section */}
+      {/* Projects Section */}
       <section id="project" className="container mx-auto px-4 py-32 border-t">
         <header className="mb-20 space-y-4 text-center max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-display font-bold">
             Projects
           </h2>
-          <p className="text-xl text-muted-foreground">
-            실제 작업한 산출물을 시각적으로 어필하는 메인 갤러리입니다.
-          </p>
+          <p className="text-xl text-muted-foreground"></p>
         </header>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projectsData
-            .filter((p) => p.category === "project")
-            .map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}>
-                <Card className="group overflow-hidden border-none liquid-glass hover:-translate-y-3 transition-all duration-500 rounded-[2.5rem]">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <Image
-                      src={project.thumbnail}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6 z-20">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-14 h-14 rounded-full glass-button flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
-                          <Github className="h-7 w-7 text-black dark:text-white" />
-                        </a>
-                      )}
-                      <Link
-                        href={`/project/${project.id}`}
-                        aria-label={`${project.title} 프로젝트 상세 보기`}
-                        className="w-14 h-14 rounded-full bg-primary flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
-                        <ArrowRight className="h-7 w-7 text-white" />
-                      </Link>
-                    </div>
-                  </div>
-                  <CardContent className="p-8 space-y-6 relative z-10">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-primary font-bold uppercase tracking-widest">
-                          {project.period}
-                        </span>
-                        <Badge
-                          variant="outline"
-                          className="rounded-full text-[10px] py-0 px-3 font-bold glass-button">
-                          기여도 {project.contribution}
-                        </Badge>
-                      </div>
-                      <h3 className="text-2xl font-bold group-hover:text-primary transition-colors tracking-tight">
-                        {project.title}
-                      </h3>
-                    </div>
-                    <p className="text-muted-foreground line-clamp-2 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.techStack.slice(0, 3).map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="text-[11px] rounded-full px-3 py-0.5 glass-button font-medium">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.techStack.length > 3 && (
-                        <span className="text-xs text-muted-foreground font-medium">
-                          +{project.techStack.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-        </div>
+        <ProjectGrid />
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="container mx-auto px-4 py-32 border-t">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          {/* Left Side: Message & Links */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -704,7 +608,6 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Right Side: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}

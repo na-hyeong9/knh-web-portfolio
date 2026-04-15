@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { useParams } from "next/navigation";
-import { MainLayout } from "@/shared/components/main-layout";
+import { MainLayout } from "@/shared/components/Main";
 import { projectsData } from "@/data/projectsData";
 import { motion } from "motion/react";
-import { Badge } from "@/shared/components/ui/badge";
-import { buttonVariants } from "@/shared/components/ui/button";
+import { Badge } from "@/shared/components/ui/Badge";
+import { buttonVariants } from "@/shared/components/ui/Button";
 import { cn } from "@/shared/lib/utils";
 import {
   ArrowLeft,

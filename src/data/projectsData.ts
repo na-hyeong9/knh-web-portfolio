@@ -20,7 +20,7 @@ export interface Work {
   role: string;
   achievements: string[];
   techStack: string[];
-  details: string;
+  thumbnail: string;
 }
 
 export interface Education {
@@ -43,13 +43,13 @@ export interface Experience {
 export const projectsData: Project[] = [
   {
     id: "1",
-    title: "web-Portfolio",
-    description: "Nest.js, Tail",
-    period: "2024.01 - 2024.02",
+    title: "Next.js와 TypeScript로 개발한 웹 포트폴리오",
+    description: "나의 포트폴리오 사이트 제작 프로젝트",
+    period: "2024.04~",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    thumbnail: "https://picsum.photos/seed/portfolio/800/600",
-    githubUrl: "https://github.com",
+    thumbnail: "",
+    githubUrl: "https://github.com/na-hyeong9/knh-web-portfolio",
     demoUrl: "https://demo.com",
     category: "project",
     details: "This project focuses on clean UI/UX and smooth interactions.",
@@ -63,7 +63,7 @@ export const projectsData: Project[] = [
 export const workData: Work[] = [
   {
     id: "exp1",
-    company: "공기업 마켓 정식플랫폼 구축 사업",
+    company: "중소기업기술마켓 정식플랫폼 구축 사업",
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
@@ -73,7 +73,7 @@ export const workData: Work[] = [
       "총 108본 이상 화면 퍼블리싱",
     ],
     techStack: ["HTML", "CSS", "jQuery", "Git"],
-    details: "공기업 마켓 정식플랫폼 구축 사업의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp2",
@@ -85,7 +85,7 @@ export const workData: Work[] = [
       "IBSheet·IBChart 기반 대용량 그리드·차트 UI 구현 및 렌더링 성능 최적화",
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
-    details: "건설사 원전 사업관리 시스템 구축의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp3",
@@ -97,7 +97,7 @@ export const workData: Work[] = [
       "컴포넌트 재사용 구조 도입으로 개발 속도 및 유지보수성 대폭 향상",
     ],
     techStack: ["React", "Git"],
-    details: "공공기관 클라우드 네이티브 시스템의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp4",
@@ -110,7 +110,7 @@ export const workData: Work[] = [
       "대시보드 포함 총 45본 화면 구현 완료",
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
-    details: "건설사 고객센터 시스템 구축의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp5",
@@ -122,8 +122,7 @@ export const workData: Work[] = [
       "기존 시스템 분석 후 신규 기능 UI 적기 적용",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    details:
-      "공기업 통합경영정보시스템 (K-ERP) 기능 고도화의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp6",
@@ -135,7 +134,7 @@ export const workData: Work[] = [
       "시스템 이관에 따른 UI/UX 최적화로 사용자 혼란 최소화",
     ],
     techStack: ["HTML", "CSS"],
-    details: "유공자포상 시스템 이관의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp7",
@@ -147,7 +146,7 @@ export const workData: Work[] = [
       "한국웹접근성인증마크(WA) 획득 달성",
     ],
     techStack: ["HTML", "CSS"],
-    details: "금융권 웹 접근성 향상 프로젝트의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
   {
     id: "exp8",
@@ -159,7 +158,7 @@ export const workData: Work[] = [
       "적응형 모바일 페이지 설계",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    details: "공기업 대고객 시스템 개편의 퍼블리싱을 담당하였습니다.",
+    thumbnail: "",
   },
 ];
 

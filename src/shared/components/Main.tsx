@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Header } from '@/shared/components/header';
-import { Footer } from '@/shared/components/footer';
-import { CursorTrail } from '@/shared/components/cursor-trail';
-import { motion, AnimatePresence } from 'motion/react';
-import { usePathname } from 'next/navigation';
+import { Header } from "@/shared/components/Header";
+import { Footer } from "@/shared/components/Footer";
+import { CursorTrail } from "@/shared/components/CursorTrail";
+import { motion, AnimatePresence } from "motion/react";
+import { usePathname } from "next/navigation";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -20,8 +20,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
+            transition={{ duration: 0.3, ease: "easeOut" }}>
             {children}
           </motion.div>
         </AnimatePresence>

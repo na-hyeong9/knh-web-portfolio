@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/shared/components/theme-provider";
+import { ThemeProvider } from "@/shared/components/ThemeProvider";
 import { cn } from "@/shared/lib/utils";
 
 const outfit = Outfit({

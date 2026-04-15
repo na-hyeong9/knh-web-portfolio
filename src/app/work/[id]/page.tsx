@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { useParams } from "next/navigation";
-import { MainLayout } from "@/shared/components/main-layout";
+import { MainLayout } from "@/shared/components/Main";
 import { workData } from "@/data/projectsData";
 import { motion } from "motion/react";
-import { Badge } from "@/shared/components/ui/badge";
-import { Button } from "@/shared/components/ui/button";
+import { Badge } from "@/shared/components/ui/Badge";
+import { Button } from "@/shared/components/ui/Button";
 import { ArrowLeft, Calendar, Building2, Briefcase } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
