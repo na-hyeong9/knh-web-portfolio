@@ -112,7 +112,7 @@ export default function WorkDetailPage() {
             <div className="space-y-4">
               <div className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-xl border">
                 <Image
-                  src={`https://picsum.photos/seed/${work.id}-main/1200/675`}
+                  src={work.mainImage}
                   alt="Main Project View"
                   fill
                   className="object-cover"
@@ -129,7 +129,7 @@ export default function WorkDetailPage() {
               <div className="space-y-4">
                 <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border">
                   <Image
-                    src={`https://picsum.photos/seed/${work.id}-sub1/800/600`}
+                    src={work.subImage01}
                     alt="Sub View 1"
                     fill
                     className="object-cover"
@@ -143,7 +143,7 @@ export default function WorkDetailPage() {
               <div className="space-y-4">
                 <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border">
                   <Image
-                    src={`https://picsum.photos/seed/${work.id}-sub2/800/600`}
+                    src={work.subImage02}
                     alt="Sub View 2"
                     fill
                     className="object-cover"

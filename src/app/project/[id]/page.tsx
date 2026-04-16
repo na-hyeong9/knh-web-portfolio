@@ -114,7 +114,7 @@ export default function ProjectDetailPage() {
               <div className="space-y-4">
                 <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border">
                   <Image
-                    src={`https://picsum.photos/seed/${project.id}-sub1/800/600`}
+                    src={project.subImage01}
                     alt="Sub View 1"
                     fill
                     className="object-cover"
@@ -128,7 +128,7 @@ export default function ProjectDetailPage() {
               <div className="space-y-4">
                 <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border">
                   <Image
-                    src={`https://picsum.photos/seed/${project.id}-sub2/800/600`}
+                    src={project.subImage02}
                     alt="Sub View 2"
                     fill
                     className="object-cover"

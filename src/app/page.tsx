@@ -6,6 +6,7 @@ import { Button } from "@/shared/components/ui/Button";
 
 import {
   ArrowRight,
+  ArrowUpRight,
   Mail,
   MapPin,
   Github,
@@ -55,6 +56,9 @@ const allProjects = [
     category: "work" as const,
     link: `/work/${work.id}`,
     thumbnail: work.thumbnail,
+    mainImage: work.mainImage,
+    subImage01: work.subImage01,
+    subImage02: work.subImage02,
   })),
   ...projectsData.map((p) => ({
     id: p.id,
@@ -64,6 +68,9 @@ const allProjects = [
     techStack: p.techStack ?? [],
     category: p.category,
     thumbnail: p.thumbnail,
+    mainImage: p.mainImage,
+    subImage01: p.subImage01,
+    subImage02: p.subImage02,
     link: `/project/${p.id}`,
   })),
 ];
@@ -81,21 +88,34 @@ function BentoCard({
         "relative group overflow-hidden rounded-[2.5rem] liquid-glass bento-card opacity-0 translate-y-10 aspect-[4/3]",
       )}>
       <Link href={item.link} className="block w-full h-full">
-        {item.thumbnail ? (
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={item.thumbnail}
-              alt={item.title}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        {/* 배경 — 다크/라이트 모드 대응 */}
+        <div className="absolute bg-white dark:bg-zinc-700/50" />
+        {/* 로고 이미지 중앙 배치 */}
+        {item.thumbnail && (
+          <div className="absolute inset-0 flex items-center justify-center z-0">
+            <div className="relative w-50 h-50">
+              <Image
+                src={item.thumbnail}
+                alt={item.title}
+                fill
+                className="object-contain transition-transform duration-700 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+            </div>
           </div>
-        ) : (
-          <div className="absolute inset-0 bg-secondary/30 -z-10" />
         )}
-
+        {/* 바로가기 아이콘 */}
+        <div className="absolute top-5 right-5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="bg-white/10 backdrop-blur-sm rounded-full p-2.5 border border-white/30">
+            <ArrowUpRight
+              className="w-5 h-5"
+              style={{
+                color: "#999",
+                animation: "neon-pulse 0.7s ease-in-out infinite alternate",
+              }}
+            />
+          </div>
+        </div>
         <div className="absolute inset-0 p-8 flex flex-col justify-end gap-3 z-10">
           <div className="flex items-center justify-between">
             <Badge className="glass-button text-primary border-none rounded-full px-4 py-0.5 text-[10px] font-bold uppercase">
@@ -105,7 +125,7 @@ function BentoCard({
               {item.period}
             </span>
           </div>
-          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+          <h3 className="text-xl md:text-2xl font-bold text-mute group-hover:text-primary transition-colors line-clamp-2 leading-tight">
             {item.title}
           </h3>
 
@@ -114,7 +134,7 @@ function BentoCard({
               <Badge
                 key={tech}
                 variant="secondary"
-                className="bg-white/10 hover:bg-white/20 text-white border-none text-[9px] rounded-full px-2 py-0">
+                className="bg-white/10 hover:bg-white/20 text-mute border-none text-[9px] rounded-full px-2 py-0">
                 {tech}
               </Badge>
             ))}
@@ -314,21 +334,21 @@ export default function HomePage() {
         <div className="container mx-auto px-1 flex flex-col items-center gap-12">
           <div
             ref={heroTitleRef}
-            className="space-y-6 max-w-5xl flex justify-center">
-            <div className="relative inline-block">
-              <h1 className="text-5xl font-display font-bold tracking-tighter leading-[1.1] px-4">
+            className="space-y-6 max-w-5xl flex flex-col items-center text-center sm:items-start sm:text-left">
+            <div className="relative inline-block ">
+              <h1 className="sm:text-2lg md:text-3xl lg:text-6xl font-display font-bold tracking-tighter leading-[1.1]">
                 Web Publisher & <br />
                 <span className="text-primary">Frontend Developer</span>
               </h1>
             </div>
-            <p className="text-xl md:text-2xl flex flex-col text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+            <p className="flex flex-col text-left sm:block text-base sm:text-lg md:text-xl lg:text-2xl font-medium max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
               안녕하세요, 꾸준한 성장을 지향하는 웹 퍼블리셔 김나형입니다.
-              <span className="inline-block mt-4" />
-              픽셀 하나하나에 의미를 담고 싶어 시작한 퍼블리싱이 어느새 사용자의
-              경험 전체를 설계하는 일이 되었습니다.{" "}
-              <span className="inline-block mt-4" />웹 표준과 접근성을
-              지키면서도 사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는
-              것을 가장 중요하게 생각합니다.
+              <span className="block mt-5 md:mt-4" />
+              웹 표준과 접근성을 기반으로 직관적인 인터페이스를 만드는 일을
+              즐기며, 새로운 기술을 익히고 실무에 적용하는 과정을 좋아합니다.
+              <span className="block mt-5 md:mt-4" />
+              사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는 것을 가장
+              중요하게 생각합니다.
             </p>
           </div>
 
@@ -347,8 +367,12 @@ export default function HomePage() {
               <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                 View Projects
               </span>
-              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all">
-                <ArrowRight className="h-6 w-6 rotate-90 group-hover:text-primary transition-colors" />
+              <div
+                className="bg-background/80 backdrop-blur-sm rounded-full p-2.5 border border-border"
+                style={{
+                  animation: "neon-pulse 0.3s ease-in-out infinite alternate",
+                }}>
+                <ArrowUpRight className="w-5 h-5 text-foreground" />
               </div>
             </motion.button>
           </div>

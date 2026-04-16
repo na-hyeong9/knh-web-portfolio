@@ -6,6 +6,9 @@ export interface Project {
   contribution: string;
   techStack: string[];
   thumbnail: string;
+  mainImage: string;
+  subImage01: string;
+  subImage02: string;
   githubUrl?: string;
   demoUrl?: string;
   category: "work" | "project";
@@ -21,6 +24,9 @@ export interface Work {
   achievements: string[];
   techStack: string[];
   thumbnail: string;
+  mainImage: string;
+  subImage01: string;
+  subImage02: string;
 }
 
 export interface Education {
@@ -40,6 +46,7 @@ export interface Experience {
   period: string;
 }
 
+// 개인 프로젝트
 export const projectsData: Project[] = [
   {
     id: "1",
@@ -48,7 +55,10 @@ export const projectsData: Project[] = [
     period: "2024.04~",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    thumbnail: "",
+    thumbnail: "/images/work/techmk/tech-00.png",
+    mainImage: "/images/work/techmk/tech-01.png",
+    subImage01: "/images/work/techmk/tech-02.png",
+    subImage02: "/images/work/techmk/tech-03.png",
     githubUrl: "https://github.com/na-hyeong9/knh-web-portfolio",
     demoUrl: "https://demo.com",
     category: "project",
@@ -60,6 +70,7 @@ export const projectsData: Project[] = [
   },
 ];
 
+// SI 프로젝트
 export const workData: Work[] = [
   {
     id: "exp1",
@@ -67,98 +78,122 @@ export const workData: Work[] = [
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
-      "GitHub 버전 관리 체계 전담 구축 및 퍼블리싱 환경 초기 세팅",
-      "공통 UI 컴포넌트 설계·모듈화로 화면 전반의 재사용성 확보 및 작업 효율 향상",
-      "반응형·적응형 대응으로 PC·모바일 멀티 디바이스 환경 완성",
-      "총 108본 이상 화면 퍼블리싱",
+      "버전 관리 체계가 없던 초기 환경에서 GitHub 브랜치 전략과 퍼블리싱 환경을 직접 수립해 팀 전체의 협업 기반을 마련",
+      "반복되는 UI 패턴을 분석해 공통 컴포넌트로 모듈화하고, 화면 전반의 재사용성을 확보해 작업 효율 향상에 기여",
+      "PC·모바일 멀티 디바이스 환경을 고려한 반응형·적응형 퍼블리싱을 적용해 다양한 사용자 환경에서의 일관된 UI 제공",
+      "위 기반 위에서 총 108본 이상의 화면을 기한 내 완료",
     ],
     techStack: ["HTML", "CSS", "jQuery", "Git"],
-    thumbnail: "",
+    thumbnail: "/images/work/techmk/tech-00.png",
+    mainImage: "/images/work/techmk/tech-01.png",
+    subImage01: "/images/work/techmk/tech-02.png",
+    subImage02: "/images/work/techmk/tech-03.png",
   },
   {
     id: "exp2",
-    company: "건설사 원전 사업관리 시스템 구축",
+    company: "현대건설 원전 사업관리 시스템 구축",
     period: "2025.04 ~ 2025.06",
     role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
-      "GitHub 버전 관리 체계 전담 구축 및 퍼블리싱 환경 초기 세팅",
-      "IBSheet·IBChart 기반 대용량 그리드·차트 UI 구현 및 렌더링 성능 최적화",
+      "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+      "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
-    thumbnail: "",
+    thumbnail: "/images/work/nova/nova-00.png",
+    mainImage: "/images/work/nova/nova-01.png",
+    subImage01: "/images/work/nova/nova-02.png",
+    subImage02: "/images/work/nova/nova-03.png",
   },
   {
     id: "exp3",
-    company: "공공기관 클라우드 네이티브 시스템",
+    company: "울주군청 클라우드 네이티브 시스템",
     period: "2025.03 ~ 2025.04",
     role: "화면 퍼블리싱",
     achievements: [
-      "공통 UI 컴포넌트 15종 직접 설계·구현, 컴포넌트 전체 화면 재사용률 약 70% 달성",
-      "컴포넌트 재사용 구조 도입으로 개발 속도 및 유지보수성 대폭 향상",
+      "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+      "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
     ],
     techStack: ["React", "Git"],
-    thumbnail: "",
+    thumbnail: "/images/work/uj/uj-00.png",
+    mainImage: "/images/work/uj/uj-01.png",
+    subImage01: "/images/work/uj/uj-02.png",
+    subImage02: "/images/work/uj/uj-03.png",
   },
   {
     id: "exp4",
-    company: "건설사 고객센터 시스템 구축",
+    company: "현대건설 고객센터 시스템 구축",
     period: "2024.07 ~ 2024.12",
     role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
-      "UI 컴포넌트 모듈화로 개발 기간 약 20% 단축 기여",
-      "SCSS/SASS 기반 스타일 가이드 수립 및 표준화로 팀 전체 코드 일관성 확보",
-      "대시보드 포함 총 45본 화면 구현 완료",
+      "반복되는 UI 패턴을 분석해 공통 컴포넌트로 추출하고 SCSS 스타일 가이드를 표준화해 팀 전체 코드 일관성 확보 및 개발 기간 약 20% 단축에 기여",
+      "스타일 가이드가 없어 팀원마다 코드 스타일이 달랐던 문제를 해결하기 위해 SCSS/SASS 기반 표준 가이드를 수립, 코드 리뷰 비용 절감",
+      "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 45본의 화면을 기한 내 완료",
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
-    thumbnail: "",
+    thumbnail: "/images/work/hicc/hicc-00.png",
+    mainImage: "/images/work/hicc/hicc-01.png",
+    subImage01: "/images/work/hicc/hicc-02.png",
+    subImage02: "/images/work/hicc/hicc-03.png",
   },
   {
     id: "exp5",
-    company: "공기업 통합경영정보시스템 (K-ERP) 기능 고도화",
+    company: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
     period: "2024.05 ~ 2024.06",
     role: "화면 퍼블리싱",
     achievements: [
-      "적응형 웹, 모바일 퍼블리싱 100% 단독 담당, 멀티 디바이스 접근성 확보",
-      "기존 시스템 분석 후 신규 기능 UI 적기 적용",
+      "기존 시스템의 UI 구조를 분석해 신규 기능과의 일관성을 유지하면서 적응형 웹·모바일 퍼블리싱을 100% 단독 담당, 멀티 디바이스 접근성 확보",
+      "레거시 시스템의 마크업 패턴을 파악한 뒤 신규 기능 UI를 기존 스타일에 자연스럽게 통합해 사용자 혼란 없이 기능 고도화 완료",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    thumbnail: "",
+    thumbnail: "/images/work/kerp/kbiz-00.png",
+    mainImage: "/images/work/kerp/kbiz-01.png",
+    subImage01: "/images/work/kerp/kbiz-02.png",
+    subImage02: "/images/work/kerp/kbiz-03.png",
   },
-  {
-    id: "exp6",
-    company: "유공자포상 시스템 이관",
-    period: "2024.04 ~ 2024.05",
-    role: "화면 퍼블리싱",
-    achievements: [
-      "기존 화면 정밀 분석 및 고객사 수정 요구사항 누락 없이 전수 반영",
-      "시스템 이관에 따른 UI/UX 최적화로 사용자 혼란 최소화",
-    ],
-    techStack: ["HTML", "CSS"],
-    thumbnail: "",
-  },
+  // {
+  //   id: "exp6",
+  //   company: "중소기업중앙회 유공자포상 시스템 이관",
+  //   period: "2024.04 ~ 2024.05",
+  //   role: "화면 퍼블리싱",
+  //   achievements: [
+  //     "이관 전 기존 화면을 정밀 분석해 고객사의 수정 요구사항을 누락 없이 전수 반영, 이관 후 재작업 없이 검수 통과",
+  //     "시스템 이관으로 인한 UI 변경 최소화 원칙 하에 작업해 기존 사용자의 혼란을 줄이고 안정적인 서비스 전환 완료",
+  //   ],
+  //   techStack: ["HTML", "CSS"],
+  //   thumbnail: "",
+  //   mainImage: "",
+  //   subImage01: "",
+  //   subImage02: "",
+  // },
   {
     id: "exp7",
-    company: "금융권 웹 접근성 향상 프로젝트",
+    company: "SC제일은행 웹 접근성 향상 프로젝트",
     period: "2023.10 ~ 2024.02",
     role: "화면 퍼블리싱",
     achievements: [
-      "KWCAG 2.1 기준 마크업 전면 개선 및 검수",
-      "한국웹접근성인증마크(WA) 획득 달성",
+      "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 획득 달성",
+      "스크린리더 사용자와 키보드 사용자를 고려한 시맨틱 마크업 구조로 전면 개선해 다양한 사용자 환경에서의 서비스 접근성 확보",
     ],
     techStack: ["HTML", "CSS"],
-    thumbnail: "",
+    thumbnail: "/images/work/sc/sc-00.png",
+    mainImage: "/images/work/sc/sc-01.png",
+    subImage01: "",
+    subImage02: "",
   },
   {
     id: "exp8",
-    company: "공기업 대고객 시스템 개편",
+    company: "중소기업중앙회 대고객 시스템 개편",
     period: "2023.06 ~ 2023.09",
     role: "화면 퍼블리싱",
     achievements: [
-      "117페이지 화면 퍼블리싱 및 유지보수 전담",
-      "적응형 모바일 페이지 설계",
+      "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 및 유지보수를 단독 완료",
+      "모바일 사용자 비율 증가에 대응해 적응형 모바일 페이지를 설계, 디바이스별 최적화된 사용자 경험 제공",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    thumbnail: "",
+    thumbnail: "/images/work/kbiz/kbiz-00.png",
+    mainImage: "/images/work/kbiz/kbiz-01.png",
+    subImage01: "/images/work/kbiz/kbiz-02.png",
+    subImage02: "/images/work/kbiz/kbiz-03.png",
   },
 ];
 
