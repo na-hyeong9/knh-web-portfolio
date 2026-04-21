@@ -4,12 +4,122 @@ import * as React from "react";
 import { useParams } from "next/navigation";
 import { MainLayout } from "@/shared/components/Main";
 import { workData } from "@/data/projectsData";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Button } from "@/shared/components/ui/Button";
-import { ArrowLeft, Calendar, Building2, Briefcase } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  Building2,
+  Briefcase,
+  ZoomIn,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+
+function Lightbox({
+  src,
+  alt,
+  onClose,
+}: {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}) {
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      onClick={onClose}>
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.85, opacity: 0 }}
+        transition={{ type: "spring", damping: 28, stiffness: 320 }}
+        className="relative w-full max-w-7xl"
+        onClick={(e) => e.stopPropagation()}>
+        <div
+          className="relative w-full rounded-2xl overflow-hidden"
+          style={{ height: "80vh" }}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-contain w-full"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <button
+          onClick={onClose}
+          className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-full p-2 transition-colors">
+          <X className="h-5 w-5 text-white" />
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ProjectImage({
+  src,
+  alt,
+  caption,
+  className,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+}) {
+  const [open, setOpen] = React.useState(false);
+
+  if (!src) return null;
+
+  return (
+    <>
+      <div className="space-y-3">
+        <div
+          className={`relative overflow-hidden shadow-xl border group/img cursor-zoom-in ${className}`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover transition-transform duration-500 group-hover/img:scale-[1.02]"
+            referrerPolicy="no-referrer"
+          />
+          <button
+            onClick={() => setOpen(true)}
+            className="absolute inset-0 flex items-end justify-end p-4 bg-black/0 group-hover/img:bg-black/20 transition-all"
+            aria-label="크게 보기">
+            <div className="opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1.5 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+              <ZoomIn className="h-3.5 w-3.5" />
+              크게 보기
+            </div>
+          </button>
+        </div>
+        {caption && (
+          <p className="text-center text-sm text-muted-foreground font-medium px-2">
+            {caption}
+          </p>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
 
 export default function WorkDetailPage() {
   const params = useParams();
@@ -108,53 +218,29 @@ export default function WorkDetailPage() {
           <section className="space-y-12">
             <h2 className="text-2xl font-bold">Project Visuals</h2>
 
-            {/* Main Image */}
-            <div className="space-y-4">
-              <div className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-xl border">
-                <Image
-                  src={work.mainImage}
-                  alt="Main Project View"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
+            <ProjectImage
+              src={work.mainImage}
+              alt="Main Project View"
+              caption={work.mainImageCaption}
+              className="aspect-video rounded-[2.5rem]"
+            />
+
+            {(work.subImage01 || work.subImage02) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <ProjectImage
+                  src={work.subImage01}
+                  alt="Sub View 1"
+                  caption={work.subImage01Caption}
+                  className="aspect-[4/3] rounded-[2rem]"
+                />
+                <ProjectImage
+                  src={work.subImage02}
+                  alt="Sub View 2"
+                  caption={work.subImage02Caption}
+                  className="aspect-[4/3] rounded-[2rem]"
                 />
               </div>
-              <p className="text-center text-muted-foreground font-medium">
-                메인 시스템 아키텍처 및 핵심 인터페이스 디자인
-              </p>
-            </div>
-
-            {/* Sub Images Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border">
-                  <Image
-                    src={work.subImage01}
-                    alt="Sub View 1"
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <p className="text-center text-sm text-muted-foreground font-medium">
-                  데이터 시각화 및 대시보드 상세 모듈
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border">
-                  <Image
-                    src={work.subImage02}
-                    alt="Sub View 2"
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <p className="text-center text-sm text-muted-foreground font-medium">
-                  사용자 경험 최적화를 위한 모바일 반응형 레이아웃
-                </p>
-              </div>
-            </div>
+            )}
           </section>
 
           <div className="pt-12">

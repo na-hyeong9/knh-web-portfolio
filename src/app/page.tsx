@@ -5,7 +5,6 @@ import { MainLayout } from "@/shared/components/Main";
 import { Button } from "@/shared/components/ui/Button";
 
 import {
-  ArrowRight,
   ArrowUpRight,
   Mail,
   MapPin,
@@ -15,6 +14,7 @@ import {
   ShieldCheck,
   Code2,
   Users2,
+  ArrowDown,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ import {
 } from "@/data/projectsData";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -82,59 +82,100 @@ function BentoCard({
   item: (typeof allProjects)[0];
   index: number;
 }) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (!cardRef.current) return;
+    gsap
+      .timeline()
+      .to(cardRef.current, {
+        scaleX: 1.04,
+        scaleY: 0.96,
+        duration: 0.09,
+        ease: "power2.out",
+        overwrite: "auto",
+      })
+      .to(cardRef.current, {
+        scaleX: 0.97,
+        scaleY: 1.04,
+        duration: 0.1,
+        ease: "power2.inOut",
+      })
+      .to(cardRef.current, {
+        scaleX: 1.02,
+        scaleY: 0.99,
+        duration: 0.09,
+        ease: "power2.inOut",
+      })
+      .to(cardRef.current, {
+        scaleX: 1,
+        scaleY: 1,
+        duration: 0.38,
+        ease: "elastic.out(1, 0.4)",
+      });
+  };
+
   return (
     <div
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       className={cn(
-        "relative group overflow-hidden rounded-[2.5rem] liquid-glass bento-card opacity-0 translate-y-10 aspect-[4/3]",
+        "relative group overflow-hidden",
+        "rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem]",
+        "liquid-glass bento-card opacity-0 translate-y-10",
+        "aspect-[3/4] xl:aspect-[4/3]",
       )}>
       <Link href={item.link} className="block w-full h-full">
-        {/* 배경 — 다크/라이트 모드 대응 */}
-        <div className="absolute bg-white dark:bg-zinc-700/50" />
-        {/* 로고 이미지 중앙 배치 */}
+        {/* 배경 */}
+        <div className="absolute inset-0 bg-white/[0.06] dark:bg-white/[0.03]" />
+
+        {/* 썸네일 */}
         {item.thumbnail && (
-          <div className="absolute inset-0 flex items-center justify-center z-0">
-            <div className="relative w-50 h-50">
+          <div className="absolute inset-0 flex items-center justify-center z-0 pb-20 sm:pb-24 md:pb-28">
+            <div className="relative w-20 h-20 sm:w-32 sm:h-32 md:w-44 md:h-44">
               <Image
                 src={item.thumbnail}
                 alt={item.title}
                 fill
-                className="object-contain transition-transform duration-700 group-hover:scale-105"
+                className="object-contain transition-transform duration-700 group-hover:scale-115 dark:brightness-90"
                 referrerPolicy="no-referrer"
               />
             </div>
           </div>
         )}
+
         {/* 바로가기 아이콘 */}
-        <div className="absolute top-5 right-5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="bg-white/10 backdrop-blur-sm rounded-full p-2.5 border border-white/30">
+        <div className="absolute top-3 right-3 md:top-5 md:right-5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="bg-black/10 dark:bg-white/10 backdrop-blur-sm rounded-full p-2 md:p-2.5 border border-black/10 dark:border-white/30">
             <ArrowUpRight
-              className="w-5 h-5"
+              className="w-4 h-4 md:w-5 md:h-5 text-zinc-600 dark:text-zinc-300"
               style={{
-                color: "#999",
                 animation: "neon-pulse 0.7s ease-in-out infinite alternate",
               }}
             />
           </div>
         </div>
-        <div className="absolute inset-0 p-8 flex flex-col justify-end gap-3 z-10">
-          <div className="flex items-center justify-between">
-            <Badge className="glass-button text-primary border-none rounded-full px-4 py-0.5 text-[10px] font-bold uppercase">
-              {item.category}
-            </Badge>
-            <span className="text-[10px] font-bold text-white/60">
-              {item.period}
-            </span>
-          </div>
-          <h3 className="text-xl md:text-2xl font-bold text-mute group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+
+        {/* 하단 텍스트 */}
+        <div className="absolute inset-0 p-4 sm:p-5 md:p-8 flex flex-col justify-end gap-1.5 sm:gap-2 md:gap-3 z-10">
+          <Badge className="glass-button text-primary border-none rounded-full px-2.5 sm:px-3 md:px-4 py-0.5 text-[8px] sm:text-[9px] md:text-[10px] font-bold uppercase truncate max-w-[60%]">
+            {item.category}
+          </Badge>
+
+          <p className="text-[12px] sm:text-[8px] md:text-[16px] font-bold text-zinc-500 dark:text-white shrink-0">
+            {item.period}
+          </p>
+
+          <h3 className="text-sm sm:text-base md:text-2xl font-bold light:text-zinc-800  group-hover:text-primary transition-colors line-clamp-2 leading-tight">
             {item.title}
           </h3>
 
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-1 md:gap-2 pt-0.5 md:pt-2">
             {item.techStack.slice(0, 3).map((tech) => (
               <Badge
                 key={tech}
                 variant="secondary"
-                className="bg-white/10 hover:bg-white/20 text-mute border-none text-[9px] rounded-full px-2 py-0">
+                className="bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 light:text-zinc-800 dark:text-zinc-300 border-none text-[7px] sm:text-[8px] md:text-[9px] rounded-full px-1.5 sm:px-2 py-0">
                 {tech}
               </Badge>
             ))}
@@ -158,29 +199,57 @@ function ProjectGrid() {
 
     const cards = gridRef.current.querySelectorAll(".bento-card");
 
-    gsap.to(cards, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: gridRef.current,
-        start: "top bottom-=100",
-        toggleActions: "play none none none",
-      },
+    // 카드 초기 상태로 리셋 (탭 변경 시에도 항상 처음부터)
+    gsap.set(cards, { opacity: 0, y: 40 });
+
+    const animateIn = () =>
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+
+    const animateOut = () =>
+      gsap.to(cards, {
+        opacity: 0,
+        y: 40,
+        duration: 0.45,
+        stagger: { each: 0.06, from: "end" },
+        ease: "power2.in",
+        overwrite: "auto",
+      });
+
+    const st = ScrollTrigger.create({
+      trigger: gridRef.current,
+      start: "top bottom-=100",
+      end: "bottom top+=100",
+      onEnter: animateIn,
+      onLeaveBack: animateOut,
+      onEnterBack: animateIn,
+      onLeave: animateOut,
     });
+
+    // 탭 변경 시 이미 뷰포트 안에 있으면 즉시 재생
+    const rect = gridRef.current.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100 && rect.bottom > 100) {
+      animateIn();
+    }
+
+    return () => st.kill();
   }, [filter]);
 
   return (
     <div className="space-y-12">
-      <div className="flex justify-center gap-2 p-1 bg-secondary/30 backdrop-blur-md rounded-full w-fit mx-auto border border-white/10">
+      <div className="flex justify-center gap-1 sm:gap-2 p-1 bg-secondary/30 backdrop-blur-md rounded-full w-fit mx-auto border border-white/10">
         {["all", "work", "project"].map((t) => (
           <button
             key={t}
             onClick={() => setFilter(t as "all" | "work" | "project")}
             className={cn(
-              "px-8 py-2.5 rounded-full text-sm font-bold transition-all duration-300",
+              "px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300",
               filter === t
                 ? "bg-white dark:bg-zinc-800 text-primary shadow-xl scale-105"
                 : "text-muted-foreground hover:text-foreground",
@@ -189,8 +258,9 @@ function ProjectGrid() {
           </button>
         ))}
       </div>
-
-      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div
+        ref={gridRef}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredItems.map((item, index) => (
           <BentoCard key={item.id} item={item} index={index} />
         ))}
@@ -199,31 +269,31 @@ function ProjectGrid() {
   );
 }
 
+// home keyword conveyor belt
 const keywords = ["Teamwork", "Creative", "Growing"];
 
-function SlotMachine() {
-  const [index, setIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % keywords.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, []);
+function ConveyorBelt() {
+  // 끊김 없는 루프를 위해 4벌 복제
+  const items = [...keywords, ...keywords, ...keywords, ...keywords];
 
   return (
-    <div className="w-full overflow-hidden relative flex justify-center select-none pointer-events-none">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-          className="text-[15vw] md:text-[18vw] font-display font-bold tracking-tighter uppercase text-primary leading-none">
-          {keywords[index]}
-        </motion.div>
-      </AnimatePresence>
+    <div className="w-full overflow-hidden select-none pointer-events-none">
+      <motion.div
+        className="flex items-center"
+        style={{ width: "max-content" }}
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}>
+        {items.map((keyword, i) => (
+          <React.Fragment key={i}>
+            <span className="text-[8vw] md:text-[10vw] font-display font-bold tracking-tighter uppercase text-primary leading-none whitespace-nowrap px-6 md:px-12">
+              {keyword}
+            </span>
+            <span className="text-primary/25 text-[5vw] md:text-[7vw] leading-none shrink-0">
+              ✦
+            </span>
+          </React.Fragment>
+        ))}
+      </motion.div>
     </div>
   );
 }
@@ -233,6 +303,10 @@ export default function HomePage() {
   const profileRef = React.useRef<HTMLDivElement>(null);
   const heroTitleRef = React.useRef<HTMLDivElement>(null);
   const heroButtonsRef = React.useRef<HTMLDivElement>(null);
+  const coreValuesHeaderRef = React.useRef<HTMLElement>(null);
+  const coreValuesGridRef = React.useRef<HTMLDivElement>(null);
+  const contactLeftRef = React.useRef<HTMLDivElement>(null);
+  const contactRightRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (!aboutRef.current) return;
@@ -286,6 +360,70 @@ export default function HomePage() {
           ease: "power3.out",
         });
       });
+
+      // 핵심 가치 헤더
+      if (coreValuesHeaderRef.current) {
+        gsap.from(coreValuesHeaderRef.current.children, {
+          scrollTrigger: {
+            trigger: coreValuesHeaderRef.current,
+            start: "top bottom-=80",
+            toggleActions: "play none none reverse",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      }
+
+      // 핵심 가치 카드 3장 stagger
+      if (coreValuesGridRef.current) {
+        const cards = coreValuesGridRef.current.children;
+        gsap.from(cards, {
+          scrollTrigger: {
+            trigger: coreValuesGridRef.current,
+            start: "top bottom-=60",
+            toggleActions: "play none none reverse",
+          },
+          y: 60,
+          opacity: 0,
+          duration: 0.9,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      }
+
+      // Contact 왼쪽
+      if (contactLeftRef.current) {
+        gsap.from(Array.from(contactLeftRef.current.children), {
+          scrollTrigger: {
+            trigger: contactLeftRef.current,
+            start: "top bottom-=80",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.18,
+          ease: "power3.out",
+        });
+      }
+
+      // Contact 오른쪽 폼
+      if (contactRightRef.current) {
+        gsap.from(contactRightRef.current, {
+          scrollTrigger: {
+            trigger: contactRightRef.current,
+            start: "top bottom-=80",
+            toggleActions: "play none none reverse",
+          },
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+      }
     });
 
     return () => ctx.revert();
@@ -328,7 +466,7 @@ export default function HomePage() {
         </div>
 
         <div className="w-full pt-10">
-          <SlotMachine />
+          <ConveyorBelt />
         </div>
 
         <div className="container mx-auto px-1 flex flex-col items-center gap-12">
@@ -372,7 +510,7 @@ export default function HomePage() {
                 style={{
                   animation: "neon-pulse 0.3s ease-in-out infinite alternate",
                 }}>
-                <ArrowUpRight className="w-5 h-5 text-foreground" />
+                <ArrowDown className="w-5 h-5 text-foreground" />
               </div>
             </motion.button>
           </div>
@@ -385,7 +523,9 @@ export default function HomePage() {
         ref={aboutRef}
         className="container mx-auto px-4 py-32 border-t">
         <div className="mb-24 space-y-8">
-          <header className="text-center space-y-4 mb-12">
+          <header
+            ref={coreValuesHeaderRef}
+            className="text-center space-y-4 mb-12">
             <Badge className="glass-button text-primary border-none rounded-full px-6 py-1 text-sm font-bold">
               Core Values
             </Badge>
@@ -394,7 +534,9 @@ export default function HomePage() {
             </h2>
           </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            ref={coreValuesGridRef}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Web Standards",
@@ -449,26 +591,26 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <aside className="lg:col-span-4 space-y-8">
-            <div ref={profileRef} className="lg:sticky lg:top-32 space-y-8">
-              <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <aside className="lg:col-span-4 lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center">
+            <div ref={profileRef} className="space-y-8">
+              <div className="relative aspect-square w-100 rounded-3xl overflow-hidden shadow-2xl border">
                 <Image
-                  src="https://picsum.photos/seed/profile/600/600"
+                  src="/images/common/profile.png"
                   alt="Profile"
                   fill
                   className="object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <h2 className="text-3xl font-display font-bold">김나형</h2>
                 <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" />
+                  <Mail className="h-5 w-5 text-primary shrink-0" />
                   <span>devkimna@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Github className="h-5 w-5 text-primary" />
+                  <Github className="h-5 w-5 text-primary shrink-0" />
                   <a
                     href="https://github.com/na-hyeong9"
                     target="_blank"
@@ -478,50 +620,93 @@ export default function HomePage() {
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" />
+                  <MapPin className="h-5 w-5 text-primary shrink-0" />
                   <span>Seoul, South Korea</span>
                 </div>
               </div>
             </div>
           </aside>
 
-          <main className="lg:col-span-8 space-y-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <main className="lg:col-span-8 space-y-24 m-auto">
+            <div className="grid grid-cols-1 gap-12">
+              {/* Experience Timeline */}
               <section className="space-y-8 gsap-reveal">
                 <h3 className="text-3xl font-display font-bold border-b pb-4">
                   Experience
                 </h3>
-                <div className="space-y-8">
-                  {experienceData.map((exp) => (
-                    <div key={exp.id} className="flex flex-col gap-2">
-                      <span className="text-sm text-primary font-bold">
-                        {exp.period}
-                      </span>
-                      <span className="text-2xl font-bold">{exp.company}</span>
-                      <span className="text-lg text-muted-foreground">
-                        {exp.role}
-                      </span>
-                    </div>
-                  ))}
+                <div className="relative">
+                  {/* 세로 선 */}
+                  <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border" />
+                  <div className="space-y-0">
+                    {experienceData.map((exp, i) => (
+                      <div key={exp.id} className="flex gap-5">
+                        {/* 도트 */}
+                        <div className="relative flex-shrink-0 flex flex-col items-center">
+                          <div
+                            className={cn(
+                              "w-[15px] h-[15px] rounded-full border-2 z-10 mt-1 transition-all",
+                              i === 0
+                                ? "bg-primary border-primary shadow-[0_0_8px_2px] shadow-primary/50"
+                                : "bg-background border-border",
+                            )}
+                          />
+                        </div>
+                        {/* 내용 */}
+                        <div className="flex flex-col gap-1.5 pb-10">
+                          <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                            {exp.period}
+                          </span>
+                          <span className="text-xl font-bold leading-tight">
+                            {exp.company}
+                          </span>
+                          <span className="text-base text-muted-foreground">
+                            {exp.role}
+                          </span>
+                          <span className="text-sm text-muted-foreground/70">
+                            {exp.team} · {exp.rank}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </section>
 
+              {/* Education Timeline */}
               <section className="space-y-8 gsap-reveal">
                 <h3 className="text-3xl font-display font-bold border-b pb-4">
                   Education
                 </h3>
-                <div className="space-y-8">
-                  {educationData.map((edu) => (
-                    <div key={edu.id} className="flex flex-col gap-2">
-                      <span className="text-sm text-primary font-bold">
-                        {edu.period}
-                      </span>
-                      <span className="text-2xl font-bold">{edu.school}</span>
-                      <span className="text-lg text-muted-foreground">
-                        {edu.major}
-                      </span>
-                    </div>
-                  ))}
+                <div className="relative">
+                  <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border" />
+                  <div className="space-y-0">
+                    {educationData.map((edu, i) => (
+                      <div key={edu.id} className="flex gap-5">
+                        <div className="relative flex-shrink-0 flex flex-col items-center">
+                          <div
+                            className={cn(
+                              "w-[15px] h-[15px] rounded-full border-2 z-10 mt-1 transition-all",
+                              i === 0
+                                ? "bg-primary border-primary shadow-[0_0_8px_2px] shadow-primary/50"
+                                : "bg-background border-border",
+                            )}
+                          />
+                        </div>
+                        {/* 내용 */}
+                        <div className="flex flex-col gap-1.5 pb-10">
+                          <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                            {edu.period}
+                          </span>
+                          <span className="text-xl font-bold leading-tight">
+                            {edu.school}
+                          </span>
+                          <span className="text-base text-muted-foreground">
+                            {edu.major}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </section>
             </div>
@@ -558,40 +743,102 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="project" className="container mx-auto px-4 py-32 border-t">
-        <header className="mb-20 space-y-4 text-center max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-display font-bold">
-            Projects
-          </h2>
-          <p className="text-xl text-muted-foreground"></p>
-        </header>
-        <ProjectGrid />
+      <section id="project" className="relative overflow-hidden border-t">
+        {/* 홀로그램 배경 */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <motion.div
+            animate={{
+              x: [0, 120, -80, 0],
+              y: [0, -80, 60, 0],
+              scale: [1, 1.3, 0.85, 1],
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[-15%] left-[-10%] w-[55%] h-[55%] rounded-full blur-[100px] opacity-40 dark:opacity-25"
+            style={{
+              background: "radial-gradient(circle, #a78bfa, #818cf8, #38bdf8)",
+            }}
+          />
+          <motion.div
+            animate={{
+              x: [0, -100, 80, 0],
+              y: [0, 100, -60, 0],
+              scale: [1, 0.8, 1.2, 1],
+            }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full blur-[100px] opacity-35 dark:opacity-20"
+            style={{
+              background: "radial-gradient(circle, #f0abfc, #c084fc, #67e8f9)",
+            }}
+          />
+          <motion.div
+            animate={{
+              x: [0, 60, -120, 0],
+              y: [0, -120, 80, 0],
+              scale: [1, 1.4, 0.9, 1],
+            }}
+            transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-[-10%] left-[20%] w-[45%] h-[45%] rounded-full blur-[100px] opacity-30 dark:opacity-20"
+            style={{
+              background: "radial-gradient(circle, #34d399, #22d3ee, #818cf8)",
+            }}
+          />
+          <motion.div
+            animate={{
+              x: [0, -60, 100, 0],
+              y: [0, 80, -100, 0],
+              scale: [1, 1.1, 0.75, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-[50%] left-[35%] w-[35%] h-[35%] rounded-full blur-[80px] opacity-25 dark:opacity-15"
+            style={{
+              background: "radial-gradient(circle, #fb7185, #f472b6, #a78bfa)",
+            }}
+          />
+          {/* 홀로그램 격자 오버레이 */}
+          <div
+            className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(120,100,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(120,100,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 py-16 md:py-32">
+          <header className="mb-12 md:mb-20 space-y-4 text-center max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold">
+              Projects
+            </h2>
+            <p className="text-base md:text-xl text-muted-foreground"></p>
+          </header>
+          <ProjectGrid />
+        </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="container mx-auto px-4 py-32 border-t">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-12">
-            <div className="space-y-6">
-              <Badge className="glass-button text-primary border-none rounded-full px-6 py-1 text-sm font-bold">
+      <section
+        id="contact"
+        className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 border-t">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 max-w-6xl mx-auto">
+          {/* 왼쪽 */}
+          <div ref={contactLeftRef} className="space-y-8 sm:space-y-12">
+            <div className="space-y-4 sm:space-y-6">
+              <Badge className="glass-button text-primary border-none rounded-full px-4 sm:px-6 py-1 text-sm font-bold">
                 Contact
               </Badge>
-              <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight">
                 함께 성장할
                 <br />
                 <span className="text-primary">동료를 찾습니다!</span>
               </h2>
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <p className="text-base sm:text-xl text-muted-foreground leading-relaxed">
                 새로운 기술을 탐구하고 함께 멋진 가치를 만들어갈 분들의 연락을
                 기다립니다. 언제든 편하게 메시지 남겨주세요!
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {[
                 {
                   icon: Github,
@@ -617,45 +864,46 @@ export default function HomePage() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-6 p-6 rounded-[2rem] glass-button hover:bg-primary/5 transition-all group">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
-                    <item.icon className="h-6 w-6" />
+                  className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] glass-button hover:bg-primary/5 transition-all group">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mb-1">
                       {item.label}
                     </p>
-                    <p className="text-lg font-bold">{item.value}</p>
+                    <p className="text-sm sm:text-lg font-bold truncate">
+                      {item.value}
+                    </p>
                   </div>
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="liquid-glass p-10 md:p-12 rounded-[3rem] space-y-8">
+          {/* 오른쪽 폼 */}
+          <div
+            ref={contactRightRef}
+            className="liquid-glass p-6 sm:p-8 md:p-12 rounded-3xl sm:rounded-[3rem] space-y-6 sm:space-y-8">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold">메시지 보내기</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl sm:text-2xl font-bold">메시지 보내기</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 궁금한 점이 있다면 아래 양식을 작성해 주세요.
               </p>
             </div>
 
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="space-y-4 sm:space-y-6"
+              onSubmit={(e) => e.preventDefault()}>
               <div className="space-y-2">
-                <label
-                  htmlFor="contact-name"
-                  className="text-sm font-bold ml-1">
+                <label htmlFor="contact-name" className="text-sm font-bold">
                   이름
                 </label>
                 <input
                   id="contact-name"
                   type="text"
                   placeholder="성함을 입력해주세요"
-                  className="w-full p-4 rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                  className="w-full p-3 mt-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm sm:text-base"
                 />
               </div>
               <div className="space-y-2">
@@ -668,7 +916,7 @@ export default function HomePage() {
                   id="contact-email"
                   type="email"
                   placeholder="회신받을 이메일을 입력해주세요"
-                  className="w-full p-4 rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                  className="w-full p-3 mt-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm sm:text-base"
                 />
               </div>
               <div className="space-y-2">
@@ -682,7 +930,7 @@ export default function HomePage() {
                   id="contact-tel"
                   type="tel"
                   placeholder="연락처를 입력해주세요"
-                  className="w-full p-4 rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                  className="w-full p-3 mt-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm sm:text-base"
                 />
               </div>
               <div className="space-y-2">
@@ -695,18 +943,18 @@ export default function HomePage() {
                   id="contact-message"
                   rows={4}
                   placeholder="보내실 내용을 입력해주세요"
-                  className="w-full p-4 rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
+                  className="w-full p-3 mt-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/50 dark:bg-zinc-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none text-sm sm:text-base"
                 />
               </div>
               <Button
                 type="submit"
                 size="lg"
-                className="w-full rounded-full py-8 text-lg font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all group">
-                <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                className="btn-send-glow w-full rounded-full py-6 sm:py-8 text-base sm:text-lg font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all group">
+                <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 메일 보내기
               </Button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </section>
     </MainLayout>

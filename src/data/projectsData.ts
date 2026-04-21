@@ -14,6 +14,9 @@ export interface Project {
   category: "work" | "project";
   details: string;
   screenshots: string[];
+  mainImageCaption?: string;
+  subImage01Caption?: string;
+  subImage02Caption?: string;
 }
 
 export interface Work {
@@ -27,6 +30,9 @@ export interface Work {
   mainImage: string;
   subImage01: string;
   subImage02: string;
+  mainImageCaption?: string;
+  subImage01Caption?: string;
+  subImage02Caption?: string;
 }
 
 export interface Education {
@@ -55,7 +61,7 @@ export const projectsData: Project[] = [
     period: "2024.04~",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    thumbnail: "/images/work/techmk/tech-00.png",
+    thumbnail: "/images/project/portfolio/logo.png",
     mainImage: "/images/work/techmk/tech-01.png",
     subImage01: "/images/work/techmk/tech-02.png",
     subImage02: "/images/work/techmk/tech-03.png",
@@ -67,6 +73,9 @@ export const projectsData: Project[] = [
       "https://picsum.photos/seed/s1/800/600",
       "https://picsum.photos/seed/s2/800/600",
     ],
+    mainImageCaption: "포트폴리오 메인 화면 — Framer Motion 기반 인터랙티브 Hero 섹션",
+    subImage01Caption: "프로젝트 상세 페이지 — Bento Grid 레이아웃과 GSAP 스크롤 애니메이션",
+    subImage02Caption: "다크 모드 지원 — Liquid Glass 디자인 시스템 적용",
   },
 ];
 
@@ -88,6 +97,9 @@ export const workData: Work[] = [
     mainImage: "/images/work/techmk/tech-01.png",
     subImage01: "/images/work/techmk/tech-02.png",
     subImage02: "/images/work/techmk/tech-03.png",
+    mainImageCaption: "플랫폼 메인 화면 — 기술 거래 목록 및 검색 인터페이스",
+    subImage01Caption: "기업 등록·관리 화면 — 반응형 적응형 레이아웃 적용",
+    subImage02Caption: "모바일 최적화 화면 — 멀티 디바이스 대응 UI",
   },
   {
     id: "exp2",
@@ -103,6 +115,9 @@ export const workData: Work[] = [
     mainImage: "/images/work/nova/nova-01.png",
     subImage01: "/images/work/nova/nova-02.png",
     subImage02: "/images/work/nova/nova-03.png",
+    mainImageCaption: "원전 사업 현황 대시보드 — 공정·일정·예산 통합 관리 화면",
+    subImage01Caption: "공통 컴포넌트 라이브러리 — 재사용 UI 모듈 15종 구현",
+    subImage02Caption: "사업 보고서 상세 화면 — 데이터 입력 및 조회 인터페이스",
   },
   {
     id: "exp3",
@@ -118,6 +133,9 @@ export const workData: Work[] = [
     mainImage: "/images/work/uj/uj-01.png",
     subImage01: "/images/work/uj/uj-02.png",
     subImage02: "/images/work/uj/uj-03.png",
+    mainImageCaption: "클라우드 네이티브 행정 시스템 메인 화면 — 통합 업무 포털",
+    subImage01Caption: "민원 접수·처리 화면 — React 기반 컴포넌트 구조",
+    subImage02Caption: "통계·현황 대시보드 — 데이터 시각화 인터페이스",
   },
   {
     id: "exp4",
@@ -127,13 +145,16 @@ export const workData: Work[] = [
     achievements: [
       "반복되는 UI 패턴을 분석해 공통 컴포넌트로 추출하고 SCSS 스타일 가이드를 표준화해 팀 전체 코드 일관성 확보 및 개발 기간 약 20% 단축에 기여",
       "스타일 가이드가 없어 팀원마다 코드 스타일이 달랐던 문제를 해결하기 위해 SCSS/SASS 기반 표준 가이드를 수립, 코드 리뷰 비용 절감",
-      "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 45본의 화면을 기한 내 완료",
+      "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 60본의 화면을 기한 내 완료",
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
     thumbnail: "/images/work/hicc/hicc-00.png",
     mainImage: "/images/work/hicc/hicc-01.png",
     subImage01: "/images/work/hicc/hicc-02.png",
     subImage02: "/images/work/hicc/hicc-03.png",
+    mainImageCaption: "고객센터 메인 화면 — 상담 접수 및 현황 통합 인터페이스",
+    subImage01Caption: "대시보드 상세 모듈 — SCSS 스타일 가이드 기반 공통 컴포넌트",
+    subImage02Caption: "Vue.js 반응형 레이아웃 — 다양한 화면 해상도 대응",
   },
   {
     id: "exp5",
@@ -149,6 +170,9 @@ export const workData: Work[] = [
     mainImage: "/images/work/kerp/kbiz-01.png",
     subImage01: "/images/work/kerp/kbiz-02.png",
     subImage02: "/images/work/kerp/kbiz-03.png",
+    mainImageCaption: "K-ERP 통합경영정보 시스템 메인 화면 — 신규 기능 고도화 UI",
+    subImage01Caption: "모바일 적응형 화면 — 멀티 디바이스 접근성 확보",
+    subImage02Caption: "레거시 시스템 통합 화면 — 기존 스타일 일관성 유지",
   },
   // {
   //   id: "exp6",
@@ -179,6 +203,7 @@ export const workData: Work[] = [
     mainImage: "/images/work/sc/sc-01.png",
     subImage01: "",
     subImage02: "",
+    mainImageCaption: "SC제일은행 웹 접근성 개선 화면 — KWCAG 2.1 기준 시맨틱 마크업 적용",
   },
   {
     id: "exp8",
@@ -194,6 +219,9 @@ export const workData: Work[] = [
     mainImage: "/images/work/kbiz/kbiz-01.png",
     subImage01: "/images/work/kbiz/kbiz-02.png",
     subImage02: "/images/work/kbiz/kbiz-03.png",
+    mainImageCaption: "중소기업중앙회 대고객 시스템 메인 화면 — 117페이지 전면 개편 UI",
+    subImage01Caption: "모바일 적응형 페이지 — 디바이스별 최적화된 레이아웃",
+    subImage02Caption: "서브 페이지 상세 화면 — 정보 구조화 및 사용성 개선",
   },
 ];
 

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useParams } from "next/navigation";
 import { MainLayout } from "@/shared/components/Main";
 import { projectsData } from "@/data/projectsData";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Badge } from "@/shared/components/ui/Badge";
 import { buttonVariants } from "@/shared/components/ui/Button";
 import { cn } from "@/shared/lib/utils";
@@ -15,9 +15,91 @@ import {
   Calendar,
   User,
   Target,
+  ZoomIn,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+
+function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.85, opacity: 0 }}
+        transition={{ type: "spring", damping: 28, stiffness: 320 }}
+        className="relative w-full max-w-5xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative w-full rounded-2xl overflow-hidden" style={{ height: "80vh" }}>
+          <Image src={src} alt={alt} fill className="object-contain" referrerPolicy="no-referrer" />
+        </div>
+        <button
+          onClick={onClose}
+          className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-full p-2 transition-colors"
+        >
+          <X className="h-5 w-5 text-white" />
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ProjectImage({
+  src,
+  alt,
+  caption,
+  className,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+}) {
+  const [open, setOpen] = React.useState(false);
+
+  if (!src) return null;
+
+  return (
+    <>
+      <div className="space-y-3">
+        <div className={`relative overflow-hidden shadow-xl border group/img cursor-zoom-in ${className}`}>
+          <Image src={src} alt={alt} fill className="object-cover transition-transform duration-500 group-hover/img:scale-[1.02]" referrerPolicy="no-referrer" />
+          <button
+            onClick={() => setOpen(true)}
+            className="absolute inset-0 flex items-end justify-end p-4 bg-black/0 group-hover/img:bg-black/20 transition-all"
+            aria-label="크게 보기"
+          >
+            <div className="opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1.5 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+              <ZoomIn className="h-3.5 w-3.5" />
+              크게 보기
+            </div>
+          </button>
+        </div>
+        {caption && (
+          <p className="text-center text-sm text-muted-foreground font-medium px-2">{caption}</p>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {open && <Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />}
+      </AnimatePresence>
+    </>
+  );
+}
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -89,65 +171,37 @@ export default function ProjectDetailPage() {
           </header>
 
           <section className="space-y-12">
-            <h2 className="text-2xl font-bold border-b pb-4">
-              Project Visuals
-            </h2>
+            <h2 className="text-2xl font-bold border-b pb-4">Project Visuals</h2>
 
-            {/* Main Image */}
-            <div className="space-y-4">
-              <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border">
-                <Image
-                  src={project.thumbnail}
-                  alt="Main Project View"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
+            <ProjectImage
+              src={project.mainImage}
+              alt="Main Project View"
+              caption={project.mainImageCaption}
+              className="aspect-video rounded-[3rem]"
+            />
+
+            {(project.subImage01 || project.subImage02) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <ProjectImage
+                  src={project.subImage01}
+                  alt="Sub View 1"
+                  caption={project.subImage01Caption}
+                  className="aspect-[4/3] rounded-[2.5rem]"
+                />
+                <ProjectImage
+                  src={project.subImage02}
+                  alt="Sub View 2"
+                  caption={project.subImage02Caption}
+                  className="aspect-[4/3] rounded-[2.5rem]"
                 />
               </div>
-              <p className="text-center text-muted-foreground font-medium">
-                프로젝트의 핵심 인터페이스 및 사용자 경험 디자인
-              </p>
-            </div>
-
-            {/* Sub Images Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border">
-                  <Image
-                    src={project.subImage01}
-                    alt="Sub View 1"
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <p className="text-center text-sm text-muted-foreground font-medium">
-                  주요 기능 모듈 및 데이터 처리 로직 시각화
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border">
-                  <Image
-                    src={project.subImage02}
-                    alt="Sub View 2"
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <p className="text-center text-sm text-muted-foreground font-medium">
-                  다양한 디바이스 환경을 고려한 반응형 레이아웃
-                </p>
-              </div>
-            </div>
+            )}
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8">
             <div className="md:col-span-2 space-y-12">
               <section className="space-y-6">
-                <h2 className="text-2xl font-bold border-b pb-4">
-                  Project Overview
-                </h2>
+                <h2 className="text-2xl font-bold border-b pb-4">Project Overview</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   이 프로젝트는 {project.period} 동안 진행되었으며,{" "}
                   {project.contribution}의 기여도를 가지고 있습니다. 주요 기술
@@ -156,9 +210,7 @@ export default function ProjectDetailPage() {
               </section>
 
               <section className="space-y-6">
-                <h2 className="text-2xl font-bold border-b pb-4">
-                  Key Features
-                </h2>
+                <h2 className="text-2xl font-bold border-b pb-4">Key Features</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     "Responsive Design",
@@ -193,18 +245,14 @@ export default function ProjectDetailPage() {
                       <Target className="h-4 w-4" />
                       <span className="text-sm font-medium">Contribution</span>
                     </div>
-                    <span className="text-sm font-bold">
-                      {project.contribution}
-                    </span>
+                    <span className="text-sm font-bold">{project.contribution}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <User className="h-4 w-4" />
                       <span className="text-sm font-medium">Client</span>
                     </div>
-                    <span className="text-sm font-bold">
-                      Personal / Freelance
-                    </span>
+                    <span className="text-sm font-bold">Personal / Freelance</span>
                   </div>
                 </div>
               </div>
