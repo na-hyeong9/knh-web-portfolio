@@ -1,0 +1,97 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
+import { ConveyorBelt } from "@/app/_features/home/ConveyorBelt";
+import { useHeroAnimation } from "@/app/_features/home/useHeroAnimation";
+
+export function HeroSection() {
+  const { heroTitleRef, heroButtonsRef } = useHeroAnimation();
+
+  return (
+    <section
+      id="home"
+      className="relative overflow-hidden min-h-screen flex flex-col justify-between py-20">
+      <div className="absolute inset-0 -z-20 pointer-events-none">
+        <motion.div
+          animate={{
+            x: [0, 200, -100, 0],
+            y: [0, -100, 100, 0],
+            scale: [1, 1.5, 0.8, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-primary/20 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, -150, 120, 0],
+            y: [0, 120, -80, 0],
+            scale: [1, 0.7, 1.3, 1],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-400/20 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, 80, -120, 0],
+            y: [0, -150, 80, 0],
+            scale: [1, 1.2, 0.7, 1],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[30%] right-[10%] w-[50%] h-[50%] bg-cyan-400/20 rounded-full blur-[120px]"
+        />
+      </div>
+
+      <div className="w-full pt-10">
+        <ConveyorBelt />
+      </div>
+
+      <div className="container mx-auto px-1 flex flex-col items-center gap-12">
+        <div
+          ref={heroTitleRef}
+          className="space-y-6 max-w-5xl flex flex-col items-center text-center sm:items-start sm:text-left">
+          <div className="relative inline-block">
+            <h1 className="sm:text-2lg md:text-3xl lg:text-6xl font-display font-bold tracking-tighter leading-[1.1]">
+              Web Publisher & <br />
+              <span className="text-primary">Frontend Developer</span>
+            </h1>
+          </div>
+          <p className="flex flex-col text-left sm:block text-base sm:text-lg md:text-xl lg:text-2xl font-medium max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
+            안녕하세요, 꾸준한 성장을 지향하는 웹 퍼블리셔 김나형입니다.
+            <span className="block mt-5 md:mt-4" />
+            웹 표준과 접근성을 기반으로 직관적인 인터페이스를 만드는 일을
+            즐기며, 새로운 기술을 익히고 실무에 적용하는 과정을 좋아합니다.
+            <span className="block mt-5 md:mt-4" />
+            사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는 것을 가장
+            중요하게 생각합니다.
+          </p>
+        </div>
+
+        <div
+          ref={heroButtonsRef}
+          className="flex flex-col items-center gap-8 w-full max-w-2xl">
+          <motion.button
+            animate={{ y: [0, 15, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            onClick={() =>
+              document
+                .getElementById("project")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="flex flex-col items-center gap-2 group">
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
+              View Projects
+            </span>
+            <div
+              className="bg-background/80 backdrop-blur-sm rounded-full p-2.5 border border-border"
+              style={{
+                animation: "neon-pulse 0.3s ease-in-out infinite alternate",
+              }}>
+              <ArrowDown className="w-5 h-5 text-foreground" />
+            </div>
+          </motion.button>
+        </div>
+      </div>
+    </section>
+  );
+}
