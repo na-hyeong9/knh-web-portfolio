@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/shared/lib/utils";
 import { allProjects } from "@/data/homeData";
-import { BentoCard } from "@/app/_features/home/BentoCard";
+import { ProjectCard } from "@/app/_features/home/ProjectCard";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -30,7 +30,7 @@ export function ProjectGrid() {
       gsap.to(cards, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 1,
         stagger: 0.1,
         ease: "power3.out",
         overwrite: "auto",
@@ -40,7 +40,7 @@ export function ProjectGrid() {
       gsap.to(cards, {
         opacity: 0,
         y: 40,
-        duration: 0.45,
+        duration: 2,
         stagger: { each: 0.06, from: "end" },
         ease: "power2.in",
         overwrite: "auto",
@@ -81,11 +81,9 @@ export function ProjectGrid() {
           </button>
         ))}
       </div>
-      <div
-        ref={gridRef}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div ref={gridRef} className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {filteredItems.map((item, index) => (
-          <BentoCard key={item.id} item={item} index={index} />
+          <ProjectCard key={item.id} item={item} index={index} />
         ))}
       </div>
     </div>

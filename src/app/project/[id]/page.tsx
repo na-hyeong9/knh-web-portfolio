@@ -9,6 +9,7 @@ import { Badge } from "@/shared/components/ui/Badge";
 import { buttonVariants } from "@/shared/components/ui/Button";
 import { cn } from "@/shared/lib/utils";
 import { ProjectImage } from "@/shared/components/ui/ProjectImage";
+import { ImageCarousel } from "@/shared/components/ui/ImageCarousel";
 import {
   ArrowLeft,
   Github,
@@ -98,22 +99,16 @@ export default function ProjectDetailPage() {
               className="aspect-video rounded-[3rem]"
             />
 
-            {(project.subImage01 || project.subImage02) && (
+            {(project.subImages01?.length || project.subImages02?.length) ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <ProjectImage
-                  src={project.subImage01}
-                  alt="Sub View 1"
-                  caption={project.subImage01Caption}
-                  className="aspect-[4/3] rounded-[2.5rem]"
-                />
-                <ProjectImage
-                  src={project.subImage02}
-                  alt="Sub View 2"
-                  caption={project.subImage02Caption}
-                  className="aspect-[4/3] rounded-[2.5rem]"
-                />
+                {project.subImages01?.length ? (
+                  <ImageCarousel images={project.subImages01} caption={project.subCaption01} className="aspect-[4/3] rounded-[2.5rem]" />
+                ) : null}
+                {project.subImages02?.length ? (
+                  <ImageCarousel images={project.subImages02} caption={project.subCaption02} className="aspect-[4/3] rounded-[2.5rem]" />
+                ) : null}
               </div>
-            )}
+            ) : null}
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8">

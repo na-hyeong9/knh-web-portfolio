@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import { ConveyorBelt } from "@/app/_features/home/ConveyorBelt";
 import { useHeroAnimation } from "@/app/_features/home/useHeroAnimation";
@@ -13,33 +13,8 @@ export function HeroSection() {
       id="home"
       className="relative overflow-hidden min-h-screen flex flex-col justify-between py-20">
       <div className="absolute inset-0 -z-20 pointer-events-none">
-        <motion.div
-          animate={{
-            x: [0, 200, -100, 0],
-            y: [0, -100, 100, 0],
-            scale: [1, 1.5, 0.8, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-primary/20 rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, -150, 120, 0],
-            y: [0, 120, -80, 0],
-            scale: [1, 0.7, 1.3, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-400/20 rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 80, -120, 0],
-            y: [0, -150, 80, 0],
-            scale: [1, 1.2, 0.7, 1],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[30%] right-[10%] w-[50%] h-[50%] bg-cyan-400/20 rounded-full blur-[120px]"
-        />
+        <div className="animate-orb-a will-change-transform absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary/15 rounded-full blur-[100px]" />
+        <div className="animate-orb-b will-change-transform absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-400/15 rounded-full blur-[100px]" />
       </div>
 
       <div className="w-full pt-10">
@@ -65,6 +40,18 @@ export function HeroSection() {
             사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는 것을 가장
             중요하게 생각합니다.
           </p>
+
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+              transition: { duration: 0.1 },
+            }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="rounded-full border p-2 group">
+            <span className="group-hover:text-primary transition-color text-md">
+              경력기술서 바로가기
+            </span>
+          </motion.button>
         </div>
 
         <div
@@ -82,11 +69,7 @@ export function HeroSection() {
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
               View Projects
             </span>
-            <div
-              className="bg-background/80 backdrop-blur-sm rounded-full p-2.5 border border-border"
-              style={{
-                animation: "neon-pulse 0.3s ease-in-out infinite alternate",
-              }}>
+            <div className="bg-background/80 backdrop-blur-sm rounded-full p-2.5 border border-border">
               <ArrowDown className="w-5 h-5 text-foreground" />
             </div>
           </motion.button>

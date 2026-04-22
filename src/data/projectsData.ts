@@ -7,16 +7,16 @@ export interface Project {
   techStack: string[];
   thumbnail: string;
   mainImage: string;
-  subImage01: string;
-  subImage02: string;
+  mainImageCaption?: string;
+  subImages01?: string[];
+  subCaption01?: string;
+  subImages02?: string[];
+  subCaption02?: string;
   githubUrl?: string;
   demoUrl?: string;
   category: "work" | "project";
   details: string;
   screenshots: string[];
-  mainImageCaption?: string;
-  subImage01Caption?: string;
-  subImage02Caption?: string;
 }
 
 export interface Work {
@@ -28,11 +28,12 @@ export interface Work {
   techStack: string[];
   thumbnail: string;
   mainImage: string;
-  subImage01: string;
-  subImage02: string;
   mainImageCaption?: string;
-  subImage01Caption?: string;
-  subImage02Caption?: string;
+  subImages01?: string[];
+  subCaption01?: string;
+  subImages02?: string[];
+  subCaption02?: string;
+  link?: string[];
 }
 
 export interface Education {
@@ -61,21 +62,23 @@ export const projectsData: Project[] = [
     period: "2024.04~",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    thumbnail: "/images/project/portfolio/logo.png",
-    mainImage: "/images/work/techmk/tech-01.png",
-    subImage01: "/images/work/techmk/tech-02.png",
-    subImage02: "/images/work/techmk/tech-03.png",
+    thumbnail: "/images/project/portfolio/main.png",
+    mainImage: "/images/project/portfolio/main.gif",
+    mainImageCaption:
+      "framer-motion으로 컨베이어 벨트로 스타일링한 메인 화면 입니다. 다크모드를 지원하고 반응형을 대응합니다.",
+    subImages01: ["/images/project/portfolio/scrollMotion.gif"],
+    subCaption01:
+      "GSAP 스크롤 애니메이션을 이용하여 페이지에 부드러운 전환 효과를 주었습니다.",
+    subImages02: ["/images/project/portfolio/subPage.png"],
+    subCaption02: "",
     githubUrl: "https://github.com/na-hyeong9/knh-web-portfolio",
-    demoUrl: "https://demo.com",
+    demoUrl: "https://knh-web-portfolio.vercel.app/",
     category: "project",
     details: "This project focuses on clean UI/UX and smooth interactions.",
     screenshots: [
       "https://picsum.photos/seed/s1/800/600",
       "https://picsum.photos/seed/s2/800/600",
     ],
-    mainImageCaption: "포트폴리오 메인 화면 — Framer Motion 기반 인터랙티브 Hero 섹션",
-    subImage01Caption: "프로젝트 상세 페이지 — Bento Grid 레이아웃과 GSAP 스크롤 애니메이션",
-    subImage02Caption: "다크 모드 지원 — Liquid Glass 디자인 시스템 적용",
   },
 ];
 
@@ -93,13 +96,13 @@ export const workData: Work[] = [
       "위 기반 위에서 총 108본 이상의 화면을 기한 내 완료",
     ],
     techStack: ["HTML", "CSS", "jQuery", "Git"],
-    thumbnail: "/images/work/techmk/tech-00.png",
+    thumbnail: "/images/work/techmk/tech-01.png",
     mainImage: "/images/work/techmk/tech-01.png",
-    subImage01: "/images/work/techmk/tech-02.png",
-    subImage02: "/images/work/techmk/tech-03.png",
     mainImageCaption: "플랫폼 메인 화면 — 기술 거래 목록 및 검색 인터페이스",
-    subImage01Caption: "기업 등록·관리 화면 — 반응형 적응형 레이아웃 적용",
-    subImage02Caption: "모바일 최적화 화면 — 멀티 디바이스 대응 UI",
+    subImages01: ["/images/work/techmk/tech-02.png"],
+    subCaption01: "기업 등록·관리 화면 — 반응형 적응형 레이아웃 적용",
+    subImages02: ["/images/work/techmk/tech-03.png"],
+    subCaption02: "모바일 최적화 화면 — 멀티 디바이스 대응 UI",
   },
   {
     id: "exp2",
@@ -111,31 +114,32 @@ export const workData: Work[] = [
       "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
-    thumbnail: "/images/work/nova/nova-00.png",
+    thumbnail: "/images/work/nova/nova-01.png",
     mainImage: "/images/work/nova/nova-01.png",
-    subImage01: "/images/work/nova/nova-02.png",
-    subImage02: "/images/work/nova/nova-03.png",
     mainImageCaption: "원전 사업 현황 대시보드 — 공정·일정·예산 통합 관리 화면",
-    subImage01Caption: "공통 컴포넌트 라이브러리 — 재사용 UI 모듈 15종 구현",
-    subImage02Caption: "사업 보고서 상세 화면 — 데이터 입력 및 조회 인터페이스",
+    subImages01: ["/images/work/nova/nova-02.png"],
+    subCaption01: "공통 컴포넌트 라이브러리 — 재사용 UI 모듈 15종 구현",
+    subImages02: ["/images/work/nova/nova-03.png"],
+    subCaption02: "사업 보고서 상세 화면 — 데이터 입력 및 조회 인터페이스",
   },
   {
     id: "exp3",
     company: "울주군청 클라우드 네이티브 시스템",
     period: "2025.03 ~ 2025.04",
-    role: "화면 퍼블리싱",
+    role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
       "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
       "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
     ],
     techStack: ["React", "Git"],
-    thumbnail: "/images/work/uj/uj-00.png",
+    thumbnail: "/images/work/uj/uj-01.png",
     mainImage: "/images/work/uj/uj-01.png",
-    subImage01: "/images/work/uj/uj-02.png",
-    subImage02: "/images/work/uj/uj-03.png",
-    mainImageCaption: "클라우드 네이티브 행정 시스템 메인 화면 — 통합 업무 포털",
-    subImage01Caption: "민원 접수·처리 화면 — React 기반 컴포넌트 구조",
-    subImage02Caption: "통계·현황 대시보드 — 데이터 시각화 인터페이스",
+    mainImageCaption:
+      "클라우드 네이티브 행정 시스템 메인 화면 — 통합 업무 포털",
+    subImages01: ["/images/work/uj/uj-02.png"],
+    subCaption01: "민원 접수·처리 화면 — React 기반 컴포넌트 구조",
+    subImages02: ["/images/work/uj/uj-03.png"],
+    subCaption02: "통계·현황 대시보드 — 데이터 시각화 인터페이스",
   },
   {
     id: "exp4",
@@ -148,31 +152,32 @@ export const workData: Work[] = [
       "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 60본의 화면을 기한 내 완료",
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
-    thumbnail: "/images/work/hicc/hicc-00.png",
+    thumbnail: "/images/work/hicc/hicc-01.png",
     mainImage: "/images/work/hicc/hicc-01.png",
-    subImage01: "/images/work/hicc/hicc-02.png",
-    subImage02: "/images/work/hicc/hicc-03.png",
     mainImageCaption: "고객센터 메인 화면 — 상담 접수 및 현황 통합 인터페이스",
-    subImage01Caption: "대시보드 상세 모듈 — SCSS 스타일 가이드 기반 공통 컴포넌트",
-    subImage02Caption: "Vue.js 반응형 레이아웃 — 다양한 화면 해상도 대응",
+    subImages01: ["/images/work/hicc/hicc-02.png"],
+    subCaption01: "SCSS 스타일 가이드 기반 공통 컴포넌트",
+    subImages02: ["/images/work/hicc/hicc-03.png"],
+    subCaption02: "Vue.js 반응형 레이아웃 — 다양한 화면 해상도 대응",
   },
   {
     id: "exp5",
     company: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
     period: "2024.05 ~ 2024.06",
-    role: "화면 퍼블리싱",
+    role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
       "기존 시스템의 UI 구조를 분석해 신규 기능과의 일관성을 유지하면서 적응형 웹·모바일 퍼블리싱을 100% 단독 담당, 멀티 디바이스 접근성 확보",
       "레거시 시스템의 마크업 패턴을 파악한 뒤 신규 기능 UI를 기존 스타일에 자연스럽게 통합해 사용자 혼란 없이 기능 고도화 완료",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    thumbnail: "/images/work/kerp/kbiz-00.png",
+    thumbnail: "/images/work/kerp/kbiz-01.png",
     mainImage: "/images/work/kerp/kbiz-01.png",
-    subImage01: "/images/work/kerp/kbiz-02.png",
-    subImage02: "/images/work/kerp/kbiz-03.png",
-    mainImageCaption: "K-ERP 통합경영정보 시스템 메인 화면 — 신규 기능 고도화 UI",
-    subImage01Caption: "모바일 적응형 화면 — 멀티 디바이스 접근성 확보",
-    subImage02Caption: "레거시 시스템 통합 화면 — 기존 스타일 일관성 유지",
+    mainImageCaption:
+      "K-ERP 통합경영정보 시스템 메인 화면 — 신규 기능 고도화 UI",
+    subImages01: ["/images/work/kerp/kbiz-02.png"],
+    subCaption01: "모바일 적응형 화면 — 멀티 디바이스 접근성 확보",
+    subImages02: ["/images/work/kerp/kbiz-03.png"],
+    subCaption02: "레거시 시스템 통합 화면 — 기존 스타일 일관성 유지",
   },
   // {
   //   id: "exp6",
@@ -193,47 +198,60 @@ export const workData: Work[] = [
     id: "exp7",
     company: "SC제일은행 웹 접근성 향상 프로젝트",
     period: "2023.10 ~ 2024.02",
-    role: "화면 퍼블리싱",
+    role: "화면 퍼블리싱 (기여도 30%)",
     achievements: [
       "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 획득 달성",
       "스크린리더 사용자와 키보드 사용자를 고려한 시맨틱 마크업 구조로 전면 개선해 다양한 사용자 환경에서의 서비스 접근성 확보",
     ],
     techStack: ["HTML", "CSS"],
-    thumbnail: "/images/work/sc/sc-00.png",
+    thumbnail: "/images/work/sc/sc-01.png",
     mainImage: "/images/work/sc/sc-01.png",
-    subImage01: "",
-    subImage02: "",
-    mainImageCaption: "SC제일은행 웹 접근성 개선 화면 — KWCAG 2.1 기준 시맨틱 마크업 적용",
+    mainImageCaption:
+      "SC제일은행 웹 접근성 개선 화면 — KWCAG 2.1 기준 시맨틱 마크업 적용",
+    link: ["https://www.standardchartered.co.kr/np/kr/Intro.jsp"],
   },
   {
     id: "exp8",
     company: "중소기업중앙회 대고객 시스템 개편",
     period: "2023.06 ~ 2023.09",
-    role: "화면 퍼블리싱",
+    role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
       "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 및 유지보수를 단독 완료",
       "모바일 사용자 비율 증가에 대응해 적응형 모바일 페이지를 설계, 디바이스별 최적화된 사용자 경험 제공",
+      "중소기업중앙회, 노란우산, 노란우산 복지플러스-휴양시설 Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
     ],
     techStack: ["HTML", "CSS", "jQuery"],
-    thumbnail: "/images/work/kbiz/kbiz-00.png",
+    thumbnail: "/images/work/kbiz/kbiz-01.png",
     mainImage: "/images/work/kbiz/kbiz-01.png",
-    subImage01: "/images/work/kbiz/kbiz-02.png",
-    subImage02: "/images/work/kbiz/kbiz-03.png",
-    mainImageCaption: "중소기업중앙회 대고객 시스템 메인 화면 — 117페이지 전면 개편 UI",
-    subImage01Caption: "모바일 적응형 페이지 — 디바이스별 최적화된 레이아웃",
-    subImage02Caption: "서브 페이지 상세 화면 — 정보 구조화 및 사용성 개선",
+    mainImageCaption:
+      "4개 브랜드 사이트를 동시에 개편하는 대규모 프로젝트로, 잦은 수정이 필요하여 기획, 디자인, 개발 파트와 함께 애자일 방식으로 팀과 협업했습니다. 프로젝트 초기 세팅부터 참여해 구조를 익힐 수 있었으며, jQuery 기반 인터랙션과 Swiper.js를 활용한 캐러셀 컴포넌트를 구현했습니다.",
+    subImages01: ["/images/work/kbiz/kbiz-02.png"],
+    subCaption01: "디바이스별 최적화된 적응형 페이지를 구현하였습니다.",
+    subImages02: ["/images/work/kbiz/kbiz-03.png"],
+    subCaption02: "서브 페이지 상세 화면 — 정보 구조화 및 사용성 개선",
+    link: [
+      "https://www.kbiz.or.kr/ko/index/index.do",
+      "https://www.8899.or.kr/yuma/index.do",
+      "https://www.8899.or.kr/wlfr/index.do",
+    ],
   },
 ];
 
 export const educationData: Education[] = [
   {
     id: "edu1",
+    school: "[멀티잇]풀스택 개발자 취업캠프(Python)",
+    period: "2022.07 ~ 2022.12",
+    major: "django 기반 풀스택 웹 개발 (수료)",
+  },
+  {
+    id: "edu2",
     school: "호서대학교",
     period: "2014.03 ~ 2018.02",
     major: "글로벌창업전공 (졸업)",
   },
   {
-    id: "edu2",
+    id: "edu3",
     school: "영등포여자고등학교",
     period: "2011.03 ~ 2014.02",
     major: "졸업",

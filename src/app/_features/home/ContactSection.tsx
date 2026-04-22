@@ -13,40 +13,37 @@ if (typeof window !== "undefined") {
 }
 
 export function ContactSection() {
-  const contactLeftRef = React.useRef<HTMLDivElement>(null);
-  const contactRightRef = React.useRef<HTMLDivElement>(null);
+  const contactSectionRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (contactLeftRef.current) {
-        gsap.from(Array.from(contactLeftRef.current.children), {
-          scrollTrigger: {
-            trigger: contactLeftRef.current,
-            start: "top bottom-=80",
-            toggleActions: "play none none reverse",
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.18,
-          ease: "power3.out",
-        });
-      }
+    const revealTargets = contactSectionRef.current
+      ? (Array.from(
+          contactSectionRef.current.querySelectorAll(".contact-reveal"),
+        ) as HTMLElement[])
+      : [];
 
-      if (contactRightRef.current) {
-        gsap.from(contactRightRef.current, {
+    if (revealTargets.length) {
+      gsap.set(revealTargets, { opacity: 0, y: 50 });
+    }
+
+    const ctx = gsap.context(() => {
+      if (contactSectionRef.current) {
+        gsap.to(revealTargets, {
           scrollTrigger: {
-            trigger: contactRightRef.current,
-            start: "top bottom-=80",
+            trigger: contactSectionRef.current,
+            start: "top 80%", // 화면 하단보다 조금 더 올라왔을 때 시작
             toggleActions: "play none none reverse",
           },
-          y: 60,
-          opacity: 0,
-          duration: 1,
+          opacity: 1, // 나타나게 수정
+          y: -20, // 아래에서 위로 살짝 올라오는 느낌
+          duration: 0.9,
+          stagger: 0.14,
           ease: "power3.out",
         });
       }
     });
+
+    ScrollTrigger.refresh();
 
     return () => ctx.revert();
   }, []);
@@ -55,10 +52,12 @@ export function ContactSection() {
     <section
       id="contact"
       className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 border-t">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 max-w-6xl mx-auto">
+      <div
+        ref={contactSectionRef}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 max-w-6xl mx-auto">
         {/* 왼쪽 */}
-        <div ref={contactLeftRef} className="space-y-8 sm:space-y-12">
-          <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-8 sm:space-y-12">
+          <div className="space-y-4 sm:space-y-6 contact-reveal">
             <Badge className="glass-button text-primary border-none rounded-full px-4 sm:px-6 py-1 text-sm font-bold">
               Contact
             </Badge>
@@ -73,7 +72,7 @@ export function ContactSection() {
             </p>
           </div>
 
-          <div className="space-y-3 sm:space-y-4">
+          <div className="space-y-3 sm:space-y-4 contact-reveal">
             {contactLinks.map((item) => (
               <a
                 key={item.label}
@@ -97,10 +96,8 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* 오른쪽 폼 */}
-        <div
-          ref={contactRightRef}
-          className="liquid-glass p-6 sm:p-8 md:p-12 rounded-3xl sm:rounded-[3rem] space-y-6 sm:space-y-8">
+        {/* 오른쪽*/}
+        <div className="liquid-glass p-6 sm:p-8 md:p-12 rounded-3xl sm:rounded-[3rem] space-y-6 sm:space-y-8 contact-reveal">
           <div className="space-y-2">
             <h3 className="text-xl sm:text-2xl font-bold">메시지 보내기</h3>
             <p className="text-sm sm:text-base text-muted-foreground">
@@ -136,7 +133,9 @@ export function ContactSection() {
             <div className="space-y-2">
               <label htmlFor="contact-tel" className="text-sm font-bold ml-1">
                 전화번호{" "}
-                <span className="text-muted-foreground font-normal">(선택)</span>
+                <span className="text-muted-foreground font-normal">
+                  (선택)
+                </span>
               </label>
               <input
                 id="contact-tel"
@@ -146,7 +145,9 @@ export function ContactSection() {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="contact-message" className="text-sm font-bold ml-1">
+              <label
+                htmlFor="contact-message"
+                className="text-sm font-bold ml-1">
                 내용
               </label>
               <textarea

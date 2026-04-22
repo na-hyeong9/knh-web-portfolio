@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ZoomIn, X } from "lucide-react";
 import Image from "next/image";
@@ -17,10 +18,14 @@ export function Lightbox({
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -32,26 +37,26 @@ export function Lightbox({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
         transition={{ type: "spring", damping: 28, stiffness: 320 }}
-        className="relative w-full max-w-7xl"
+        className="relative"
         onClick={(e) => e.stopPropagation()}>
-        <div
-          className="relative w-full rounded-2xl overflow-hidden"
-          style={{ height: "80vh" }}>
+        <div className="max-w-[1280px] max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-2xl">
           <Image
             src={src}
             alt={alt}
-            fill
-            className="object-contain w-full"
+            width={1280}
+            height={1280}
+            style={{ width: "1280px", height: "auto", display: "block" }}
             referrerPolicy="no-referrer"
           />
         </div>
         <button
           onClick={onClose}
-          className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-full p-2 transition-colors">
+          className="absolute -top-4 -right-50 bg-white/10 hover:bg-white/25 backdrop-blur-sm border border-white/20 rounded-full p-2 transition-colors">
           <X className="h-5 w-5 text-white" />
         </button>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body,
   );
 }
 
@@ -79,7 +84,7 @@ export function ProjectImage({
             src={src}
             alt={alt}
             fill
-            className="object-cover transition-transform duration-500 group-hover/img:scale-[1.02]"
+            className="object-cover object-top transition-transform duration-500 group-hover/img:scale-[1.02]"
             referrerPolicy="no-referrer"
           />
           <button
@@ -93,14 +98,16 @@ export function ProjectImage({
           </button>
         </div>
         {caption && (
-          <p className="text-center text-sm text-muted-foreground font-medium px-2">
+          <p className="flex justify-center text-sm lg:text-md text-muted-foreground font-medium p-4">
             {caption}
           </p>
         )}
       </div>
 
       <AnimatePresence>
-        {open && <Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />}
+        {open && (
+          <Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />
+        )}
       </AnimatePresence>
     </>
   );

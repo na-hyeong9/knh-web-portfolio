@@ -8,11 +8,13 @@ import { motion } from "motion/react";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Button } from "@/shared/components/ui/Button";
 import { ProjectImage } from "@/shared/components/ui/ProjectImage";
+import { ImageCarousel } from "@/shared/components/ui/ImageCarousel";
 import {
   ArrowLeft,
   Calendar,
   Building2,
   Briefcase,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -86,6 +88,26 @@ export default function WorkDetailPage() {
             </div>
           </header>
 
+          {work.link && work.link.length > 0 && (
+            <section className="space-y-4">
+              <h2 className="text-2xl font-bold">Related Links</h2>
+              <ul className="flex flex-col gap-3">
+                {work.link.map((url) => (
+                  <li key={url}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+                      <ExternalLink className="h-4 w-4 shrink-0" />
+                      {url}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="space-y-8">
             <h2 className="text-2xl font-bold">Key Achievements</h2>
             <ul className="space-y-4">
@@ -110,22 +132,16 @@ export default function WorkDetailPage() {
               className="aspect-video rounded-[2.5rem]"
             />
 
-            {(work.subImage01 || work.subImage02) && (
+            {(work.subImages01?.length || work.subImages02?.length) ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <ProjectImage
-                  src={work.subImage01}
-                  alt="Sub View 1"
-                  caption={work.subImage01Caption}
-                  className="aspect-[4/3] rounded-[2rem]"
-                />
-                <ProjectImage
-                  src={work.subImage02}
-                  alt="Sub View 2"
-                  caption={work.subImage02Caption}
-                  className="aspect-[4/3] rounded-[2rem]"
-                />
+                {work.subImages01?.length ? (
+                  <ImageCarousel images={work.subImages01} caption={work.subCaption01} className="aspect-[4/3] rounded-[2rem]" />
+                ) : null}
+                {work.subImages02?.length ? (
+                  <ImageCarousel images={work.subImages02} caption={work.subCaption02} className="aspect-[4/3] rounded-[2rem]" />
+                ) : null}
               </div>
-            )}
+            ) : null}
           </section>
 
           <div className="pt-12">

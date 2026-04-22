@@ -8,10 +8,12 @@ export const skills = [
   { name: "CSS3", icon: "/icons/skills/css3.svg" },
   { name: "JavaScript", icon: "/icons/skills/javaScript.svg" },
   { name: "TypeScript", icon: "/icons/skills/typeScript.svg" },
+  { name: "Vuejs", icon: "/icons/skills/vuejs.svg" },
   { name: "React", icon: "/icons/skills/react.svg" },
   { name: "Next.js", icon: "/icons/skills/nextjs.svg" },
   { name: "Tailwind CSS", icon: "/icons/skills/tailwind.svg" },
   { name: "Figma", icon: "/icons/skills/figma.svg" },
+  { name: "Git", icon: "/icons/skills/Git.svg" },
 ];
 
 export interface CoreValue {
@@ -25,19 +27,22 @@ export const coreValues: CoreValue[] = [
   {
     title: "Web Standards",
     icon: ShieldCheck,
-    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800&h=600",
+    image:
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800&h=600",
     desc: "HTML5 시맨틱 마크업과 CSS3 기반의 크로스브라우징 퍼블리싱에 능숙합니다. 웹 접근성(KWCAG 2.1) 기준을 준수하며 유지보수 가능한 구조로 작업합니다.",
   },
   {
     title: "Clean Code",
     icon: Code2,
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=600",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=600",
     desc: "기존 코드의 구조를 분석하고 가독성과 재사용성을 높이는 방향으로 개선합니다. SCSS 모듈화와 컴포넌트 분리를 통해 유지보수하기 쉬운 코드베이스를 만들어갑니다.",
   },
   {
     title: "Collaboration",
     icon: Users2,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800&h=600",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800&h=600",
     desc: "Github 와 Notion을 이용하여 팀 프로젝트를 진행한 경험이 있습니다. 기획, 디자인, 개발과의 협업을 통한 경험으로 다른 직군과 원활한 커뮤니케이션이 가능합니다.",
   },
 ];
@@ -83,7 +88,7 @@ export const profileInfo = {
 export const keywords = ["Teamwork", "Creative", "Growing"];
 
 export const allProjects = [
-  ...workData.map((work) => ({
+  ...workData.map((work, index) => ({
     id: work.id,
     title: work.company,
     period: work.period,
@@ -95,7 +100,7 @@ export const allProjects = [
     subImage01: work.subImage01,
     subImage02: work.subImage02,
   })),
-  ...projectsData.map((p) => ({
+  ...projectsData.map((p, index) => ({
     id: p.id,
     title: p.title,
     description: p.description,

@@ -87,19 +87,17 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section
-      id="about"
-      className="container mx-auto px-4 py-32 border-t">
+    <section id="about" className="container mx-auto px-4 py-32 border-t">
       {/* 핵심 가치 */}
       <div className="mb-24 space-y-8">
         <header
           ref={coreValuesHeaderRef}
           className="text-center space-y-4 mb-12">
           <Badge className="glass-button text-primary border-none rounded-full px-6 py-1 text-sm font-bold">
-            Core Values
+            핵심 역량
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-display font-bold">
-            핵심 가치
+          <h2 className="text-3xl md:text-4xl font-display font-bold">
+            유연한 사고 방식을 지향합니다.
           </h2>
         </header>
 
@@ -142,7 +140,7 @@ export function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         <aside className="lg:col-span-4 lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center">
           <div ref={profileRef} className="space-y-8">
-            <div className="relative aspect-square w-100 rounded-3xl overflow-hidden shadow-2xl border">
+            <div className="relative aspect-[4/3] lg:w-100 rounded-3xl overflow-hidden shadow-2xl border">
               <Image
                 src="/images/common/profile.png"
                 alt="Profile"
@@ -152,7 +150,9 @@ export function AboutSection() {
               />
             </div>
             <div className="space-y-4">
-              <h2 className="text-3xl font-display font-bold">{profileInfo.name}</h2>
+              <h2 className="text-3xl font-display font-bold">
+                {profileInfo.name}
+              </h2>
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
                 <span>{profileInfo.email}</span>
