@@ -10,7 +10,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "KNH | Web Publisher Portfolio",
+  title: "김나형 | 웹 포트폴리오",
   description: "Web Publisher & Frontend Developer Portfolio",
 };
 
