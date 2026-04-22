@@ -115,7 +115,6 @@ export function ProjectCard({ item }: { item: ProjectItem; index: number }) {
             ref={thumbnailRef}
             className="relative aspect-[16/10] w-full overflow-hidden border-b border-black/5 dark:border-white/10"
             style={{ transformStyle: "preserve-3d" }}>
-            <div className={cn("absolute inset-0", item.cardClassName)} />
             <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 dark:group-hover:bg-black/20" />
             <div className="relative h-full w-full">
               <Image

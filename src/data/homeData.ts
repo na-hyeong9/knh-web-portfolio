@@ -97,8 +97,8 @@ export const allProjects = [
     link: `/work/${work.id}`,
     thumbnail: work.thumbnail,
     mainImage: work.mainImage,
-    subImage01: work.subImage01,
-    subImage02: work.subImage02,
+    subImage01: work.subImages01,
+    subImage02: work.subImages02,
   })),
   ...projectsData.map((p, index) => ({
     id: p.id,
@@ -109,8 +109,8 @@ export const allProjects = [
     category: p.category,
     thumbnail: p.thumbnail,
     mainImage: p.mainImage,
-    subImage01: p.subImage01,
-    subImage02: p.subImage02,
+    subImage01: p.subImages01,
+    subImage02: p.subImages02,
     link: `/project/${p.id}`,
   })),
 ];
