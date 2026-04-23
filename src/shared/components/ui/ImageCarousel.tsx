@@ -24,7 +24,7 @@ export function ImageCarousel({
       <div className="space-y-3">
         <ProjectImage src={valid[0]} alt="Sub View" className={className} />
         {caption && (
-          <p className="text-left text-sm lg:text-md text-muted-foreground font-medium px-4">
+          <p className="flex justify-center text-sm lg:text-md text-muted-foreground font-medium px-4">
             {caption}
           </p>
         )}
@@ -42,11 +42,13 @@ export function ImageCarousel({
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${current * 100}%)` }}>
           {valid.map((src, i) => (
-            <div key={i} className="w-full shrink-0">
+            <div key={src} className="w-full shrink-0">
               <ProjectImage
                 src={src}
                 alt={`Sub View ${i + 1}`}
                 className={className}
+                gallery={valid}
+                initialIndex={i}
               />
             </div>
           ))}
@@ -83,7 +85,7 @@ export function ImageCarousel({
       </div>
 
       {caption && (
-        <p className="flex justify-center text-sm lg:text-md text-muted-foreground font-medium px-4">
+        <p className="text-sm lg:text-md text-muted-foreground font-medium px-4">
           {caption}
         </p>
       )}

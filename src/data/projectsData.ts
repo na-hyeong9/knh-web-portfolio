@@ -108,7 +108,7 @@ export const workData: Work[] = [
     id: "exp2",
     company: "현대건설 원전 사업관리 시스템 구축",
     period: "2025.04 ~ 2025.06",
-    role: "화면 퍼블리싱 (기여도 100%)",
+    role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
       "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
       "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
@@ -126,7 +126,7 @@ export const workData: Work[] = [
     id: "exp3",
     company: "울주군청 클라우드 네이티브 시스템",
     period: "2025.03 ~ 2025.04",
-    role: "화면 퍼블리싱 (기여도 50%)",
+    role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
       "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
       "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
@@ -154,11 +154,9 @@ export const workData: Work[] = [
     techStack: ["Vue.js", "SCSS", "Git"],
     thumbnail: "/images/work/hicc/hicc-01.png",
     mainImage: "/images/work/hicc/hicc-01.png",
-    mainImageCaption: "고객센터 메인 화면 — 상담 접수 및 현황 통합 인터페이스",
+    mainImageCaption: "Vue.js 반응형 레이아웃 고객센터 메인 화면",
     subImages01: ["/images/work/hicc/hicc-02.png"],
     subCaption01: "SCSS 스타일 가이드 기반 공통 컴포넌트",
-    subImages02: ["/images/work/hicc/hicc-03.png"],
-    subCaption02: "Vue.js 반응형 레이아웃 — 다양한 화면 해상도 대응",
   },
   {
     id: "exp5",

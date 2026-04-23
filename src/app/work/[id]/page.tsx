@@ -1,47 +1,58 @@
-"use client";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import * as React from "react";
-import { useParams } from "next/navigation";
-import { MainLayout } from "@/shared/components/Main";
 import { workData } from "@/data/projectsData";
-import { motion } from "motion/react";
+import { AnimatedPage } from "@/shared/components/AnimatedPage";
+import { MainLayout } from "@/shared/components/Main";
 import { Badge } from "@/shared/components/ui/Badge";
-import { Button } from "@/shared/components/ui/Button";
 import { ProjectImage } from "@/shared/components/ui/ProjectImage";
 import { ImageCarousel } from "@/shared/components/ui/ImageCarousel";
+import { cn } from "@/shared/lib/utils";
+import { buttonVariants } from "@/shared/components/ui/Button";
 import {
   ArrowLeft,
-  Calendar,
-  Building2,
   Briefcase,
+  Building2,
+  Calendar,
   ExternalLink,
 } from "lucide-react";
-import Link from "next/link";
+interface WorkDetailPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-export default function WorkDetailPage() {
-  const params = useParams();
-  const work = workData.find((w) => w.id === params.id);
+export const dynamicParams = false;
 
-  if (!work) return <div>Work not found</div>;
+export function generateStaticParams() {
+  return workData.map((work) => ({
+    id: work.id,
+  }));
+}
+
+export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
+  const { id } = await params;
+  const work = workData.find((item) => item.id === id);
+
+  if (!work) {
+    notFound();
+  }
 
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-32 max-w-4xl">
+      <div className="container mx-auto max-w-4xl px-4 py-32">
         <Link
           href="/#work"
           aria-label="경력 목록으로 돌아가기"
-          className="inline-flex items-center text-muted-foreground hover:text-primary mb-12 transition-colors group">
-          <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary">
+          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to Work
         </Link>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-12">
+        <AnimatedPage className="space-y-12">
           <header className="space-y-6">
             <div className="flex flex-wrap gap-3">
-              <Badge className="bg-primary/10 text-primary border-none rounded-full px-4">
+              <Badge className="rounded-full border-none bg-primary/10 px-4 text-primary">
                 Experience
               </Badge>
               {work.techStack.map((tech) => (
@@ -50,45 +61,55 @@ export default function WorkDetailPage() {
                 </Badge>
               ))}
             </div>
-            <h1 className="text-4xl md:text-6xl font-display font-bold tracking-tight">
+
+            <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl">
               {work.company}
             </h1>
-            <p className="text-2xl text-muted-foreground font-medium">
+
+            <p className="text-2xl font-medium text-muted-foreground">
               {work.role}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-b py-8">
+            <div className="grid grid-cols-1 gap-6 border-y py-8 sm:grid-cols-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Calendar className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground font-bold uppercase">Period</p>
+                  <p className="text-xs font-bold uppercase text-muted-foreground">
+                    Period
+                  </p>
                   <p className="font-bold">{work.period}</p>
                 </div>
               </div>
+
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Building2 className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground font-bold uppercase">Company</p>
+                  <p className="text-xs font-bold uppercase text-muted-foreground">
+                    Company
+                  </p>
                   <p className="font-bold">{work.company}</p>
                 </div>
               </div>
+
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Briefcase className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground font-bold uppercase">Role</p>
+                  <p className="text-xs font-bold uppercase text-muted-foreground">
+                    Role
+                  </p>
                   <p className="font-bold">{work.role}</p>
                 </div>
               </div>
             </div>
           </header>
 
-          {work.link && work.link.length > 0 && (
+          {work.link?.length ? (
             <section className="space-y-4">
               <h2 className="text-2xl font-bold">Related Links</h2>
               <ul className="flex flex-col gap-3">
@@ -106,17 +127,21 @@ export default function WorkDetailPage() {
                 ))}
               </ul>
             </section>
-          )}
+          ) : null}
 
           <section className="space-y-8">
             <h2 className="text-2xl font-bold">Key Achievements</h2>
             <ul className="space-y-4">
-              {work.achievements.map((ach, i) => (
+              {work.achievements.map((achievement, index) => (
                 <li
-                  key={i}
-                  className="flex gap-4 p-6 bg-secondary/20 rounded-3xl border border-transparent hover:border-primary/20 transition-colors">
-                  <span className="text-primary font-black text-xl">0{i + 1}</span>
-                  <p className="text-lg text-muted-foreground leading-relaxed">{ach}</p>
+                  key={`${work.id}-${index}`}
+                  className="flex gap-4 rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20">
+                  <span className="text-xl font-black text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-lg leading-relaxed text-muted-foreground">
+                    {achievement}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -132,28 +157,39 @@ export default function WorkDetailPage() {
               className="aspect-video rounded-[2.5rem]"
             />
 
-            {(work.subImages01?.length || work.subImages02?.length) ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {work.subImages01?.length || work.subImages02?.length ? (
+              <div className="grid grid-cols-1 gap-8">
                 {work.subImages01?.length ? (
-                  <ImageCarousel images={work.subImages01} caption={work.subCaption01} className="aspect-[4/3] rounded-[2rem]" />
+                  <ImageCarousel
+                    images={work.subImages01}
+                    caption={work.subCaption01}
+                    className="aspect-[4/3] rounded-[2rem]"
+                  />
                 ) : null}
+
                 {work.subImages02?.length ? (
-                  <ImageCarousel images={work.subImages02} caption={work.subCaption02} className="aspect-[4/3] rounded-[2rem]" />
+                  <ImageCarousel
+                    images={work.subImages02}
+                    caption={work.subCaption02}
+                    className="aspect-[4/3] rounded-[2rem]"
+                  />
                 ) : null}
               </div>
             ) : null}
           </section>
 
           <div className="pt-12">
-            <Button
+            <Link
+              href="/#work"
               aria-label="경력 목록으로 돌아가기"
-              size="lg"
-              className="rounded-full px-8"
-              onClick={() => window.history.back()}>
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "rounded-full px-8",
+              )}>
               목록으로 돌아가기
-            </Button>
+            </Link>
           </div>
-        </motion.div>
+        </AnimatedPage>
       </div>
     </MainLayout>
   );
