@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Mail, Github, MapPin } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence } from "motion/react";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card, CardContent } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/lib/utils";
@@ -19,6 +20,7 @@ export function AboutSection() {
   const profileRef = React.useRef<HTMLDivElement>(null);
   const coreValuesHeaderRef = React.useRef<HTMLElement>(null);
   const coreValuesGridRef = React.useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     const ctx = gsap.context(() => {
@@ -52,34 +54,44 @@ export function AboutSection() {
       });
 
       if (coreValuesHeaderRef.current) {
-        gsap.from(coreValuesHeaderRef.current.children, {
-          scrollTrigger: {
-            trigger: coreValuesHeaderRef.current,
-            start: "top bottom-=80",
-            toggleActions: "play none none reverse",
+        gsap.fromTo(
+          coreValuesHeaderRef.current.children,
+          { y: 40, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: coreValuesHeaderRef.current,
+              start: "top bottom-=80",
+              toggleActions: "play none none none",
+            },
+            y: 0,
+            opacity: 1,
+            immediateRender: false,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
           },
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
-        });
+        );
       }
 
       if (coreValuesGridRef.current) {
         const cards = coreValuesGridRef.current.children;
-        gsap.from(cards, {
-          scrollTrigger: {
-            trigger: coreValuesGridRef.current,
-            start: "top bottom-=60",
-            toggleActions: "play none none reverse",
+        gsap.fromTo(
+          cards,
+          { y: 60, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: coreValuesGridRef.current,
+              start: "top bottom-=60",
+              toggleActions: "play none none none",
+            },
+            y: 0,
+            opacity: 1,
+            immediateRender: false,
+            duration: 0.9,
+            stagger: 0.12,
+            ease: "power3.out",
           },
-          y: 60,
-          opacity: 0,
-          duration: 0.9,
-          stagger: 0.15,
-          ease: "power3.out",
-        });
+        );
       }
     });
 
@@ -101,9 +113,8 @@ export function AboutSection() {
           </h2>
         </header>
 
-        <div
-          ref={coreValuesGridRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Mobile: stacked grid */}
+        <div className="grid grid-cols-1 gap-6 md:hidden">
           {coreValues.map((value, i) => (
             <div
               key={i}
@@ -116,7 +127,7 @@ export function AboutSection() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-6 left-8">
                   <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white mb-2">
                     <value.icon className="h-6 w-6" />
@@ -126,13 +137,92 @@ export function AboutSection() {
                   </h3>
                 </div>
               </div>
-              <div className="p-8 md:p-10 flex-1 flex flex-col">
+              <div className="p-8 flex-1">
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   {value.desc}
                 </p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Desktop: horizontal accordion — 닫힘: 세로 제목 / 열림: 이미지+설명 */}
+        <div ref={coreValuesGridRef} className="hidden md:flex gap-3 h-[520px]">
+          {coreValues.map((value, i) => {
+            const isOpen = hovered === i;
+
+            return (
+              <motion.div
+                key={i}
+                className="relative overflow-hidden rounded-[2.5rem] liquid-glass border-none cursor-pointer"
+                animate={{ flex: isOpen ? 5 : 1 }}
+                transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+                onHoverStart={() => setHovered(i)}
+                onHoverEnd={() => setHovered(null)}>
+                {/* 배경 이미지 — 항상 표시 */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={value.image}
+                    alt={value.title}
+                    fill
+                    className="object-cover object-center transition-transform duration-700"
+                    style={{ scale: isOpen ? 1.05 : 1 }}
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
+
+                {/* 닫힌 상태: 세로 제목 */}
+                <AnimatePresence>
+                  {!isOpen && (
+                    <motion.div
+                      key="closed"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute inset-0 flex flex-col items-center justify-end pb-8 gap-3">
+                      <div className="absolute top-4 right-4 flex items-center justify-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                          <value.icon className="h-4 w-4" />
+                        </div>
+                        <span className=" text-white text-xs font-bold tracking-[0.2em] uppercase">
+                          {value.title}
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* 열린 상태: 아이콘 + 제목 + 설명 */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      key="open"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.18,
+                        ease: "easeOut",
+                      }}
+                      className="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                        <value.icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white">
+                        {value.title}
+                      </h3>
+                      <p className="text-sm text-white/75 leading-relaxed">
+                        {value.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
