@@ -2,7 +2,6 @@
 
 import { Header } from "@/shared/components/Header";
 import { Footer } from "@/shared/components/Footer";
-import { CursorTrail } from "@/shared/components/CursorTrail";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +10,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <CursorTrail />
       <Header />
       <main className="flex-1">
         <AnimatePresence mode="wait">
