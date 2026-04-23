@@ -41,17 +41,20 @@ export function HeroSection() {
             중요하게 생각합니다.
           </p>
 
-          <motion.button
+          <motion.a
+            href="https://www.notion.so/34b67bd412c581d48ab7f3f2fb06358f"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{
               scale: 1.05,
               transition: { duration: 0.1 },
             }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="rounded-full border p-2 group">
-            <span className="group-hover:text-primary transition-color text-md">
+            <span className="group-hover:text-primary transition-colors text-md">
               경력기술서 바로가기
             </span>
-          </motion.button>
+          </motion.a>
         </div>
 
         <div
