@@ -108,9 +108,9 @@ export function AboutSection() {
           <Badge className="glass-button text-primary border-none rounded-full px-6 py-1 text-sm font-bold">
             핵심 역량
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-display font-bold">
+          <h3 className="text-3xl md:text-4xl font-sans font-bold">
             유연한 사고 방식을 지향합니다.
-          </h2>
+          </h3>
         </header>
 
         {/* Mobile: stacked grid */}
@@ -118,7 +118,7 @@ export function AboutSection() {
           {coreValues.map((value, i) => (
             <div
               key={i}
-              className="group relative overflow-hidden rounded-[2.5rem] liquid-glass border-none flex flex-col">
+              className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 flex flex-col">
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={value.image}
@@ -127,18 +127,18 @@ export function AboutSection() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-6 left-8">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white mb-2">
-                    <value.icon className="h-6 w-6" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                {/* 글래스 아이콘 + 제목 뱃지 */}
+                <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
+                    <value.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">
-                    {value.title}
-                  </h3>
+                  <h3 className="text-lg font-bold text-white">{value.title}</h3>
                 </div>
               </div>
-              <div className="p-8 flex-1">
-                <p className="text-lg text-muted-foreground leading-relaxed">
+              {/* 설명 영역 — 글래스 패널 */}
+              <div className="p-6 flex-1 bg-white/5 dark:bg-white/3 backdrop-blur-xl border-t border-white/10">
+                <p className="text-base text-muted-foreground leading-relaxed">
                   {value.desc}
                 </p>
               </div>
@@ -154,12 +154,12 @@ export function AboutSection() {
             return (
               <motion.div
                 key={i}
-                className="relative overflow-hidden rounded-[2.5rem] liquid-glass border-none cursor-pointer"
+                className="relative overflow-hidden rounded-[2.5rem] border border-white/10 cursor-pointer"
                 animate={{ flex: isOpen ? 5 : 1 }}
                 transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
                 onHoverStart={() => setHovered(i)}
                 onHoverEnd={() => setHovered(null)}>
-                {/* 배경 이미지 — 항상 표시 */}
+                {/* 배경 이미지 */}
                 <div className="absolute inset-0">
                   <Image
                     src={value.image}
@@ -172,7 +172,7 @@ export function AboutSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
 
-                {/* 닫힌 상태: 세로 제목 */}
+                {/* 닫힌 상태: 글래스 뱃지 */}
                 <AnimatePresence>
                   {!isOpen && (
                     <motion.div
@@ -181,12 +181,12 @@ export function AboutSection() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute inset-0 flex flex-col items-center justify-end pb-8 gap-3">
-                      <div className="absolute top-4 right-4 flex items-center justify-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                          <value.icon className="h-4 w-4" />
+                      className="absolute inset-0">
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 whitespace-nowrap">
+                        <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-white">
+                          <value.icon className="h-3.5 w-3.5" />
                         </div>
-                        <span className=" text-white text-xs font-bold tracking-[0.2em] uppercase">
+                        <span className="text-white text-[11px] font-bold tracking-[0.15em] uppercase">
                           {value.title}
                         </span>
                       </div>
@@ -194,7 +194,7 @@ export function AboutSection() {
                   )}
                 </AnimatePresence>
 
-                {/* 열린 상태: 아이콘 + 제목 + 설명 */}
+                {/* 열린 상태: 글래스 콘텐츠 패널 */}
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
@@ -202,21 +202,19 @@ export function AboutSection() {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.18,
-                        ease: "easeOut",
-                      }}
-                      className="absolute bottom-0 left-0 right-0 p-8 flex flex-col gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                        <value.icon className="h-5 w-5" />
+                      transition={{ duration: 0.3, delay: 0.18, ease: "easeOut" }}
+                      className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-5 flex flex-col gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                          <value.icon className="h-4 w-4" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white">
+                          {value.title}
+                        </h3>
+                        <p className="text-sm text-white/75 leading-relaxed">
+                          {value.desc}
+                        </p>
                       </div>
-                      <h3 className="text-xl font-bold text-white">
-                        {value.title}
-                      </h3>
-                      <p className="text-sm text-white/75 leading-relaxed">
-                        {value.desc}
-                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -240,7 +238,7 @@ export function AboutSection() {
               />
             </div>
             <div className="space-y-4">
-              <h2 className="text-3xl font-display font-bold">
+              <h2 className="text-3xl font-sans font-bold">
                 {profileInfo.name}
               </h2>
               <div className="flex items-center gap-3">

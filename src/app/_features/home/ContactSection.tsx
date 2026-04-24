@@ -31,11 +31,11 @@ export function ContactSection() {
         gsap.to(revealTargets, {
           scrollTrigger: {
             trigger: contactSectionRef.current,
-            start: "top 80%", // 화면 하단보다 조금 더 올라왔을 때 시작
+            start: "top 90%",
             toggleActions: "play none none reverse",
           },
-          opacity: 1, // 나타나게 수정
-          y: -20, // 아래에서 위로 살짝 올라오는 느낌
+          opacity: 1,
+          y: 0,
           duration: 0.9,
           stagger: 0.14,
           ease: "power3.out",
