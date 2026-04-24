@@ -36,14 +36,12 @@ export interface Achievement {
   description: string;
 }
 
-export type WorkAchievement = Achievement | string;
-
 export interface Work {
   id: string;
   company: string;
   period: string;
   role: string;
-  achievements: WorkAchievement[];
+  achievements: Achievement[];
   techStack: string[];
   thumbnail: string;
   mainImage: string;
