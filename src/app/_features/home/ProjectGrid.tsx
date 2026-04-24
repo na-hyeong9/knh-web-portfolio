@@ -61,7 +61,13 @@ export function ProjectGrid() {
       animateIn();
     }
 
-    return () => st.kill();
+    // 탭 전환으로 페이지 높이가 바뀌면 다른 섹션의 ScrollTrigger 위치도 재계산
+    const rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      st.kill();
+    };
   }, [filter]);
 
   return (
