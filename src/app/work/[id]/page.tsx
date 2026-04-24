@@ -1,14 +1,4 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-
-import { workData } from "@/data/projectsData";
-import { AnimatedPage } from "@/shared/components/AnimatedPage";
-import { MainLayout } from "@/shared/components/Main";
-import { Badge } from "@/shared/components/ui/Badge";
-import { ProjectImage } from "@/shared/components/ui/ProjectImage";
-import { ImageCarousel } from "@/shared/components/ui/ImageCarousel";
-import { cn } from "@/shared/lib/utils";
-import { buttonVariants } from "@/shared/components/ui/Button";
 import {
   ArrowLeft,
   Briefcase,
@@ -16,6 +6,17 @@ import {
   Calendar,
   ExternalLink,
 } from "lucide-react";
+
+import { workData } from "@/data/projectsData";
+import { AnimatedPage } from "@/shared/components/AnimatedPage";
+import { HistoryBackButton } from "@/shared/components/HistoryBackButton";
+import { MainLayout } from "@/shared/components/Main";
+import { ImageCarousel } from "@/shared/components/ui/ImageCarousel";
+import { ProjectImage } from "@/shared/components/ui/ProjectImage";
+import { Badge } from "@/shared/components/ui/Badge";
+import { buttonVariants } from "@/shared/components/ui/Button";
+import { cn } from "@/shared/lib/utils";
+
 interface WorkDetailPageProps {
   params: Promise<{
     id: string;
@@ -30,7 +31,6 @@ export function generateStaticParams() {
   }));
 }
 
-
 export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
   const { id } = await params;
   const work = workData.find((item) => item.id === id);
@@ -42,13 +42,13 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
   return (
     <MainLayout>
       <div className="container mx-auto max-w-4xl px-4 py-32">
-        <Link
-          href="/#work"
-          aria-label="경력 목록으로 돌아가기"
+        <HistoryBackButton
+          fallbackHref="/"
+          ariaLabel="경력 목록으로 돌아가기"
           className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary">
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to Work
-        </Link>
+        </HistoryBackButton>
 
         <AnimatedPage className="space-y-12">
           <header className="space-y-6">
@@ -185,15 +185,15 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
           </section>
 
           <div className="pt-12">
-            <Link
-              href="/#work"
-              aria-label="경력 목록으로 돌아가기"
+            <HistoryBackButton
+              fallbackHref="/"
+              ariaLabel="경력 목록으로 돌아가기"
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "rounded-full px-8",
               )}>
               목록으로 돌아가기
-            </Link>
+            </HistoryBackButton>
           </div>
         </AnimatedPage>
       </div>
