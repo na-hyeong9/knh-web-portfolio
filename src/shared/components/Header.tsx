@@ -96,11 +96,11 @@ export function Header() {
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-      <header className="pointer-events-auto flex items-center gap-2 liquid-glass p-2 rounded-full transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+      className="pointer-events-none fixed left-0 right-0 top-3 z-50 flex justify-center px-3 sm:top-6 sm:px-4">
+      <header className="pointer-events-auto flex items-center gap-1.5 rounded-full liquid-glass p-1.5 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.2)] sm:gap-2 sm:p-2">
         <button
           onClick={() => scrollToSection("home")}
-          className="px-4 py-2 font-display text-lg font-black tracking-tighter text-primary hover:scale-105 transition-transform">
+          className="px-3 py-1.5 font-display text-base font-black tracking-tighter text-primary transition-transform hover:scale-105 sm:px-4 sm:py-2 sm:text-lg">
           KNH
         </button>
 
@@ -160,16 +160,16 @@ export function Header() {
             <SheetContent
               side="top"
               className="rounded-b-[3rem] border-none bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl">
-              <SheetTitle className="text-center mb-8 font-display text-2xl font-black">
+              <SheetTitle className="mb-5 text-center font-display text-xl font-black sm:mb-8 sm:text-2xl">
                 KNH
               </SheetTitle>
-              <nav className="flex flex-col items-center gap-6 py-8">
+              <nav className="flex flex-col items-center gap-3 py-2 sm:gap-6 sm:py-8">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={cn(
-                      "text-2xl font-bold transition-all",
+                      "rounded-full px-3 py-1.5 text-xl font-bold transition-all sm:px-4 sm:py-2 sm:text-2xl",
                       activeSection === item.id
                         ? "text-primary scale-110"
                         : "text-muted-foreground",

@@ -13,7 +13,7 @@ export const skills = [
   { name: "Next.js", icon: "/icons/skills/nextjs.svg" },
   { name: "Tailwind CSS", icon: "/icons/skills/tailwind.svg" },
   { name: "Figma", icon: "/icons/skills/figma.svg" },
-  { name: "Git", icon: "/icons/skills/Git.svg" },
+  { name: "Git", icon: "/icons/skills/git.svg" },
 ];
 
 export interface CoreValue {
@@ -74,6 +74,13 @@ export const contactLinks: ContactLink[] = [
     href: "mailto:devkimna@gmail.com",
   },
 ];
+
+export const portfolioLinks = {
+  resume: {
+    href: "https://www.notion.so/34b67bd412c581d48ab7f3f2fb06358f",
+    label: "경력기술서 바로가기",
+  },
+};
 
 export const profileInfo = {
   name: "김나형",
