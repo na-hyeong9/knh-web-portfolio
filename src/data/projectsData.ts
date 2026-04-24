@@ -160,7 +160,6 @@ export const workData: Work[] = [
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
-      "이게뭐야",
       {
         keyword: "협업 기반 마련",
         description:
