@@ -30,6 +30,7 @@ export function generateStaticParams() {
   }));
 }
 
+
 export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
   const { id } = await params;
   const work = workData.find((item) => item.id === id);
@@ -139,9 +140,14 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                   <span className="text-xl font-black text-primary">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-lg leading-relaxed text-muted-foreground">
-                    {achievement}
-                  </p>
+                  <div className="space-y-3">
+                    <Badge className="w-fit rounded-full border-none bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                      {achievement.keyword}
+                    </Badge>
+                    <p className="text-lg leading-relaxed text-muted-foreground">
+                      {achievement.description}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>

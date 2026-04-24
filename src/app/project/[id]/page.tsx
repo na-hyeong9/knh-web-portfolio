@@ -17,6 +17,7 @@ import {
   Calendar,
   User,
   Target,
+  Hash,
 } from "lucide-react";
 
 interface ProjectDetailPageProps {
@@ -106,6 +107,59 @@ export default async function ProjectDetailPage({
             </div>
           </header>
 
+          {project.overviewSections?.length ? (
+            <>
+              {/* 목차 */}
+              <section className="space-y-4">
+                <h2 className="border-b pb-4 text-2xl font-bold">목차</h2>
+                <ol className="space-y-2">
+                  {project.overviewSections.map((sec, idx) => (
+                    <li key={sec.id}>
+                      <a
+                        href={`#${sec.id}`}
+                        className="group flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary">
+                        <span className="text-xs font-bold text-primary/60 tabular-nums">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <Hash className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <span className="font-medium">{sec.title}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              {/* 섹션별 상세 */}
+              {project.overviewSections.map((sec, idx) => (
+                <section
+                  key={sec.id}
+                  id={sec.id}
+                  className="space-y-6 scroll-mt-24">
+                  <h2 className="border-b pb-4 text-2xl font-bold flex items-center gap-3">
+                    <span className="text-base font-bold text-primary/60 tabular-nums">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    {sec.title}
+                  </h2>
+                  <div className="space-y-4">
+                    {sec.items.map((item) => (
+                      <div
+                        key={item.heading}
+                        className="rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20">
+                        <h3 className="mb-2 font-bold text-foreground">
+                          {item.heading}
+                        </h3>
+                        <p className="leading-relaxed text-muted-foreground">
+                          {item.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </>
+          ) : null}
+
           <section className="space-y-12">
             <h2 className="border-b pb-4 text-2xl font-bold">
               Project Visuals
@@ -140,7 +194,7 @@ export default async function ProjectDetailPage({
           </section>
 
           <div className="grid grid-cols-1 gap-12 pt-8 md:grid-cols-3">
-            <div className="space-y-12 md:col-span-2">
+            <div className="space-y-16 md:col-span-2">
               <section className="space-y-6">
                 <h2 className="border-b pb-4 text-2xl font-bold">
                   Project Overview
@@ -150,27 +204,6 @@ export default async function ProjectDetailPage({
                   {project.contribution} 기여로 참여했습니다. 주요 기술
                   스택으로는 {project.techStack.join(", ")}를 사용했습니다.
                 </p>
-              </section>
-
-              <section className="space-y-6">
-                <h2 className="border-b pb-4 text-2xl font-bold">
-                  Key Features
-                </h2>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {[
-                    "Responsive Design",
-                    "Modern UI/UX",
-                    "Optimized Performance",
-                    "Interactive Elements",
-                  ].map((feature) => (
-                    <div
-                      key={feature}
-                      className="flex items-center gap-3 rounded-2xl bg-secondary/20 p-4">
-                      <div className="h-2 w-2 rounded-full bg-primary" />
-                      <span className="font-medium">{feature}</span>
-                    </div>
-                  ))}
-                </div>
               </section>
             </div>
 

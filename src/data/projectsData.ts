@@ -1,3 +1,14 @@
+export interface OverviewItem {
+  heading: string;
+  body: string;
+}
+
+export interface OverviewSection {
+  id: string;
+  title: string;
+  items: OverviewItem[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -17,14 +28,22 @@ export interface Project {
   category: "work" | "project";
   details: string;
   screenshots: string[];
+  overviewSections?: OverviewSection[];
 }
+
+export interface Achievement {
+  keyword: string;
+  description: string;
+}
+
+export type WorkAchievement = Achievement | string;
 
 export interface Work {
   id: string;
   company: string;
   period: string;
   role: string;
-  achievements: string[];
+  achievements: WorkAchievement[];
   techStack: string[];
   thumbnail: string;
   mainImage: string;
@@ -69,15 +88,66 @@ export const projectsData: Project[] = [
     subImages01: ["/images/project/portfolio/scrollMotion.gif"],
     subCaption01:
       "GSAP 스크롤 애니메이션을 이용하여 페이지에 부드러운 전환 효과를 주었습니다.",
-    subImages02: ["/images/project/portfolio/subPage.png"],
-    subCaption02: "",
     githubUrl: "https://github.com/na-hyeong9/knh-web-portfolio",
     demoUrl: "https://knh-web-portfolio.vercel.app/",
     category: "project",
     details: "This project focuses on clean UI/UX and smooth interactions.",
-    screenshots: [
-      "https://picsum.photos/seed/s1/800/600",
-      "https://picsum.photos/seed/s2/800/600",
+    screenshots: [],
+    overviewSections: [
+      {
+        id: "interaction",
+        title: "Framer Motion & GSAP 인터랙션",
+        items: [
+          {
+            heading: "컨베이어 벨트 히어로 슬라이드",
+            body: "Framer Motion의 animate API와 CSS transform을 조합해 기술 스택 아이템이 끊김 없이 좌우로 흐르는 무한 루프 슬라이드를 구현했습니다. 두 세트를 연속 배치해 이음매가 보이지 않도록 처리했습니다.",
+          },
+          {
+            heading: "GSAP ScrollTrigger 섹션 등장 애니메이션",
+            body: "각 섹션 진입 시점에 GSAP ScrollTrigger를 사용해 요소가 아래에서 위로 fade-in 되도록 구성했습니다. 핵심역량 카드는 stagger 옵션으로 순차 등장 효과를 주어 시선 흐름을 자연스럽게 유도했습니다.",
+          },
+          {
+            heading: "마이크로 인터랙션",
+            body: "프로젝트 카드 hover 시 Framer Motion whileHover로 scale 전환을 적용하고, 아코디언 카드는 flex 너비를 애니메이션해 콘텐츠가 자연스럽게 펼쳐지도록 구현했습니다. 스크롤 버튼에는 무한 bouncing 효과를 추가해 액션 유도를 강화했습니다.",
+          },
+        ],
+      },
+      {
+        id: "seo",
+        title: "SEO 최적화",
+        items: [
+          {
+            heading: "Next.js Metadata API",
+            body: "App Router의 정적 metadata 객체로 title, description을 선언해 빌드 타임에 메타 태그가 HTML에 포함되도록 했습니다. 검색 엔진이 JavaScript 실행 없이도 페이지 정보를 읽을 수 있어 인덱싱 품질이 향상됩니다.",
+          },
+          {
+            heading: "시맨틱 HTML 구조",
+            body: "header, main, section, aside, nav 등 의미 있는 태그를 사용해 문서 계층을 명확히 했습니다. heading 레벨(h1 → h2 → h3)을 문서 구조에 맞게 유지해 스크린리더와 크롤러 모두에서 콘텐츠 구조가 올바르게 해석되도록 했습니다.",
+          },
+          {
+            heading: "next/image를 통한 LCP 개선",
+            body: "모든 이미지에 next/image를 적용해 자동 WebP 변환, lazy loading, 적절한 sizes 속성을 통한 반응형 소스 제공으로 Largest Contentful Paint(LCP) 지표를 개선했습니다.",
+          },
+        ],
+      },
+      {
+        id: "tailwind",
+        title: "Tailwind CSS 활용",
+        items: [
+          {
+            heading: "디자인 토큰 기반 테마 관리",
+            body: "globals.css의 @theme 블록에서 색상, 폰트, 간격을 CSS 변수로 선언하고 Tailwind 유틸리티와 연결했습니다. 라이트/다크 양쪽에서 일관된 디자인을 유지하면서 단일 소스에서 전역 스타일을 제어할 수 있습니다.",
+          },
+          {
+            heading: "다크모드 대응",
+            body: "dark: 변형자를 활용해 모든 컴포넌트에서 라이트/다크 전환을 선언적으로 처리했습니다. ThemeProvider로 시스템 설정을 감지해 초기 flicker 없이 테마가 적용됩니다.",
+          },
+          {
+            heading: "반응형 모바일 퍼스트 레이아웃",
+            body: "sm, md, lg 브레이크포인트를 기준으로 모바일 퍼스트 방식으로 레이아웃을 구성했습니다. 그리드 컬럼, 패딩, 폰트 크기를 뷰포트별로 세분화해 다양한 디바이스에서 일관된 사용자 경험을 제공합니다.",
+          },
+        ],
+      },
     ],
   },
 ];
@@ -90,10 +160,26 @@ export const workData: Work[] = [
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
-      "버전 관리 체계가 없던 초기 환경에서 GitHub 브랜치 전략과 퍼블리싱 환경을 직접 수립해 팀 전체의 협업 기반을 마련",
-      "반복되는 UI 패턴을 분석해 공통 컴포넌트로 모듈화하고, 화면 전반의 재사용성을 확보해 작업 효율 향상에 기여",
-      "PC·모바일 멀티 디바이스 환경을 고려한 반응형·적응형 퍼블리싱을 적용해 다양한 사용자 환경에서의 일관된 UI 제공",
-      "위 기반 위에서 총 108본 이상의 화면을 기한 내 완료",
+      "이게뭐야",
+      {
+        keyword: "협업 기반 마련",
+        description:
+          "버전관리 체계가 없던 초기 환경에서 GitHub 브랜치 전략과 퍼블리싱 환경을 직접 수립해 팀 전체의 협업 기반을 마련",
+      },
+      {
+        keyword: "공통 컴포넌트 모듈화",
+        description:
+          "반복되는 UI 패턴을 분석해 공통 컴포넌트로 모듈화하고, 화면 전반의 재사용성을 확보해 작업 효율 향상에 기여",
+      },
+      {
+        keyword: "반응형 퍼블리싱",
+        description:
+          "PC·모바일 멀티 디바이스 환경을 고려한 반응형 퍼블리싱을 적용해 다양한 사용자 환경에서의 일관된 UI 제공",
+      },
+      {
+        keyword: "108본 납기 완료",
+        description: "위 기반 위에서 총 108본 이상의 화면을 기한 내 완료",
+      },
     ],
     techStack: ["HTML", "CSS", "jQuery", "Git"],
     thumbnail: "/images/work/techmk/tech-01.png",
@@ -110,8 +196,16 @@ export const workData: Work[] = [
     period: "2025.04 ~ 2025.06",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
-      "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
-      "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+      {
+        keyword: "공통 컴포넌트 설계",
+        description:
+          "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+      },
+      {
+        keyword: "유지보수 구조 확립",
+        description:
+          "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+      },
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
     thumbnail: "/images/work/nova/nova-01.png",
@@ -128,8 +222,16 @@ export const workData: Work[] = [
     period: "2025.03 ~ 2025.04",
     role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
-      "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
-      "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+      {
+        keyword: "공통 컴포넌트 설계",
+        description:
+          "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+      },
+      {
+        keyword: "유지보수 구조 확립",
+        description:
+          "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+      },
     ],
     techStack: ["React", "Git"],
     thumbnail: "/images/work/uj/uj-01.png",
@@ -147,9 +249,21 @@ export const workData: Work[] = [
     period: "2024.07 ~ 2024.12",
     role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
-      "반복되는 UI 패턴을 분석해 공통 컴포넌트로 추출하고 SCSS 스타일 가이드를 표준화해 팀 전체 코드 일관성 확보 및 개발 기간 약 20% 단축에 기여",
-      "스타일 가이드가 없어 팀원마다 코드 스타일이 달랐던 문제를 해결하기 위해 SCSS/SASS 기반 표준 가이드를 수립, 코드 리뷰 비용 절감",
-      "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 60본의 화면을 기한 내 완료",
+      {
+        keyword: "스타일 가이드 표준화",
+        description:
+          "반복되는 UI 패턴을 분석해 공통 컴포넌트로 추출하고 SCSS 스타일 가이드를 표준화해 팀 전체 코드 일관성 확보 및 개발 기간 약 20% 단축에 기여",
+      },
+      {
+        keyword: "코드 리뷰 비용 절감",
+        description:
+          "스타일 가이드가 없어 팀원마다 코드 스타일이 달랐던 문제를 해결하기 위해 SCSS/SASS 기반 표준 가이드를 수립, 코드 리뷰 비용 절감",
+      },
+      {
+        keyword: "60본 납기 완료",
+        description:
+          "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 60본의 화면을 기한 내 완료",
+      },
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
     thumbnail: "/images/work/hicc/hicc-01.png",
@@ -164,8 +278,16 @@ export const workData: Work[] = [
     period: "2024.05 ~ 2024.06",
     role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
-      "기존 시스템의 UI 구조를 분석해 신규 기능과의 일관성을 유지하면서 적응형 웹·모바일 퍼블리싱을 100% 단독 담당, 멀티 디바이스 접근성 확보",
-      "레거시 시스템의 마크업 패턴을 파악한 뒤 신규 기능 UI를 기존 스타일에 자연스럽게 통합해 사용자 혼란 없이 기능 고도화 완료",
+      {
+        keyword: "멀티 디바이스 접근성 확보",
+        description:
+          "기존 시스템의 UI 구조를 분석해 신규 기능과의 일관성을 유지하면서 적응형 웹·모바일 퍼블리싱을 100% 단독 담당, 멀티 디바이스 접근성 확보",
+      },
+      {
+        keyword: "레거시 스타일 통합",
+        description:
+          "레거시 시스템의 마크업 패턴을 파악한 뒤 신규 기능 UI를 기존 스타일에 자연스럽게 통합해 사용자 혼란 없이 기능 고도화 완료",
+      },
     ],
     techStack: ["HTML", "CSS", "jQuery"],
     thumbnail: "/images/work/kerp/kbiz-01.png",
@@ -198,8 +320,16 @@ export const workData: Work[] = [
     period: "2023.10 ~ 2024.02",
     role: "화면 퍼블리싱 (기여도 30%)",
     achievements: [
-      "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 획득 달성",
-      "스크린리더 사용자와 키보드 사용자를 고려한 시맨틱 마크업 구조로 전면 개선해 다양한 사용자 환경에서의 서비스 접근성 확보",
+      {
+        keyword: "웹 접근성 인증 획득",
+        description:
+          "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 획득 달성",
+      },
+      {
+        keyword: "시맨틱 마크업 개선",
+        description:
+          "스크린리더 사용자와 키보드 사용자를 고려한 시맨틱 마크업 구조로 전면 개선해 다양한 사용자 환경에서의 서비스 접근성 확보",
+      },
     ],
     techStack: ["HTML", "CSS"],
     thumbnail: "/images/work/sc/sc-01.png",
@@ -214,9 +344,21 @@ export const workData: Work[] = [
     period: "2023.06 ~ 2023.09",
     role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
-      "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 및 유지보수를 단독 완료",
-      "모바일 사용자 비율 증가에 대응해 적응형 모바일 페이지를 설계, 디바이스별 최적화된 사용자 경험 제공",
-      "중소기업중앙회, 노란우산, 노란우산 복지플러스-휴양시설 Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
+      {
+        keyword: "117페이지 단독 완료",
+        description:
+          "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 및 유지보수를 단독 완료",
+      },
+      {
+        keyword: "모바일 적응형 설계",
+        description:
+          "모바일 사용자 비율 증가에 대응해 적응형 모바일 페이지를 설계, 디바이스별 최적화된 사용자 경험 제공",
+      },
+      {
+        keyword: "4개 브랜드 총괄",
+        description:
+          "중소기업중앙회, 노란우산, 노란우산 복지플러스-휴양시설 Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
+      },
     ],
     techStack: ["HTML", "CSS", "jQuery"],
     thumbnail: "/images/work/kbiz/kbiz-01.png",
