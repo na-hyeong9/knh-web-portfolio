@@ -16,6 +16,7 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-20 pointer-events-none">
         <div className="animate-orb-a will-change-transform absolute top-[-10%] left-[-10%] h-[60%] w-[60%] rounded-full bg-primary/15 blur-[100px]" />
         <div className="animate-orb-b will-change-transform absolute bottom-[-10%] right-[-10%] h-[50%] w-[50%] rounded-full bg-indigo-400/15 blur-[100px]" />
+        <div className="animate-orb-c will-change-transform absolute top-[30%] right-[20%] h-[35%] w-[35%] rounded-full bg-violet-400/10 blur-[90px]" />
       </div>
 
       <div className="w-full pt-8 sm:pt-10">
@@ -33,11 +34,11 @@ export function HeroSection() {
             </h1>
           </div>
 
-          <p className="mx-auto flex max-w-2xl flex-col px-4 text-left text-base font-medium leading-relaxed sm:block sm:text-lg md:px-0 md:text-xl lg:text-2xl">
+          <p className="mx-auto flex max-w-2xl flex-col px-4 font-medium leading-relaxed sm:block sm:text-lg md:px-0 md:text-xl lg:text-2xl">
             안녕하세요, 꾸준한 성장을 지향하는 웹 퍼블리셔 김나형입니다.
             <span className="mt-5 block md:mt-4" />
-            사용성과 접근성을 기반으로 직관적인 인터페이스를 만드는 일을
-            즐기며, 새로운 기술을 익히고 실무에 적용하는 과정을 좋아합니다.
+            사용성과 접근성을 기반으로 직관적인 인터페이스를 만드는 일을 즐기며,
+            새로운 기술을 익히고 실무에 적용하는 과정을 좋아합니다.
             <span className="mt-5 block md:mt-4" />
             사용자가 자연스럽게 몰입할 수 있는 인터페이스를 만드는 것을 가장
             중요하게 생각합니다.
