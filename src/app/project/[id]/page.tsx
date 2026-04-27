@@ -166,7 +166,7 @@ export default async function ProjectDetailPage({
               src={project.mainImage}
               alt="Main Project View"
               caption={project.mainImageCaption}
-              className="aspect-video rounded-[3rem]"
+              className="rounded-[2.5rem]"
             />
 
             {project.subImages01?.length || project.subImages02?.length ? (
@@ -175,7 +175,7 @@ export default async function ProjectDetailPage({
                   <ImageCarousel
                     images={project.subImages01}
                     caption={project.subCaption01}
-                    className="aspect-[4/3] rounded-[2.5rem]"
+                    className="rounded-[2.5rem]"
                   />
                 ) : null}
 
@@ -183,7 +183,7 @@ export default async function ProjectDetailPage({
                   <ImageCarousel
                     images={project.subImages02}
                     caption={project.subCaption02}
-                    className="aspect-[4/3] rounded-[2.5rem]"
+                    className="rounded-[2.5rem]"
                   />
                 ) : null}
               </div>

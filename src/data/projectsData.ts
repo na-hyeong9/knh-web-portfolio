@@ -181,11 +181,12 @@ export const workData: Work[] = [
     techStack: ["HTML", "CSS", "jQuery", "Git"],
     thumbnail: "/images/work/techmk/tech-01.png",
     mainImage: "/images/work/techmk/tech-01.png",
-    mainImageCaption: "플랫폼 메인 화면 — 기술 거래 목록 및 검색 인터페이스",
-    subImages01: ["/images/work/techmk/tech-02.png"],
-    subCaption01: "기업 등록·관리 화면 — 반응형 적응형 레이아웃 적용",
-    subImages02: ["/images/work/techmk/tech-03.png"],
-    subCaption02: "모바일 최적화 화면 — 멀티 디바이스 대응 UI",
+    mainImageCaption: "메인 화면 ",
+    subImages01: [
+      "/images/work/techmk/tech-02.png",
+      "/images/work/techmk/tech-03.png",
+    ],
+    subCaption01: "반응형 레이아웃 적용",
   },
   {
     id: "exp2",
@@ -194,24 +195,41 @@ export const workData: Work[] = [
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
       {
-        keyword: "공통 컴포넌트 설계",
+        keyword: "버전 관리 체계 구축",
         description:
-          "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+          "GitHub 기반 버전 관리 체계를 전담 구축하고 퍼블리싱 환경 초기 세팅을 완료해 팀 전체의 협업 및 배포 흐름 확립",
       },
       {
-        keyword: "유지보수 구조 확립",
+        keyword: "대시보드 공통 레이아웃 설계",
         description:
-          "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+          "시스템 내 반복되는 패널·위젯 레이아웃을 분석해 공통 구조로 통일, 대시보드 화면 전반의 일관성 확보 및 신규 화면 구현 효율 향상",
+      },
+      {
+        keyword: "대용량 UI 구현 및 성능 최적화",
+        description:
+          "IBSheet·IBChart 기반 대용량 그리드·차트 UI를 구현하고 렌더링 성능을 최적화해 데이터 집약적 화면의 안정적인 동작 확보",
       },
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
     thumbnail: "/images/work/nova/nova-01.png",
     mainImage: "/images/work/nova/nova-01.png",
     mainImageCaption: "원전 사업 현황 대시보드 — 공정·일정·예산 통합 관리 화면",
-    subImages01: ["/images/work/nova/nova-02.png"],
+    subImages01: [
+      "/images/work/nova/nova-02-00.png",
+      "/images/work/nova/nova-02-01.png",
+      "/images/work/nova/nova-02-02.png",
+      "/images/work/nova/nova-02-03.png",
+      "/images/work/nova/nova-02-04.png",
+    ],
     subCaption01: "공통 컴포넌트 라이브러리 — 재사용 UI 모듈 15종 구현",
-    subImages02: ["/images/work/nova/nova-03.png"],
-    subCaption02: "사업 보고서 상세 화면 — 데이터 입력 및 조회 인터페이스",
+    subImages02: [
+      "/images/work/nova/nova-03-01.png",
+      "/images/work/nova/nova-03-02.png",
+      "/images/work/nova/nova-03-03.png",
+      "/images/work/nova/nova-03-04.png",
+    ],
+    subCaption02:
+      "반복되는 인터페이스를 공통구조로 설계하여 개발 기간 20% 단축 ",
   },
   {
     id: "exp3",
@@ -222,12 +240,7 @@ export const workData: Work[] = [
       {
         keyword: "공통 컴포넌트 설계",
         description:
-          "화면마다 중복 구현되던 UI 요소를 분석해 공통 컴포넌트 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
-      },
-      {
-        keyword: "유지보수 구조 확립",
-        description:
-          "컴포넌트 재사용 구조 도입으로 신규 화면 개발 속도를 단축하고, 수정 시 한 곳만 변경해도 전체에 반영되는 유지보수 구조 확립",
+          "화면마다 중복 구현되던 그리드/테이블, 탭, 드롭다운 셀렉트, 통계 카드, 지도 마커/팝업, 바로가기 버튼 패널, 뉴스 리스트 등 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
       },
     ],
     techStack: ["React", "Git"],
@@ -235,10 +248,6 @@ export const workData: Work[] = [
     mainImage: "/images/work/uj/uj-01.png",
     mainImageCaption:
       "클라우드 네이티브 행정 시스템 메인 화면 — 통합 업무 포털",
-    subImages01: ["/images/work/uj/uj-02.png"],
-    subCaption01: "민원 접수·처리 화면 — React 기반 컴포넌트 구조",
-    subImages02: ["/images/work/uj/uj-03.png"],
-    subCaption02: "통계·현황 대시보드 — 데이터 시각화 인터페이스",
   },
   {
     id: "exp4",
@@ -283,18 +292,18 @@ export const workData: Work[] = [
       {
         keyword: "레거시 스타일 통합",
         description:
-          "레거시 시스템의 마크업 패턴을 파악한 뒤 신규 기능 UI를 기존 스타일에 자연스럽게 통합해 사용자 혼란 없이 기능 고도화 완료",
+          "레거시 K-ERP 시스템의 마크업·스타일 패턴을 분석해 신규 컴포넌트를 설계·구현하고 기존 화면에 통합, 기존 UI와의 이질감 없이 기능 고도화 완료",
       },
     ],
     techStack: ["HTML", "CSS", "jQuery"],
     thumbnail: "/images/work/kerp/kbiz-01.png",
     mainImage: "/images/work/kerp/kbiz-01.png",
-    mainImageCaption:
-      "K-ERP 통합경영정보 시스템 메인 화면 — 신규 기능 고도화 UI",
-    subImages01: ["/images/work/kerp/kbiz-02.png"],
-    subCaption01: "모바일 적응형 화면 — 멀티 디바이스 접근성 확보",
-    subImages02: ["/images/work/kerp/kbiz-03.png"],
-    subCaption02: "레거시 시스템 통합 화면 — 기존 스타일 일관성 유지",
+    mainImageCaption: "K-ERP 통합경영정보 시스템 메인 화면",
+    subImages01: [
+      "/images/work/kerp/kbiz-02.png",
+      "/images/work/kerp/kbiz-03.png",
+    ],
+    subCaption01: "모바일 적응형 화면",
   },
   // {
   //   id: "exp6",
@@ -325,7 +334,7 @@ export const workData: Work[] = [
       {
         keyword: "시맨틱 마크업 개선",
         description:
-          "스크린리더 사용자와 키보드 사용자를 고려한 시맨틱 마크업 구조로 전면 개선해 다양한 사용자 환경에서의 서비스 접근성 확보",
+          "폼 레이블 연결 및 placeholder 단독 사용 제거, 키보드 핸들러(Enter/Space) 적용, 모달 포커스 트랩·열림/닫힘 포커스 이동·aria-modal 처리, 장식 이미지 alt 비움 및 아이콘 버튼 aria-label 부여를 통해 스크린리더·키보드 사용자 환경의 서비스 접근성 확보",
       },
     ],
     techStack: ["HTML", "CSS"],
@@ -354,18 +363,17 @@ export const workData: Work[] = [
       {
         keyword: "4개 브랜드 총괄",
         description:
-          "중소기업중앙회, 노란우산, 노란우산 복지플러스-휴양시설 Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
+          "중소기업중앙회, 노란우산, 노란우산 복지플러스(휴양시설) Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
       },
     ],
     techStack: ["HTML", "CSS", "jQuery"],
     thumbnail: "/images/work/kbiz/kbiz-01.png",
     mainImage: "/images/work/kbiz/kbiz-01.png",
     mainImageCaption:
-      "4개 브랜드 사이트를 동시에 개편하는 대규모 프로젝트로, 잦은 수정이 필요하여 기획, 디자인, 개발 파트와 함께 애자일 방식으로 팀과 협업했습니다. 프로젝트 초기 세팅부터 참여해 구조를 익힐 수 있었으며, jQuery 기반 인터랙션과 Swiper.js를 활용한 캐러셀 컴포넌트를 구현했습니다.",
+      "4개 브랜드 사이트를 동시에 개편하는 대규모 프로젝트로 기획, 디자인, 개발 파트와 함께 애자일 방식으로 팀과 협업했습니다. 프로젝트 초기 세팅부터 참여해 구조를 익힐 수 있었으며, jQuery 기반 인터랙션과 Swiper.js를 활용한 캐러셀 컴포넌트를 구현했습니다.",
     subImages01: ["/images/work/kbiz/kbiz-02.png"],
-    subCaption01: "디바이스별 최적화된 적응형 페이지를 구현하였습니다.",
-    subImages02: ["/images/work/kbiz/kbiz-03.png"],
-    subCaption02: "서브 페이지 상세 화면 — 정보 구조화 및 사용성 개선",
+    subCaption01:
+      "디바이스별 최적화된 적응형 페이지 하드코딩하여 구현하였습니다.",
     link: [
       "https://www.kbiz.or.kr/ko/index/index.do",
       "https://www.8899.or.kr/yuma/index.do",

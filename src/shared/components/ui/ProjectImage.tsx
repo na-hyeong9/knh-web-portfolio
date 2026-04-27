@@ -17,7 +17,10 @@ const IMAGE_MODAL_MAX_WIDTH = 1280;
 
 function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
   const [current, setCurrent] = React.useState(initialIndex);
-  const [imageSize, setImageSize] = React.useState({ width: 1280, height: 1280 });
+  const [imageSize, setImageSize] = React.useState({
+    width: 1280,
+    height: 1280,
+  });
   const pointerStartX = React.useRef<number | null>(null);
   const hasMultipleImages = images.length > 1;
 
@@ -112,7 +115,7 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
         onClick={(event) => event.stopPropagation()}>
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 z-20 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25"
+          className="fixed right-5 top-5 z-20 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25"
           aria-label="닫기">
           <X className="h-5 w-5 text-white" />
         </button>
@@ -121,14 +124,14 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
           <>
             <button
               onClick={prev}
-              className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              className="absolute -left-10 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               aria-label="이전 이미지">
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <button
               onClick={next}
-              className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              className="absolute -right-10 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               aria-label="다음 이미지">
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -210,11 +213,12 @@ export function ProjectImage({
     <>
       <div className="space-y-3">
         <div
-          className={`relative overflow-hidden border shadow-xl group/img cursor-zoom-in ${className}`}>
+          className={`relative h-[500px] overflow-hidden border shadow-xl group/img cursor-zoom-in ${className}`}>
           <Image
             src={src}
             alt={alt}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"
             className="object-cover object-top transition-transform duration-500 group-hover/img:scale-[1.02]"
             referrerPolicy="no-referrer"
           />

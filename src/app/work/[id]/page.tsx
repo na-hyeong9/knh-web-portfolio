@@ -160,7 +160,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
               src={work.mainImage}
               alt="Main Project View"
               caption={work.mainImageCaption}
-              className="aspect-video rounded-[2.5rem]"
+              className="rounded-[2.5rem]"
             />
 
             {work.subImages01?.length || work.subImages02?.length ? (
@@ -169,7 +169,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                   <ImageCarousel
                     images={work.subImages01}
                     caption={work.subCaption01}
-                    className="aspect-[4/3] rounded-[2rem]"
+                    className="rounded-[2.5rem]"
                   />
                 ) : null}
 
@@ -177,7 +177,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                   <ImageCarousel
                     images={work.subImages02}
                     caption={work.subCaption02}
-                    className="aspect-[4/3] rounded-[2rem]"
+                    className="rounded-[2.5rem]"
                   />
                 ) : null}
               </div>
