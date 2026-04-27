@@ -5,11 +5,6 @@ export function Footer() {
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} KNH. All rights reserved.
         </p>
-        <div className="flex gap-6">
-          <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Github</a>
-          <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">LinkedIn</a>
-          <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Email</a>
-        </div>
       </div>
     </footer>
   );

@@ -6,6 +6,7 @@ import { Github, MessageSquare, Mail } from "lucide-react";
 export const skills = [
   { name: "HTML5", icon: "/icons/skills/html5.svg" },
   { name: "CSS3", icon: "/icons/skills/css3.svg" },
+  { name: "Sass", icon: "/icons/skills/sass.svg" },
   { name: "JavaScript", icon: "/icons/skills/javaScript.svg" },
   { name: "TypeScript", icon: "/icons/skills/typeScript.svg" },
   { name: "Vuejs", icon: "/icons/skills/vuejs.svg" },
