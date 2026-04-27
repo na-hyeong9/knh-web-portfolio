@@ -51,7 +51,8 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 border-t">
+      className="relative z-[1] bg-background w-full border-t">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32">
       <div
         ref={contactSectionRef}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 max-w-6xl mx-auto">
@@ -166,6 +167,7 @@ export function ContactSection() {
             </Button>
           </form>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -99,7 +99,10 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section id="about" className="container mx-auto px-4 py-32 border-t">
+    <section
+      id="about"
+      className="relative z-[1] bg-background w-full border-t">
+      <div className="container mx-auto px-4 py-32">
       {/* 핵심 가치 */}
       <div className="mb-24 space-y-8">
         <header
@@ -133,7 +136,9 @@ export function AboutSection() {
                   <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
                     <value.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-white">{value.title}</h3>
+                  <h3 className="text-lg font-bold text-white">
+                    {value.title}
+                  </h3>
                 </div>
               </div>
               {/* 설명 영역 — 글래스 패널 */}
@@ -202,7 +207,11 @@ export function AboutSection() {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.3, delay: 0.18, ease: "easeOut" }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.18,
+                        ease: "easeOut",
+                      }}
                       className="absolute bottom-0 left-0 right-0 p-6">
                       <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-5 flex flex-col gap-3">
                         <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
@@ -372,6 +381,7 @@ export function AboutSection() {
             </div>
           </section>
         </main>
+      </div>
       </div>
     </section>
   );

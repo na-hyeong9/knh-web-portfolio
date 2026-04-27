@@ -12,7 +12,7 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col justify-between overflow-hidden py-16 sm:py-20">
+      className="relative z-[1] bg-background flex min-h-screen flex-col justify-between overflow-hidden py-16 sm:py-20">
       <div className="absolute inset-0 -z-20 pointer-events-none">
         <div className="animate-orb-a will-change-transform absolute top-[-10%] left-[-10%] h-[60%] w-[60%] rounded-full bg-primary/15 blur-[100px]" />
         <div className="animate-orb-b will-change-transform absolute bottom-[-10%] right-[-10%] h-[50%] w-[50%] rounded-full bg-indigo-400/15 blur-[100px]" />
