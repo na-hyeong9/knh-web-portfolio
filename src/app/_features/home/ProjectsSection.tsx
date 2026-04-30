@@ -16,35 +16,35 @@ export function ProjectsSection() {
   const textRef = React.useRef<HTMLSpanElement>(null);
 
   React.useEffect(() => {
-    if (
-      !sectionRef.current ||
-      !contentRef.current ||
-      !textRef.current ||
-      !headerRef.current
-    ) {
+    const section = sectionRef.current;
+    const content = contentRef.current;
+    const header = headerRef.current;
+    const text = textRef.current;
+
+    if (!section || !content || !header || !text) {
       return;
     }
 
     const ctx = gsap.context(() => {
-      gsap.set(textRef.current, { opacity: 0, y: 40 });
-      gsap.set(headerRef.current.children, { opacity: 0, y: 36 });
+      gsap.set(text, { opacity: 0, y: 40 });
+      gsap.set(header.children, { opacity: 0, y: 36 });
 
       ScrollTrigger.create({
-        trigger: sectionRef.current,
+        trigger: section,
         start: "top +=50",
         end: "bottom bottom",
-        pin: contentRef.current,
+        pin: content,
         pinSpacing: false,
       });
 
-      gsap.to(headerRef.current.children, {
+      gsap.to(header.children, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         stagger: 0.12,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: headerRef.current,
+          trigger: header,
           start: "top bottom-=80",
           toggleActions: "play none none reverse",
         },
@@ -53,20 +53,20 @@ export function ProjectsSection() {
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top 70%",
             end: "bottom 35%",
             scrub: true,
           },
         })
-        .to(textRef.current, {
+        .to(text, {
           opacity: 1,
           y: 0,
           ease: "none",
           duration: 0.35,
         })
         .to(
-          textRef.current,
+          text,
           {
             opacity: 0,
             y: -40,
@@ -75,7 +75,7 @@ export function ProjectsSection() {
           },
           0.75,
         );
-    }, sectionRef);
+    }, section);
 
     return () => ctx.revert();
   }, []);
