@@ -1,5 +1,3 @@
-"use client";
-
 import { MainLayout } from "@/shared/components/Main";
 import { HeroSection } from "@/app/_features/home/HeroSection";
 import { AboutSection } from "@/app/_features/home/AboutSection";
