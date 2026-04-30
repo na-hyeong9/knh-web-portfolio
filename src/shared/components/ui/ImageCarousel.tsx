@@ -85,7 +85,7 @@ export function ImageCarousel({
       </div>
 
       {caption && (
-        <p className="text-sm lg:text-md text-muted-foreground font-medium px-4">
+        <p className="flex justify-center text-md lg:text-md text-muted-foreground font-medium px-4">
           {caption}
         </p>
       )}
