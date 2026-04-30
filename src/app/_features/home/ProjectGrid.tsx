@@ -1,96 +1,101 @@
 "use client";
 
 import * as React from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { cn } from "@/shared/lib/utils";
+import { motion, useMotionValue } from "motion/react";
 import { allProjects } from "@/data/homeData";
-import { ProjectCard } from "@/app/_features/home/ProjectCard";
+import { Badge } from "@/shared/components/ui/Badge";
+import { cn } from "@/shared/lib/utils";
+import { SliderCard } from "@/app/_features/home/SliderCard";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const DRAG_THRESHOLD = 50;
+const VELOCITY_THRESHOLD = 300;
 
 export function ProjectGrid() {
-  const [filter, setFilter] = React.useState<"all" | "work" | "project">("all");
-  const gridRef = React.useRef<HTMLDivElement>(null);
+  const items = allProjects;
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const dragX = useMotionValue(0);
+  const draggedRef = React.useRef(false);
 
-  const filteredItems = allProjects.filter(
-    (item) => filter === "all" || item.category === filter,
-  );
+  const goTo = (idx: number) => {
+    const next = Math.max(0, Math.min(items.length - 1, idx));
+    setActiveIndex(next);
+  };
 
-  React.useEffect(() => {
-    if (!gridRef.current) return;
-
-    const cards = gridRef.current.querySelectorAll(".bento-card");
-
-    gsap.set(cards, { opacity: 0, y: 40 });
-
-    const animateIn = () =>
-      gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
-        overwrite: "auto",
-      });
-
-    const animateOut = () =>
-      gsap.to(cards, {
-        opacity: 0,
-        y: 40,
-        duration: 2,
-        stagger: { each: 0.06, from: "end" },
-        ease: "power2.in",
-        overwrite: "auto",
-      });
-
-    const st = ScrollTrigger.create({
-      trigger: gridRef.current,
-      start: "top bottom-=100",
-      end: "bottom top+=100",
-      onEnter: animateIn,
-      onLeaveBack: animateOut,
-      onEnterBack: animateIn,
-      onLeave: animateOut,
-    });
-
-    const rect = gridRef.current.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100 && rect.bottom > 100) {
-      animateIn();
-    }
-
-    // 탭 전환으로 페이지 높이가 바뀌면 다른 섹션의 ScrollTrigger 위치도 재계산
-    const rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      st.kill();
-    };
-  }, [filter]);
+  const handleActivate = (idx: number) => {
+    if (draggedRef.current) return;
+    goTo(idx);
+  };
 
   return (
-    <div className="space-y-12">
-      <div className="flex justify-center gap-1 sm:gap-2 p-1 bg-secondary/30 backdrop-blur-md rounded-full w-fit mx-auto border border-white/10">
-        {(["all", "work", "project"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setFilter(t)}
-            className={cn(
-              "px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300",
-              filter === t
-                ? "bg-white dark:bg-zinc-800 text-primary shadow-xl scale-105"
-                : "text-muted-foreground hover:text-foreground",
-            )}>
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-          </button>
-        ))}
-      </div>
-      <div ref={gridRef} className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {filteredItems.map((item, index) => (
-          <ProjectCard key={item.id} item={item} index={index} />
-        ))}
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-7 lg:gap-12">
+      <aside className="lg:col-span-2">
+        <ul className="flex flex-col gap-2">
+          {items.map((item, idx) => {
+            const isActive = idx === activeIndex;
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => goTo(idx)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    "group flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors",
+                    isActive
+                      ? "border-primary/30 bg-primary/10 text-foreground"
+                      : "border-transparent text-muted-foreground hover:border-black/10 hover:bg-black/5 hover:text-foreground dark:hover:border-white/10 dark:hover:bg-white/5",
+                  )}>
+                  <Badge
+                    className={cn(
+                      "shrink-0 rounded-full border-none px-2 py-0.5 text-[10px] font-bold uppercase",
+                      item.category === "work"
+                        ? "bg-primary/15 text-primary"
+                        : "bg-sky-500/15 text-sky-600 dark:text-sky-400",
+                    )}>
+                    {item.category}
+                  </Badge>
+                  <span className="truncate text-sm font-semibold sm:text-base">
+                    {item.title}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </aside>
+
+      <div className="lg:col-span-5">
+        <motion.div
+          className="relative flex h-[440px] cursor-grab touch-pan-y select-none items-center justify-center active:cursor-grabbing sm:h-[500px] md:h-[560px]"
+          style={{ x: dragX }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.25}
+          onDragStart={() => {
+            draggedRef.current = true;
+          }}
+          onDragEnd={(_, info) => {
+            const { offset, velocity } = info;
+            const swipe =
+              Math.abs(offset.x) > DRAG_THRESHOLD ||
+              Math.abs(velocity.x) > VELOCITY_THRESHOLD;
+            if (swipe) {
+              const dir = offset.x < 0 ? 1 : -1;
+              goTo(activeIndex + dir);
+            }
+            window.setTimeout(() => {
+              draggedRef.current = false;
+            }, 50);
+          }}>
+          {items.map((item, idx) => (
+            <SliderCard
+              key={item.id}
+              item={item}
+              offset={idx - activeIndex}
+              isActive={idx === activeIndex}
+              onActivate={() => handleActivate(idx)}
+            />
+          ))}
+        </motion.div>
       </div>
     </div>
   );
