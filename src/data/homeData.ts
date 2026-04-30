@@ -98,7 +98,7 @@ export const keywords = ["Teamwork", "Creative", "Growing"];
 export const allProjects = [
   ...workData.map((work, index) => ({
     id: work.id,
-    title: work.company,
+    title: work.title,
     period: work.period,
     techStack: work.techStack,
     category: "work" as const,

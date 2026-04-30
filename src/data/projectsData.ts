@@ -38,6 +38,7 @@ export interface Achievement {
 
 export interface Work {
   id: string;
+  title: string;
   company: string;
   period: string;
   role: string;
@@ -58,6 +59,13 @@ export interface Education {
   school: string;
   period: string;
   major: string;
+}
+
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  period: string;
 }
 
 export interface Experience {
@@ -154,7 +162,8 @@ export const projectsData: Project[] = [
 export const workData: Work[] = [
   {
     id: "exp1",
-    company: "중소기업기술마켓 정식플랫폼 구축 사업",
+    title: "중소기업기술마켓 정식플랫폼 구축 사업",
+    company: "중소기업기술마켓",
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
@@ -187,10 +196,12 @@ export const workData: Work[] = [
       "/images/work/techmk/tech-03.png",
     ],
     subCaption01: "반응형 레이아웃 적용",
+    link: ["https://www.techmarket.kr/"],
   },
   {
     id: "exp2",
-    company: "현대건설 원전 사업관리 시스템 구축",
+    title: "현대건설 원전 사업관리 시스템 구축",
+    company: "현대건설",
     period: "2025.04 ~ 2025.06",
     role: "화면 퍼블리싱 (기여도 80%)",
     achievements: [
@@ -233,7 +244,8 @@ export const workData: Work[] = [
   },
   {
     id: "exp3",
-    company: "울주군청 클라우드 네이티브 시스템",
+    title: "울주군청 클라우드 네이티브 시스템",
+    company: "울주군청",
     period: "2025.03 ~ 2025.04",
     role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
@@ -251,7 +263,8 @@ export const workData: Work[] = [
   },
   {
     id: "exp4",
-    company: "현대건설 고객센터 시스템 구축",
+    title: "현대건설 고객센터 시스템 구축",
+    company: "현대건설",
     period: "2024.07 ~ 2024.12",
     role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
@@ -280,7 +293,8 @@ export const workData: Work[] = [
   },
   {
     id: "exp5",
-    company: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
+    title: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
+    company: "중소기업중앙회",
     period: "2024.05 ~ 2024.06",
     role: "화면 퍼블리싱 (기여도 100%)",
     achievements: [
@@ -307,7 +321,7 @@ export const workData: Work[] = [
   },
   // {
   //   id: "exp6",
-  //   company: "중소기업중앙회 유공자포상 시스템 이관",
+  //   title: "중소기업중앙회 유공자포상 시스템 이관",
   //   period: "2024.04 ~ 2024.05",
   //   role: "화면 퍼블리싱",
   //   achievements: [
@@ -322,7 +336,8 @@ export const workData: Work[] = [
   // },
   {
     id: "exp7",
-    company: "SC제일은행 웹 접근성 향상 프로젝트",
+    title: "SC제일은행 웹 접근성 향상 프로젝트",
+    company: "SC제일은행",
     period: "2023.10 ~ 2024.02",
     role: "화면 퍼블리싱 (기여도 30%)",
     achievements: [
@@ -346,7 +361,8 @@ export const workData: Work[] = [
   },
   {
     id: "exp8",
-    company: "중소기업중앙회 대고객 시스템 개편",
+    title: "중소기업중앙회 대고객 시스템 개편",
+    company: "중소기업중앙회",
     period: "2023.06 ~ 2023.09",
     role: "화면 퍼블리싱 (기여도 50%)",
     achievements: [
@@ -400,6 +416,21 @@ export const educationData: Education[] = [
     school: "영등포여자고등학교",
     period: "2011.03 ~ 2014.02",
     major: "졸업",
+  },
+];
+
+export const certificationData: Certification[] = [
+  {
+    id: "cert1",
+    name: "정보처리기사",
+    issuer: "한국산업인력공단",
+    period: "2022.11",
+  },
+  {
+    id: "cert2",
+    name: "컴퓨터활용능력 2급",
+    issuer: "대한상공회의소",
+    period: "2020.11",
   },
 ];
 
