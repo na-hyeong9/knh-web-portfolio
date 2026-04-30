@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { ConveyorBelt } from "@/app/_features/home/ConveyorBelt";
 import { useHeroAnimation } from "@/app/_features/home/useHeroAnimation";
 import { portfolioLinks } from "@/data/homeData";
@@ -44,21 +44,37 @@ export function HeroSection() {
             중요하게 생각합니다.
           </p>
 
-          <motion.a
-            href={portfolioLinks.resume.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{
-              scale: 1.05,
-              transition: { duration: 0.1 },
-            }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="group inline-flex items-center gap-1 rounded-full border-0 p-0 text-sm font-medium transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:border sm:px-4 sm:py-2 sm:text-base">
-            <span className="transition-colors group-hover:text-primary">
-              {portfolioLinks.resume.label}
-            </span>
-            <ArrowUpRight className="hidden h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:block" />
-          </motion.a>
+          <div className="flex flex-wrap items-center gap-3">
+            <motion.a
+              href={portfolioLinks.resume.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.1 },
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="group inline-flex items-center gap-1 rounded-full border-0 p-0 text-sm font-medium transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:border sm:px-4 sm:py-2 sm:text-base">
+              <span className="transition-colors group-hover:text-primary">
+                {portfolioLinks.resume.label}
+              </span>
+              <ArrowUpRight className="hidden h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:block" />
+            </motion.a>
+
+            <motion.a
+              href={portfolioLinks.pdf.href}
+              download={portfolioLinks.pdf.fileName}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.1 },
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="group inline-flex items-center gap-1 rounded-full border-0 bg-primary p-0 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:border sm:border-primary sm:px-4 sm:py-2 sm:text-base"
+              aria-label={`${portfolioLinks.pdf.label} (PDF)`}>
+              <span>{portfolioLinks.pdf.label}</span>
+              <Download className="hidden h-4 w-4 transition-transform group-hover:translate-y-0.5 sm:block" />
+            </motion.a>
+          </div>
         </div>
 
         <div

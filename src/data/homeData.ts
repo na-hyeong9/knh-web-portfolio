@@ -81,6 +81,11 @@ export const portfolioLinks = {
     href: "https://www.notion.so/34b67bd412c581d48ab7f3f2fb06358f",
     label: "경력기술서 바로가기",
   },
+  pdf: {
+    href: "/files/KimNahyeong_Resume.pdf",
+    label: "PDF 다운받기",
+    fileName: "KimNahyeong_web_portfolio.pdf",
+  },
 };
 
 export const profileInfo = {
