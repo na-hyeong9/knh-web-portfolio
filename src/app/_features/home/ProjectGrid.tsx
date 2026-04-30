@@ -9,12 +9,34 @@ import { SliderCard } from "@/app/_features/home/SliderCard";
 
 const DRAG_THRESHOLD = 50;
 const VELOCITY_THRESHOLD = 300;
+const STORAGE_KEY = "projectGrid:activeId";
 
 export function ProjectGrid() {
   const items = allProjects;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const dragX = useMotionValue(0);
   const draggedRef = React.useRef(false);
+  const skipFirstSaveRef = React.useRef(true);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const savedId = window.sessionStorage.getItem(STORAGE_KEY);
+    if (!savedId) return;
+    const idx = items.findIndex((it) => it.id === savedId);
+    if (idx >= 0) setActiveIndex(idx);
+  }, [items]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (skipFirstSaveRef.current) {
+      skipFirstSaveRef.current = false;
+      return;
+    }
+    const current = items[activeIndex];
+    if (current) {
+      window.sessionStorage.setItem(STORAGE_KEY, current.id);
+    }
+  }, [activeIndex, items]);
 
   const goTo = (idx: number) => {
     const next = Math.max(0, Math.min(items.length - 1, idx));
@@ -27,7 +49,7 @@ export function ProjectGrid() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-7 lg:gap-12">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-7 lg:gap-12 m-auto">
       <aside className="lg:col-span-2">
         <ul className="flex flex-col gap-2">
           {items.map((item, idx) => {
