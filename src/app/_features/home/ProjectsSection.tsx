@@ -54,7 +54,7 @@ export function ProjectsSection() {
   return (
     <section
       ref={sectionRef}
-      id="project"
+      id="projects"
       className="relative overflow-hidden border-t">
       {/* 배경 텍스트 - 뷰포트 중앙 고정, 섹션 진입/이탈 시 fade */}
       <div className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center">
