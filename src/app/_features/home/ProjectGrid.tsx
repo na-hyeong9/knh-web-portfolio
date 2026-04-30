@@ -23,6 +23,7 @@ export function ProjectGrid() {
     const savedId = window.sessionStorage.getItem(STORAGE_KEY);
     if (!savedId) return;
     const idx = items.findIndex((it) => it.id === savedId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (idx >= 0) setActiveIndex(idx);
   }, [items]);
 

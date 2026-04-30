@@ -85,7 +85,7 @@ export function HeroSection() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             onClick={() =>
               document
-                .getElementById("project")
+                .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
             className="group flex flex-col items-center gap-2">
