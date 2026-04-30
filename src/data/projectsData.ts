@@ -295,7 +295,12 @@ export const workData: Work[] = [
     thumbnail: "/images/work/hicc/hicc-01.png",
     mainImage: "/images/work/hicc/hicc-01.png",
     mainImageCaption: "Vue.js 반응형 레이아웃 고객센터 메인 화면",
-    subImages01: ["/images/work/hicc/hicc-02.png"],
+    subImages01: [
+      "/images/work/hicc/hicc-02-00.png",
+      "/images/work/hicc/hicc-02-01.png",
+      "/images/work/hicc/hicc-02-02.png",
+      "/images/work/hicc/hicc-02-03.png",
+    ],
     subCaption01: "SCSS 스타일 가이드 기반 공통 컴포넌트",
   },
   {
