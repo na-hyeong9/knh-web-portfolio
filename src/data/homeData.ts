@@ -1,7 +1,6 @@
 import { workData, projectsData } from "@/data/projectsData";
-import { ShieldCheck, Code2, Users2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Github, MessageSquare, Mail } from "lucide-react";
+import { Github, Mail, MessageSquare } from "lucide-react";
 
 export const skills = [
   { name: "HTML5", icon: "/icons/skills/html5.svg" },
@@ -19,32 +18,28 @@ export const skills = [
 
 export interface CoreValue {
   title: string;
-  icon: LucideIcon;
-  image: string;
-  desc: string;
+  summary: string;
+  detail: string;
 }
 
 export const coreValues: CoreValue[] = [
   {
     title: "Web Standards",
-    icon: ShieldCheck,
-    image:
-      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800&h=600",
-    desc: "HTML5 시맨틱 마크업과 CSS3 기반의 크로스브라우징 퍼블리싱에 능숙합니다. 웹 접근성(KWCAG 2.1) 기준을 준수하며 유지보수 가능한 구조로 작업합니다.",
+    summary: "시맨틱 마크업과 접근성을 기준으로 안정적인 UI를 설계합니다.",
+    detail:
+      "HTML5 시맨틱 구조와 CSS 기반 퍼블리싱에 익숙하며, 웹 접근성 기준을 함께 고려해 다양한 환경에서 읽기 쉽고 유지보수하기 좋은 화면을 만듭니다.\n키보드 탐색, 스크린 리더 호환, 명도 대비 기준을 실제 작업에 적용하며, 표준을 지킨 마크업이 결국 더 안정적인 서비스를 만든다고 믿습니다.",
   },
   {
     title: "Clean Code",
-    icon: Code2,
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=600",
-    desc: "기존 코드의 구조를 분석하고 가독성과 재사용성을 높이는 방향으로 개선합니다. SCSS 모듈화와 컴포넌트 분리를 통해 유지보수하기 쉬운 코드베이스를 만들어갑니다.",
+    summary: "구조를 정리하고 재사용성을 높여 오래 관리할 수 있게 만듭니다.",
+    detail:
+      "기존 코드의 흐름을 빠르게 파악하고, 반복되는 UI와 스타일을 분리해 가독성과 확장성을 높이는 방향으로 개선합니다.\n컴포넌트 단위 설계와 커스텀 훅 분리를 통해 변경에 강하고 읽기 쉬운 구조를 유지하며, 기술 부채를 남기지 않는 습관을 만들어가고 있습니다.",
   },
   {
     title: "Collaboration",
-    icon: Users2,
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800&h=600",
-    desc: "Github 와 Notion을 이용하여 팀 프로젝트를 진행한 경험이 있습니다. 기획, 디자인, 개발과의 협업을 통한 경험으로 다른 직군과 원활한 커뮤니케이션이 가능합니다.",
+    summary: "기획, 디자인, 개발 사이를 잇는 커뮤니케이션에 익숙합니다.",
+    detail:
+      "GitHub와 Notion 기반 협업 경험을 바탕으로 요구사항을 빠르게 정리하고, 다른 직군과의 작업 흐름을 자연스럽게 연결합니다.\n디자이너의 의도를 코드로 정확히 옮기고, 기획 단계에서 구현 가능 여부를 먼저 확인하는 방식으로 불필요한 수정 비용을 줄입니다.",
   },
 ];
 
@@ -101,7 +96,7 @@ export const profileInfo = {
 export const keywords = ["Teamwork", "Creative", "Growing"];
 
 export const allProjects = [
-  ...workData.map((work, index) => ({
+  ...workData.map((work) => ({
     id: work.id,
     title: work.title,
     period: work.period,
@@ -114,19 +109,19 @@ export const allProjects = [
     subImage01: work.subImages01,
     subImage02: work.subImages02,
   })),
-  ...projectsData.map((p, index) => ({
-    id: p.id,
-    title: p.title,
-    description: p.description,
-    period: p.period,
-    role: p.role,
-    techStack: p.techStack ?? [],
-    category: p.category,
-    thumbnail: p.thumbnail,
-    mainImage: p.mainImage,
-    subImage01: p.subImages01,
-    subImage02: p.subImages02,
-    link: `/project/${p.id}`,
+  ...projectsData.map((project) => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    period: project.period,
+    role: project.role,
+    techStack: project.techStack ?? [],
+    category: project.category,
+    thumbnail: project.thumbnail,
+    mainImage: project.mainImage,
+    subImage01: project.subImages01,
+    subImage02: project.subImages02,
+    link: `/project/${project.id}`,
   })),
 ];
 
