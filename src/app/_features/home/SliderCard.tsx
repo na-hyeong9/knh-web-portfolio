@@ -26,10 +26,7 @@ export function SliderCard({
   const direction = Math.sign(offset);
   const visible = absOffset <= 2;
 
-  const x =
-    offset === 0
-      ? "0%"
-      : `${direction * (50 + (absOffset - 1) * 35)}%`;
+  const x = offset === 0 ? "0%" : `${direction * (50 + (absOffset - 1) * 35)}%`;
   const scale = 1 - absOffset * 0.18;
   const opacity = visible ? 1 - absOffset * 0.35 : 0;
   const zIndex = 30 - absOffset * 10;

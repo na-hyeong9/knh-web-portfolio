@@ -29,12 +29,15 @@ export function ProjectsSection() {
       gsap.set(text, { opacity: 0, y: 40 });
       gsap.set(header.children, { opacity: 0, y: 36 });
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top +=50",
-        end: "bottom bottom",
-        pin: content,
-        pinSpacing: false,
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px)", () => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top +=50",
+          end: "bottom bottom",
+          pin: content,
+          pinSpacing: false,
+        });
       });
 
       gsap.to(header.children, {
@@ -117,7 +120,7 @@ export function ProjectsSection() {
         />
       </div>
 
-      <div className="relative z-10 min-h-[200vh]">
+      <div className="relative z-10 lg:min-h-[200vh]">
         <div ref={contentRef} className="flex min-h-screen items-center">
           <div className="container mx-auto w-full px-4 py-16 md:py-32">
             <header
