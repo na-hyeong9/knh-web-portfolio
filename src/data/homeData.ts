@@ -82,7 +82,7 @@ export const portfolioLinks = {
     label: "경력기술서 바로가기",
   },
   pdf: {
-    href: "/files/KimNahyeong_Resume.pdf",
+    href: "/files/KimNahyeong_web_portfolio.pdf",
     label: "PDF 다운받기",
     fileName: "KimNahyeong_web_portfolio.pdf",
   },
