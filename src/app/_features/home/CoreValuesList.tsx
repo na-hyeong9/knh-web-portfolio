@@ -69,14 +69,12 @@ export function CoreValuesList() {
               }
               onFocus={() => setActiveIndex(index)}
               aria-expanded={isActive}
-              className="flex w-full flex-col gap-4 px-5 py-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:px-6 sm:py-6 md:grid md:grid-cols-[minmax(0,220px)_1fr_auto] md:items-center md:gap-6">
+              className="relative flex w-full flex-col gap-4 px-5 py-5 pr-16 text-left outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:px-6 sm:py-6 sm:pr-18 md:grid md:grid-cols-[minmax(0,220px)_1fr_auto] md:items-center md:gap-6 md:pr-6">
               <div className="flex items-center gap-3">
                 <span
                   className={cn(
-                    "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-black transition-colors",
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-[0_0_0_6px_rgba(0,113,227,0.14)]"
-                      : "bg-primary/10 text-primary",
+                    "inline-flex h-9 w-9 shrink-0 items-center justify-center text-xs font-black transition-colors",
+                    isActive ? "text-primary" : "text-muted-foreground",
                   )}>
                   {String(index + 1).padStart(2, "0")}
                 </span>
@@ -91,7 +89,7 @@ export function CoreValuesList() {
 
               <span
                 className={cn(
-                  "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all",
+                  "absolute top-3 right-3 inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all md:static",
                   isActive
                     ? "border-primary/30 bg-primary text-primary-foreground shadow-[0_12px_30px_rgba(0,113,227,0.22)]"
                     : "border-border/80 bg-background text-primary/80",
