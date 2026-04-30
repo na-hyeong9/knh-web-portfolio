@@ -117,12 +117,12 @@ export function AboutSection() {
         </header>
 
         {/* Mobile: stacked grid */}
-        <div className="grid grid-cols-1 gap-6 md:hidden">
+        <div className="grid grid-cols-1 gap-5 md:hidden">
           {coreValues.map((value, i) => (
             <div
               key={i}
-              className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 flex flex-col">
-              <div className="relative aspect-[16/10] overflow-hidden">
+              className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 sm:rounded-[2.5rem]">
+              <div className="relative aspect-[5/4] overflow-hidden sm:aspect-[16/10]">
                 <Image
                   src={value.image}
                   alt={value.title}
@@ -132,18 +132,18 @@ export function AboutSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 {/* 글래스 아이콘 + 제목 뱃지 */}
-                <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
-                  <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
+                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-2.5 backdrop-blur-md sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/20 text-white backdrop-blur-md">
                     <value.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-base font-bold leading-snug text-white sm:text-lg">
                     {value.title}
                   </h3>
                 </div>
               </div>
               {/* 설명 영역 — 글래스 패널 */}
-              <div className="p-6 flex-1 bg-white/5 dark:bg-white/3 backdrop-blur-xl border-t border-white/10">
-                <p className="text-base text-muted-foreground leading-relaxed">
+              <div className="flex-1 border-t border-white/10 bg-white/5 p-5 backdrop-blur-xl dark:bg-white/3 sm:p-6">
+                <p className="break-keep text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {value.desc}
                 </p>
               </div>
