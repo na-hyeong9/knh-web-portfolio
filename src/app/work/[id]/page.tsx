@@ -67,10 +67,9 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
               {work.title}
             </h1>
 
-            <p className="text-2xl font-medium text-muted-foreground">
-              {work.role}
-            </p>
-
+            <Badge className="rounded-full border-none bg-primary/10 px-5.5 py-3.5 text-sm lg:text-lg font-bold text-primary">
+              기여도 {work.contribution}
+            </Badge>
             <div className="grid grid-cols-1 gap-6 border-y py-8 sm:grid-cols-3">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
@@ -104,7 +103,9 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                   <p className="text-xs font-bold uppercase text-muted-foreground">
                     Role
                   </p>
-                  <p className="font-bold">{work.role}</p>
+                  <p className="flex flex-wrap items-center gap-2 font-bold">
+                    {work.role}
+                  </p>
                 </div>
               </div>
             </div>

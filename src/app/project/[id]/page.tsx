@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
+  Briefcase,
   Calendar,
   ExternalLink,
   Github,
   Hash,
   Target,
-  User,
 } from "lucide-react";
 
 import { projectsData } from "@/data/projectsData";
@@ -228,12 +228,10 @@ export default async function ProjectDetailPage({
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-muted-foreground">
-                      <User className="h-4 w-4" />
-                      <span className="text-sm font-medium">Client</span>
+                      <Briefcase className="h-4 w-4" />
+                      <span className="text-sm font-medium">Role</span>
                     </div>
-                    <span className="text-sm font-bold">
-                      Personal / Freelance
-                    </span>
+                    <span className="text-sm font-bold">{project.role}</span>
                   </div>
                 </div>
               </div>

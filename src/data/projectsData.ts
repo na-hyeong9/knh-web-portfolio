@@ -14,6 +14,7 @@ export interface Project {
   title: string;
   description: string;
   period: string;
+  role: string;
   contribution: string;
   techStack: string[];
   thumbnail: string;
@@ -42,6 +43,7 @@ export interface Work {
   company: string;
   period: string;
   role: string;
+  contribution: string;
   achievements: Achievement[];
   techStack: string[];
   thumbnail: string;
@@ -85,6 +87,7 @@ export const projectsData: Project[] = [
     title: "Next.js와 TypeScript로 개발한 웹 포트폴리오",
     description: "나의 포트폴리오 사이트 제작 프로젝트",
     period: "2024.04~",
+    role: "기획 · 디자인 · 프론트엔드 개발",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     thumbnail: "/images/project/portfolio/main.png",
@@ -165,7 +168,8 @@ export const workData: Work[] = [
     title: "중소기업기술마켓 정식플랫폼 구축 사업",
     company: "중소기업기술마켓",
     period: "2025.07 ~ 2025.11",
-    role: "화면 퍼블리싱 (기여도 80%)",
+    role: "화면 퍼블리싱",
+    contribution: "80%",
     achievements: [
       {
         keyword: "협업 기반 마련",
@@ -203,7 +207,8 @@ export const workData: Work[] = [
     title: "현대건설 원전 사업관리 시스템 구축",
     company: "현대건설",
     period: "2025.04 ~ 2025.06",
-    role: "화면 퍼블리싱 (기여도 80%)",
+    role: "화면 퍼블리싱",
+    contribution: "80%",
     achievements: [
       {
         keyword: "버전 관리 체계 구축",
@@ -224,7 +229,7 @@ export const workData: Work[] = [
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
     thumbnail: "/images/work/nova/nova-01.png",
     mainImage: "/images/work/nova/nova-01.png",
-    mainImageCaption: "원전 사업 현황 대시보드 — 공정·일정·예산 통합 관리 화면",
+    mainImageCaption: "원전 사업 현황 대시보드",
     subImages01: [
       "/images/work/nova/nova-02-00.png",
       "/images/work/nova/nova-02-01.png",
@@ -247,7 +252,8 @@ export const workData: Work[] = [
     title: "울주군청 클라우드 네이티브 시스템",
     company: "울주군청",
     period: "2025.03 ~ 2025.04",
-    role: "화면 퍼블리싱 (기여도 100%)",
+    role: "화면 퍼블리싱",
+    contribution: "100%",
     achievements: [
       {
         keyword: "공통 컴포넌트 설계",
@@ -266,7 +272,8 @@ export const workData: Work[] = [
     title: "현대건설 고객센터 시스템 구축",
     company: "현대건설",
     period: "2024.07 ~ 2024.12",
-    role: "화면 퍼블리싱 (기여도 50%)",
+    role: "화면 퍼블리싱",
+    contribution: "50%",
     achievements: [
       {
         keyword: "스타일 가이드 표준화",
@@ -296,7 +303,8 @@ export const workData: Work[] = [
     title: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
     company: "중소기업중앙회",
     period: "2024.05 ~ 2024.06",
-    role: "화면 퍼블리싱 (기여도 100%)",
+    role: "화면 퍼블리싱",
+    contribution: "100%",
     achievements: [
       {
         keyword: "멀티 디바이스 접근성 확보",
@@ -339,7 +347,8 @@ export const workData: Work[] = [
     title: "SC제일은행 웹 접근성 향상 프로젝트",
     company: "SC제일은행",
     period: "2023.10 ~ 2024.02",
-    role: "화면 퍼블리싱 (기여도 30%)",
+    role: "화면 퍼블리싱",
+    contribution: "30%",
     achievements: [
       {
         keyword: "웹 접근성 인증 획득",
@@ -364,12 +373,13 @@ export const workData: Work[] = [
     title: "중소기업중앙회 대고객 시스템 개편",
     company: "중소기업중앙회",
     period: "2023.06 ~ 2023.09",
-    role: "화면 퍼블리싱 (기여도 50%)",
+    role: "화면 퍼블리싱",
+    contribution: "50%",
     achievements: [
       {
         keyword: "117페이지 단독 완료",
         description:
-          "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 및 유지보수를 단독 완료",
+          "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 완료",
       },
       {
         keyword: "모바일 적응형 설계",
