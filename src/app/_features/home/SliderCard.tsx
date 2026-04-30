@@ -49,7 +49,8 @@ export function SliderCard({
             alt={item.title}
             fill
             sizes="(max-width: 1024px) 80vw, 40vw"
-            className="object-cover object-top"
+            draggable={false}
+            className="pointer-events-none select-none object-cover object-top"
             referrerPolicy="no-referrer"
           />
         </div>
