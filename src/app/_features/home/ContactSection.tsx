@@ -65,7 +65,7 @@ export function ContactSection() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="pointer-events-none fixed inset-x-0 top-5 z-[100] flex justify-center px-4">
+            className="pointer-events-none fixed inset-x-0 top-5 z-[9999] flex justify-center px-4">
             <div
               className={`flex w-full max-w-md items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-bold shadow-2xl backdrop-blur-xl ${
                 toast.tone === "success"
@@ -169,7 +169,9 @@ export function ContactSection() {
               <div className="space-y-2">
                 <label htmlFor="contact-tel" className="text-sm font-bold">
                   전화번호{" "}
-                  <span className="font-normal text-muted-foreground">(선택)</span>
+                  <span className="font-normal text-muted-foreground">
+                    (선택)
+                  </span>
                 </label>
                 <input
                   id="contact-tel"
