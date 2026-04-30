@@ -87,7 +87,7 @@ export function AboutSection() {
             <Badge className="glass-button rounded-full border-none px-6 py-1 text-sm font-bold text-primary">
               핵심 역량
             </Badge>
-            <h3 className="text-3xl font-bold md:text-4xl">
+            <h3 className="text-2xl font-bold md:text-4xl">
               유연한 사고 방식을 지향합니다.
             </h3>
           </header>
