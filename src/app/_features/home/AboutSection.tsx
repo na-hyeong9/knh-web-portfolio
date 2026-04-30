@@ -59,7 +59,7 @@ export function AboutSection() {
             scrollTrigger: {
               trigger: coreValuesHeaderRef.current,
               start: "top bottom-=80",
-              toggleActions: "play none none none",
+              toggleActions: "play none none reverse",
             },
             y: 0,
             opacity: 1,
