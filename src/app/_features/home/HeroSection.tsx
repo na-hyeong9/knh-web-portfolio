@@ -44,7 +44,7 @@ export function HeroSection() {
             중요하게 생각합니다.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex w-full flex-col items-stretch gap-3 px-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:px-0">
             <motion.a
               href={portfolioLinks.resume.href}
               target="_blank"
@@ -54,11 +54,11 @@ export function HeroSection() {
                 transition: { duration: 0.1 },
               }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="group inline-flex items-center gap-1 rounded-full border-0 p-0 text-sm font-medium transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:border sm:px-4 sm:py-2 sm:text-base">
+              className="group inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-border bg-background/80 px-4 py-3 text-sm font-medium shadow-sm backdrop-blur-sm transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:w-auto sm:px-4 sm:py-2 sm:text-base">
               <span className="transition-colors group-hover:text-primary">
                 {portfolioLinks.resume.label}
               </span>
-              <ArrowUpRight className="hidden h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:block" />
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </motion.a>
 
             <motion.a
@@ -69,10 +69,10 @@ export function HeroSection() {
                 transition: { duration: 0.1 },
               }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="group inline-flex items-center gap-1 rounded-full border-0 bg-primary p-0 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:border sm:border-primary sm:px-4 sm:py-2 sm:text-base"
+              className="group inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-primary bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:w-auto sm:px-4 sm:py-2 sm:text-base"
               aria-label={`${portfolioLinks.pdf.label} (PDF)`}>
               <span>{portfolioLinks.pdf.label}</span>
-              <Download className="hidden h-4 w-4 transition-transform group-hover:translate-y-0.5 sm:block" />
+              <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
             </motion.a>
           </div>
         </div>
