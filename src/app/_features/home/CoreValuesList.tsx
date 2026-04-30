@@ -26,15 +26,15 @@ export function CoreValuesList() {
       items.forEach((item) => {
         gsap.fromTo(
           item,
-          { opacity: 0, y: 36 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
+            duration: 0.5,
             ease: "power3.out",
             scrollTrigger: {
               trigger: item,
-              start: "top bottom-=80",
+              start: "top bottom-=60",
               toggleActions: "play none none reverse",
             },
           },
@@ -106,7 +106,7 @@ export function CoreValuesList() {
 
             <div
               className={cn(
-                "grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out",
+                "grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out whitespace-pre-line",
                 isActive
                   ? "grid-rows-[1fr] opacity-100"
                   : "grid-rows-[0fr] opacity-0",
@@ -119,7 +119,7 @@ export function CoreValuesList() {
                       ? "border-t border-primary/20"
                       : "border-t border-border/70",
                   )}>
-                  <p className="text-sm leading-7 text-muted-foreground sm:text-base">
+                  <p className="break-keep whitespace-pre-line text-sm leading-7 text-muted-foreground sm:text-base">
                     {value.detail}
                   </p>
                 </div>

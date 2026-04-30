@@ -115,7 +115,7 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
         onClick={(event) => event.stopPropagation()}>
         <button
           onClick={onClose}
-          className="fixed right-5 top-5 z-20 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25"
+          className="fixed right-10 top-7 z-7 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25"
           aria-label="닫기">
           <X className="h-5 w-5 text-white" />
         </button>
@@ -124,14 +124,14 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
           <>
             <button
               onClick={prev}
-              className="absolute -left-10 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              className="absolute -left-20 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               aria-label="이전 이미지">
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <button
               onClick={next}
-              className="absolute -right-10 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              className="absolute -right-20 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               aria-label="다음 이미지">
               <ChevronRight className="h-5 w-5" />
             </button>

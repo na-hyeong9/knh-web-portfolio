@@ -31,7 +31,7 @@ export function AboutSection() {
           },
           y: 60,
           opacity: 0,
-          duration: 1,
+          duration: 0.8,
           ease: "power3.out",
         });
       }
@@ -44,9 +44,9 @@ export function AboutSection() {
             start: "top bottom-=100",
             toggleActions: "play none none reverse",
           },
-          y: 50,
+          y: 60,
           opacity: 0,
-          duration: 1,
+          duration: 0.8,
           ease: "power3.out",
         });
       });
