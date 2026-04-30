@@ -93,6 +93,7 @@ export function Header() {
 
   return (
     <motion.div
+      data-site-header-root="true"
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}

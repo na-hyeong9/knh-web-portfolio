@@ -16,6 +16,7 @@ if (typeof window !== "undefined") {
 
 export function ContactSection() {
   const contactSectionRef = React.useRef<HTMLDivElement>(null);
+  const [toastOffset, setToastOffset] = React.useState(20);
   const { values, isSubmitting, toast, handleChange, handleSubmit } =
     useContactForm();
 
@@ -52,10 +53,34 @@ export function ContactSection() {
     return () => ctx.revert();
   }, []);
 
+  React.useEffect(() => {
+    const updateToastOffset = () => {
+      const header = document.querySelector<HTMLElement>(
+        '[data-site-header-root="true"]',
+      );
+
+      if (!header) {
+        setToastOffset(20);
+        return;
+      }
+
+      const { bottom } = header.getBoundingClientRect();
+      setToastOffset(bottom > 0 ? Math.round(bottom + 12) : 20);
+    };
+
+    updateToastOffset();
+
+    window.addEventListener("resize", updateToastOffset);
+    window.addEventListener("scroll", updateToastOffset, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updateToastOffset);
+      window.removeEventListener("scroll", updateToastOffset);
+    };
+  }, []);
+
   return (
-    <section
-      id="contact"
-      className="relative z-[1] w-full border-t bg-background">
+    <>
       <AnimatePresence>
         {toast ? (
           <motion.div
@@ -65,7 +90,8 @@ export function ContactSection() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="pointer-events-none fixed inset-x-0 top-5 z-[9999] flex justify-center px-4">
+            style={{ top: toastOffset }}
+            className="pointer-events-none fixed inset-x-0 z-[9999] flex justify-center px-4">
             <div
               className={`flex w-full max-w-md items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-bold shadow-2xl backdrop-blur-xl ${
                 toast.tone === "success"
@@ -83,6 +109,9 @@ export function ContactSection() {
         ) : null}
       </AnimatePresence>
 
+      <section
+        id="contact"
+        className="relative z-[1] w-full border-t bg-background">
       <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:py-32">
         <div
           ref={contactSectionRef}
@@ -210,6 +239,7 @@ export function ContactSection() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
