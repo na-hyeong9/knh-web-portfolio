@@ -3,6 +3,7 @@
 import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { allProjects } from "@/data/homeData";
 import { ProjectGrid } from "@/app/_features/home/ProjectGrid";
 
 if (typeof window !== "undefined") {
@@ -14,6 +15,10 @@ export function ProjectsSection() {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const headerRef = React.useRef<HTMLElement>(null);
   const textRef = React.useRef<HTMLSpanElement>(null);
+  const desktopScrollHeight = `${Math.max(
+    200,
+    100 + (allProjects.length - 1) * 34,
+  )}vh`;
 
   React.useEffect(() => {
     const section = sectionRef.current;
@@ -120,7 +125,13 @@ export function ProjectsSection() {
         />
       </div>
 
-      <div className="relative z-10 lg:min-h-[200vh]">
+      <div
+        className="relative z-10 lg:min-h-[var(--projects-scroll-height)]"
+        style={
+          {
+            "--projects-scroll-height": desktopScrollHeight,
+          } as React.CSSProperties
+        }>
         <div ref={contentRef} className="flex min-h-screen items-center">
           <div className="container mx-auto w-full px-4 py-16 md:py-32">
             <header
@@ -132,7 +143,7 @@ export function ProjectsSection() {
               <p className="text-base text-muted-foreground md:text-xl" />
             </header>
 
-            <ProjectGrid />
+            <ProjectGrid sectionRef={sectionRef} />
           </div>
         </div>
       </div>

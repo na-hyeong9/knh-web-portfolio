@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import type { RefObject } from "react";
 import { motion, useMotionValue } from "motion/react";
 import { allProjects } from "@/data/homeData";
 import { Badge } from "@/shared/components/ui/Badge";
@@ -9,43 +10,57 @@ import { SliderCard } from "@/app/_features/home/SliderCard";
 
 const DRAG_THRESHOLD = 50;
 const VELOCITY_THRESHOLD = 300;
-const STORAGE_KEY = "projectGrid:activeId";
 
-export function ProjectGrid() {
+interface ProjectGridProps {
+  sectionRef: RefObject<HTMLElement | null>;
+}
+
+export function ProjectGrid({ sectionRef }: ProjectGridProps) {
   const items = allProjects;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const dragX = useMotionValue(0);
   const draggedRef = React.useRef(false);
-  const skipFirstSaveRef = React.useRef(true);
 
   React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    const savedId = window.sessionStorage.getItem(STORAGE_KEY);
-    if (!savedId) return;
-    const idx = items.findIndex((it) => it.id === savedId);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (idx >= 0) setActiveIndex(idx);
-  }, [items]);
+    const handleScroll = () => {
+      const section = sectionRef.current;
 
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (skipFirstSaveRef.current) {
-      skipFirstSaveRef.current = false;
-      return;
-    }
-    const current = items[activeIndex];
-    if (current) {
-      window.sessionStorage.setItem(STORAGE_KEY, current.id);
-    }
-  }, [activeIndex, items]);
+      if (!section || window.innerWidth < 1024) {
+        return;
+      }
+
+      const maxScroll = section.offsetHeight - window.innerHeight;
+      if (maxScroll <= 0 || draggedRef.current) {
+        return;
+      }
+
+      const currentScroll = window.scrollY - section.offsetTop;
+      const progress = Math.min(Math.max(currentScroll / maxScroll, 0), 1);
+      const nextIndex = Math.round(progress * (items.length - 1));
+
+      setActiveIndex(nextIndex);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [items.length, sectionRef]);
 
   const goTo = (idx: number) => {
-    const next = Math.max(0, Math.min(items.length - 1, idx));
-    setActiveIndex(next);
+    const nextIndex = Math.max(0, Math.min(items.length - 1, idx));
+    setActiveIndex(nextIndex);
   };
 
   const handleActivate = (idx: number) => {
-    if (draggedRef.current) return;
+    if (draggedRef.current) {
+      return;
+    }
+
     goTo(idx);
   };
 
@@ -118,6 +133,33 @@ export function ProjectGrid() {
               onActivate={() => handleActivate(idx)}
             />
           ))}
+
+          <div className="pointer-events-none absolute right-[-0.75rem] top-1/2 hidden -translate-y-1/2 lg:flex xl:right-[-20rem]">
+            <motion.div
+              className="flex items-center justify-center"
+              animate={{ y: [0, 6, 0] }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}>
+              <div className="flex flex-col items-center gap-2 text-foreground/85 dark:text-white/85">
+                <span className="h-3 w-3 rotate-45 border-l-[3px] border-t-[3px] border-current" />
+                <div className="relative flex h-[74px] w-[40px] items-start justify-center rounded-full border-[3px] border-current bg-background/70 pt-3 dark:bg-zinc-950/60">
+                  <motion.span
+                    className="block h-4 w-[3px] rounded-full bg-current"
+                    animate={{ y: [0, 14, 0] }}
+                    transition={{
+                      duration: 1.4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </div>
+                <span className="h-3 w-3 rotate-[225deg] border-l-[3px] border-t-[3px] border-current" />
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>
