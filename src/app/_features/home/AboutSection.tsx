@@ -29,7 +29,7 @@ export function AboutSection() {
             start: "top bottom-=100",
             toggleActions: "play none none reverse",
           },
-          y: 60,
+          y: 40,
           opacity: 0,
           duration: 0.8,
           ease: "power3.out",
@@ -44,7 +44,7 @@ export function AboutSection() {
             start: "top bottom-=100",
             toggleActions: "play none none reverse",
           },
-          y: 60,
+          y: 40,
           opacity: 0,
           duration: 0.8,
           ease: "power3.out",
@@ -65,7 +65,7 @@ export function AboutSection() {
             opacity: 1,
             immediateRender: false,
             duration: 0.8,
-            stagger: 0.15,
+            stagger: 0.14,
             ease: "power3.out",
           },
         );
@@ -98,7 +98,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
           <aside className="lg:col-span-4 lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
             <div ref={profileRef} className="space-y-8">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border shadow-2xl lg:w-100">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border shadow-2xl lg:w-100">
                 <Image
                   src="/images/common/profile.png"
                   alt="Profile"

@@ -32,7 +32,7 @@ export function ProjectsSection() {
 
     const ctx = gsap.context(() => {
       gsap.set(text, { opacity: 0, y: 40 });
-      gsap.set(header.children, { opacity: 0, y: 36 });
+      gsap.set(header.children, { opacity: 0, y: 40 });
 
       const mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
@@ -49,7 +49,7 @@ export function ProjectsSection() {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        stagger: 0.12,
+        stagger: 0.14,
         ease: "power3.out",
         scrollTrigger: {
           trigger: header,

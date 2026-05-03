@@ -26,11 +26,11 @@ export function CoreValuesList() {
       items.forEach((item) => {
         gsap.fromTo(
           item,
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            duration: 0.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: item,

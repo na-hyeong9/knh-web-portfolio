@@ -28,7 +28,7 @@ export function ContactSection() {
       : [];
 
     if (revealTargets.length) {
-      gsap.set(revealTargets, { opacity: 0, y: 50 });
+      gsap.set(revealTargets, { opacity: 0, y: 40 });
     }
 
     const ctx = gsap.context(() => {
@@ -42,7 +42,7 @@ export function ContactSection() {
         },
         opacity: 1,
         y: 0,
-        duration: 0.9,
+        duration: 0.8,
         stagger: 0.14,
         ease: "power3.out",
       });
