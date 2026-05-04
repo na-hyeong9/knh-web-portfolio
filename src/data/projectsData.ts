@@ -109,15 +109,15 @@ export const projectsData: Project[] = [
         items: [
           {
             heading: "컨베이어 벨트 히어로 슬라이드",
-            body: "Framer Motion의 animate API와 CSS transform을 조합해 기술 스택 아이템이 끊김 없이 좌우로 흐르는 무한 루프 슬라이드를 구현했습니다. 두 세트를 연속 배치해 이음매가 보이지 않도록 처리했습니다.",
+            body: "motion의 animate API로 키워드 배열을 4세트 연속 배치한 뒤 x: 0% → -50% 무한 루프를 구현했습니다. 절반만 이동하면 시작점과 동일한 화면이 되기 때문에 이음매 없이 자연스럽게 반복됩니다.",
           },
           {
             heading: "GSAP ScrollTrigger 섹션 등장 애니메이션",
-            body: "각 섹션 진입 시점에 GSAP ScrollTrigger를 사용해 요소가 아래에서 위로 fade-in 되도록 구성했습니다. 핵심역량 카드는 stagger 옵션으로 순차 등장 효과를 주어 시선 흐름을 자연스럽게 유도했습니다.",
+            body: "About·Projects·Contact 전 섹션에 걸쳐 ScrollTrigger reveal 수치를 duration 0.8s / y 40 / stagger 0.14s / ease power3.out으로 통일해 일관된 속도감을 유지했습니다. Projects 섹션은 gsap.matchMedia로 데스크톱에서만 콘텐츠를 pin 고정해 스크롤로 카드를 탐색하도록 구성하고, 배경 워터마크 텍스트는 scrub으로 스크롤 진행에 따라 fade-in·out 되도록 처리했습니다.",
           },
           {
             heading: "마이크로 인터랙션",
-            body: "프로젝트 카드 hover 시 Framer Motion whileHover로 scale 전환을 적용하고, 아코디언 카드는 flex 너비를 애니메이션해 콘텐츠가 자연스럽게 펼쳐지도록 구현했습니다. 스크롤 버튼에는 무한 bouncing 효과를 추가해 액션 유도를 강화했습니다.",
+            body: '히어로 버튼에 whileHover scale, 스크롤 유도 버튼과 프로젝트 슬라이더 인디케이터에 무한 bounce를 적용했습니다. 프로젝트 카드는 spring(stiffness 220 / damping 28)으로 x·scale·opacity·zIndex를 동시에 전환하며, drag="x" 제스처로 스와이프 탐색도 지원합니다. 페이지 전환·라이트박스·토스트 알림은 AnimatePresence로 마운트·언마운트 시 자연스러운 등장·퇴장 효과를 구현했습니다.',
           },
         ],
       },
