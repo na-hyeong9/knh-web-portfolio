@@ -43,7 +43,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
     <MainLayout>
       <div className="container mx-auto max-w-4xl px-4 py-32">
         <HistoryBackButton
-          fallbackHref="/"
+          fallbackHref="/#projects"
           ariaLabel="경력 목록으로 돌아가기"
           className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary">
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
@@ -187,7 +187,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
 
           <div className="pt-12">
             <HistoryBackButton
-              fallbackHref="/"
+              fallbackHref="/#projects"
               ariaLabel="경력 목록으로 돌아가기"
               className={cn(
                 buttonVariants({ size: "lg" }),

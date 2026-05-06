@@ -10,6 +10,8 @@ import { SliderCard } from "@/app/_features/home/SliderCard";
 
 const DRAG_THRESHOLD = 50;
 const VELOCITY_THRESHOLD = 300;
+const ACTIVE_PROJECT_KEY = "projectGrid:activeId";
+const RESTORE_ACTIVE_KEY = "projectGrid:restoreActive";
 
 interface ProjectGridProps {
   sectionRef: RefObject<HTMLElement | null>;
@@ -17,9 +19,79 @@ interface ProjectGridProps {
 
 export function ProjectGrid({ sectionRef }: ProjectGridProps) {
   const items = allProjects;
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = React.useState(() => {
+    if (typeof window === "undefined") {
+      return 0;
+    }
+
+    const savedId = window.sessionStorage.getItem(ACTIVE_PROJECT_KEY);
+    const shouldRestore =
+      window.sessionStorage.getItem(RESTORE_ACTIVE_KEY) === "true";
+
+    if (!savedId || !shouldRestore) {
+      return 0;
+    }
+
+    const savedIndex = items.findIndex((item) => item.id === savedId);
+    return savedIndex >= 0 ? savedIndex : 0;
+  });
   const dragX = useMotionValue(0);
   const draggedRef = React.useRef(false);
+  const isRestoringRef = React.useRef(false);
+
+  React.useEffect(() => {
+    const savedId = window.sessionStorage.getItem(ACTIVE_PROJECT_KEY);
+    const shouldRestore =
+      window.sessionStorage.getItem(RESTORE_ACTIVE_KEY) === "true";
+
+    if (!savedId || !shouldRestore) {
+      window.sessionStorage.removeItem(RESTORE_ACTIVE_KEY);
+      return;
+    }
+
+    const savedIndex = items.findIndex((item) => item.id === savedId);
+
+    if (savedIndex < 0) {
+      window.sessionStorage.removeItem(RESTORE_ACTIVE_KEY);
+      return;
+    }
+
+    isRestoringRef.current = true;
+
+    const scrollToSavedCard = () => {
+      if (window.innerWidth < 1024) {
+        return;
+      }
+
+      const section = sectionRef.current;
+      if (!section) {
+        return;
+      }
+
+      const maxScroll = section.offsetHeight - window.innerHeight;
+      const progress = items.length > 1 ? savedIndex / (items.length - 1) : 0;
+
+      window.scrollTo({
+        top: section.offsetTop + maxScroll * progress,
+        behavior: "auto",
+      });
+    };
+
+    scrollToSavedCard();
+
+    const frameId = window.requestAnimationFrame(scrollToSavedCard);
+    const timeoutId = window.setTimeout(() => {
+      scrollToSavedCard();
+      isRestoringRef.current = false;
+      window.sessionStorage.removeItem(RESTORE_ACTIVE_KEY);
+    }, 180);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.clearTimeout(timeoutId);
+      isRestoringRef.current = false;
+    };
+  }, [items, sectionRef]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +102,7 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
       }
 
       const maxScroll = section.offsetHeight - window.innerHeight;
-      if (maxScroll <= 0 || draggedRef.current) {
+      if (maxScroll <= 0 || draggedRef.current || isRestoringRef.current) {
         return;
       }
 
@@ -54,6 +126,11 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
   const goTo = (idx: number) => {
     const nextIndex = Math.max(0, Math.min(items.length - 1, idx));
     setActiveIndex(nextIndex);
+  };
+
+  const rememberActiveCard = (id: string) => {
+    window.sessionStorage.setItem(ACTIVE_PROJECT_KEY, id);
+    window.sessionStorage.setItem(RESTORE_ACTIVE_KEY, "true");
   };
 
   const handleActivate = (idx: number) => {
@@ -131,6 +208,7 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
               offset={idx - activeIndex}
               isActive={idx === activeIndex}
               onActivate={() => handleActivate(idx)}
+              onOpen={() => rememberActiveCard(item.id)}
             />
           ))}
 

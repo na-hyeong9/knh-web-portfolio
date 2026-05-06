@@ -1,19 +1,19 @@
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import type { ProjectItem } from "@/data/homeData";
 import { Badge } from "@/shared/components/ui/Badge";
 import { cn } from "@/shared/lib/utils";
-import type { ProjectItem } from "@/data/homeData";
 
 interface SliderCardProps {
   item: ProjectItem;
   offset: number;
   isActive: boolean;
   onActivate: () => void;
+  onOpen: () => void;
 }
 
 export function SliderCard({
@@ -21,12 +21,14 @@ export function SliderCard({
   offset,
   isActive,
   onActivate,
+  onOpen,
 }: SliderCardProps) {
   const absOffset = Math.abs(offset);
   const direction = Math.sign(offset);
   const visible = absOffset <= 2;
 
-  const x = offset === 0 ? "0%" : `${direction * (50 + (absOffset - 1) * 35)}%`;
+  const x =
+    offset === 0 ? "0%" : `${direction * (50 + (absOffset - 1) * 35)}%`;
   const scale = 1 - absOffset * 0.18;
   const opacity = visible ? 1 - absOffset * 0.35 : 0;
   const zIndex = 30 - absOffset * 10;
@@ -108,7 +110,8 @@ export function SliderCard({
       {isActive ? (
         <Link
           href={item.link}
-          className="block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2rem]">
+          onClick={onOpen}
+          className="block h-full w-full rounded-[2rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
           {inner}
         </Link>
       ) : (
@@ -116,8 +119,8 @@ export function SliderCard({
           type="button"
           onClick={onActivate}
           tabIndex={visible ? 0 : -1}
-          aria-label={`${item.title} 활성화`}
-          className="block h-full w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-[2rem]">
+          aria-label={`Activate ${item.title}`}
+          className="block h-full w-full rounded-[2rem] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
           {inner}
         </button>
       )}
