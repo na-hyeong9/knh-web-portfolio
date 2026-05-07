@@ -447,6 +447,12 @@ export const certificationData: Certification[] = [
     issuer: "대한상공회의소",
     period: "2020.11",
   },
+  {
+    id: "cert3",
+    name: "2종보통운전면허",
+    issuer: "경찰청(운전면허시험관리단)",
+    period: "2017.05",
+  },
 ];
 
 export const experienceData: Experience[] = [

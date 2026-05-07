@@ -7,7 +7,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CoreValuesList } from "@/app/_features/home/CoreValuesList";
 import { skills, profileInfo } from "@/data/homeData";
-import { educationData, experienceData } from "@/data/projectsData";
+import {
+  certificationData,
+  educationData,
+  experienceData,
+} from "@/data/projectsData";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card, CardContent } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/lib/utils";
@@ -98,12 +102,14 @@ export function AboutSection() {
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
           <aside className="lg:col-span-4 lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
             <div ref={profileRef} className="space-y-8">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border shadow-2xl lg:w-100">
+              <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl border shadow-2xl lg:mx-0 lg:max-w-[25rem]">
                 <Image
                   src="/images/common/profile.png"
                   alt="Profile"
-                  fill
-                  className="object-cover"
+                  width={1107}
+                  height={1421}
+                  priority
+                  className="h-auto w-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -212,6 +218,44 @@ export function AboutSection() {
                           </span>
                           <span className="text-base text-muted-foreground">
                             {edu.major}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="gsap-reveal space-y-8">
+                <h3 className="border-b pb-4 font-display text-3xl font-bold">
+                  Certifications
+                </h3>
+
+                <div className="relative">
+                  <div className="absolute top-2 bottom-0 left-[7px] w-px bg-border" />
+                  <div className="space-y-0">
+                    {certificationData.map((cert, index) => (
+                      <div key={cert.id} className="flex gap-5">
+                        <div className="relative flex shrink-0 flex-col items-center">
+                          <div
+                            className={cn(
+                              "z-10 mt-1 h-[15px] w-[15px] rounded-full border-2 transition-all",
+                              index === 0
+                                ? "border-primary bg-primary shadow-[0_0_8px_2px] shadow-primary/50"
+                                : "border-border bg-background",
+                            )}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5 pb-10">
+                          <span className="text-[11px] font-bold tracking-widest text-muted-foreground uppercase">
+                            {cert.period}
+                          </span>
+                          <span className="text-xl leading-tight font-bold">
+                            {cert.name}
+                          </span>
+                          <span className="text-base text-muted-foreground">
+                            {cert.issuer}
                           </span>
                         </div>
                       </div>
