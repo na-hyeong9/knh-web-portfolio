@@ -358,7 +358,7 @@ export const workData: Work[] = [
       {
         keyword: "웹 접근성 인증 획득",
         description:
-          "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 획득 달성",
+          "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 담당 영역 마크업 개선 완료 및 검수 참여",
       },
       {
         keyword: "시맨틱 마크업 개선",
@@ -370,7 +370,7 @@ export const workData: Work[] = [
     thumbnail: "/images/work/sc/sc-01.png",
     mainImage: "/images/work/sc/sc-01.png",
     mainImageCaption:
-      "SC제일은행 웹 접근성 개선 화면 — KWCAG 2.1 기준 시맨틱 마크업 적용",
+      "SC제일은행 웹 접근성 개선 화면 KWCAG 2.1 기준 시맨틱 마크업 적용",
     link: ["https://www.standardchartered.co.kr/np/kr/Intro.jsp"],
   },
   {
