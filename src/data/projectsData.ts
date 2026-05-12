@@ -200,6 +200,8 @@ export const workData: Work[] = [
       "/images/work/techmk/tech-03.png",
     ],
     subCaption01: "반응형 레이아웃 적용",
+    subImages02: ["/images/work/techmk/tech-04.png"],
+    subCaption02: "스타일 가이드 작성",
     link: ["https://www.techmarket.kr/"],
   },
   {
