@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({
 
   return (
     <MainLayout>
-      <div className="container mx-auto max-w-5xl px-4 py-32">
+      <div className="container mx-auto max-w-5xl px-4 py-16 md:py-24 lg:py-32">
         <HistoryBackButton
           fallbackHref="/#projects"
           ariaLabel="프로젝트 목록으로 돌아가기"

@@ -41,7 +41,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
 
   return (
     <MainLayout>
-      <div className="container mx-auto max-w-4xl px-4 py-32">
+      <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24 lg:py-32">
         <HistoryBackButton
           fallbackHref="/#projects"
           ariaLabel="경력 목록으로 돌아가기"

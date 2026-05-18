@@ -83,7 +83,7 @@ export function AboutSection() {
     <section
       id="about"
       className="relative z-[1] w-full border-t bg-background">
-      <div className="container mx-auto px-4 py-32">
+      <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 xl:px-20">
         <div className="mb-24 space-y-8">
           <header
             ref={coreValuesHeaderRef}

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import type { RefObject } from "react";
-import { motion, useMotionValue } from "motion/react";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { allProjects } from "@/data/homeData";
 import { Badge } from "@/shared/components/ui/Badge";
 import { cn } from "@/shared/lib/utils";
@@ -35,9 +35,20 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
     const savedIndex = items.findIndex((item) => item.id === savedId);
     return savedIndex >= 0 ? savedIndex : 0;
   });
+
   const dragX = useMotionValue(0);
+  // 애니메이션 전용 motion value — React 리렌더 없이 Framer Motion 내부에서 직접 처리
+  const activeIndexMV = useMotionValue(activeIndex);
+  const activeIndexSpring = useSpring(activeIndexMV, {
+    stiffness: 220,
+    damping: 28,
+  });
+
   const draggedRef = React.useRef(false);
   const isRestoringRef = React.useRef(false);
+  const rafRef = React.useRef<number | null>(null);
+  // DOM 측정값 캐시 — 스크롤마다 offsetTop/offsetHeight 재계산 방지
+  const metricsRef = React.useRef({ top: 0, height: 0 });
 
   React.useEffect(() => {
     const savedId = window.sessionStorage.getItem(ACTIVE_PROJECT_KEY);
@@ -94,52 +105,84 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
   }, [items, sectionRef]);
 
   React.useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
+    const section = sectionRef.current;
+    if (!section) return;
 
-      if (!section || window.innerWidth < 1024) {
+    const updateMetrics = () => {
+      metricsRef.current = {
+        top: section.offsetTop,
+        height: section.offsetHeight,
+      };
+    };
+
+    const tick = () => {
+      rafRef.current = null;
+      if (window.innerWidth < 1024) return;
+
+      const { top, height } = metricsRef.current;
+      const maxScroll = height - window.innerHeight;
+      if (maxScroll <= 0 || draggedRef.current || isRestoringRef.current)
         return;
-      }
 
-      const maxScroll = section.offsetHeight - window.innerHeight;
-      if (maxScroll <= 0 || draggedRef.current || isRestoringRef.current) {
-        return;
-      }
-
-      const currentScroll = window.scrollY - section.offsetTop;
+      const currentScroll = window.scrollY - top;
       const progress = Math.min(Math.max(currentScroll / maxScroll, 0), 1);
       const nextIndex = Math.round(progress * (items.length - 1));
 
-      setActiveIndex(nextIndex);
+      // 애니메이션은 motion value로 즉시 반영 (React 리렌더 불필요)
+      activeIndexMV.set(nextIndex);
+      // sidebar 활성 상태는 React state로 업데이트 (변경 시에만)
+      setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex));
     };
 
-    handleScroll();
+    const handleScroll = () => {
+      if (rafRef.current !== null) return; // 이미 예약된 프레임 있으면 스킵
+      rafRef.current = window.requestAnimationFrame(tick);
+    };
+
+    const handleResize = () => {
+      updateMetrics();
+      window.requestAnimationFrame(tick);
+    };
+
+    updateMetrics();
+    tick();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [items.length, sectionRef]);
+  }, [items.length, sectionRef, activeIndexMV]);
 
-  const goTo = (idx: number) => {
-    const nextIndex = Math.max(0, Math.min(items.length - 1, idx));
-    setActiveIndex(nextIndex);
-  };
+  const goTo = React.useCallback(
+    (idx: number) => {
+      const nextIndex = Math.max(0, Math.min(items.length - 1, idx));
+      activeIndexMV.set(nextIndex);
+      setActiveIndex(nextIndex);
+    },
+    [items.length, activeIndexMV],
+  );
 
-  const rememberActiveCard = (id: string) => {
+  const rememberActiveCard = React.useCallback((id: string) => {
     window.sessionStorage.setItem(ACTIVE_PROJECT_KEY, id);
     window.sessionStorage.setItem(RESTORE_ACTIVE_KEY, "true");
-  };
+  }, []);
 
-  const handleActivate = (idx: number) => {
-    if (draggedRef.current) {
-      return;
-    }
-
-    goTo(idx);
-  };
+  const handleActivate = React.useCallback(
+    (idx: number) => {
+      if (draggedRef.current) {
+        return;
+      }
+      goTo(idx);
+    },
+    [goTo],
+  );
 
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-7 lg:gap-12 m-auto">
@@ -178,9 +221,9 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
         </ul>
       </aside>
 
-      <div className="lg:col-span-5">
+      <div className="overflow-hidden lg:col-span-5">
         <motion.div
-          className="relative flex h-[440px] cursor-grab touch-pan-y select-none items-center justify-center active:cursor-grabbing sm:h-[500px] md:h-[560px]"
+          className="relative flex h-[300px] cursor-grab touch-pan-y select-none items-center justify-center active:cursor-grabbing sm:h-[400px] md:h-[460px] lg:h-[480px]"
           style={{ x: dragX }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
@@ -195,7 +238,7 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
               Math.abs(velocity.x) > VELOCITY_THRESHOLD;
             if (swipe) {
               const dir = offset.x < 0 ? 1 : -1;
-              goTo(activeIndex + dir);
+              goTo(Math.round(activeIndexMV.get()) + dir);
             }
             window.setTimeout(() => {
               draggedRef.current = false;
@@ -205,10 +248,11 @@ export function ProjectGrid({ sectionRef }: ProjectGridProps) {
             <SliderCard
               key={item.id}
               item={item}
-              offset={idx - activeIndex}
+              idx={idx}
+              activeIndexSpring={activeIndexSpring}
               isActive={idx === activeIndex}
-              onActivate={() => handleActivate(idx)}
-              onOpen={() => rememberActiveCard(item.id)}
+              onActivate={handleActivate}
+              onOpen={rememberActiveCard}
             />
           ))}
 

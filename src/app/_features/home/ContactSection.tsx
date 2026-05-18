@@ -54,28 +54,39 @@ export function ContactSection() {
   }, []);
 
   React.useEffect(() => {
-    const updateToastOffset = () => {
-      const header = document.querySelector<HTMLElement>(
-        '[data-site-header-root="true"]',
-      );
+    // header 요소는 한 번만 쿼리 — scroll마다 DOM 탐색 방지
+    const header = document.querySelector<HTMLElement>(
+      '[data-site-header-root="true"]',
+    );
 
+    const updateToastOffset = () => {
       if (!header) {
         setToastOffset(20);
         return;
       }
-
       const { bottom } = header.getBoundingClientRect();
       setToastOffset(bottom > 0 ? Math.round(bottom + 20) : 20);
     };
 
     updateToastOffset();
 
+    // getBoundingClientRect를 rAF 내에서만 호출 — 강제 동기 레이아웃 방지
+    let rafId: number | null = null;
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        updateToastOffset();
+      });
+    };
+
     window.addEventListener("resize", updateToastOffset);
-    window.addEventListener("scroll", updateToastOffset, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
       window.removeEventListener("resize", updateToastOffset);
-      window.removeEventListener("scroll", updateToastOffset);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -112,7 +123,7 @@ export function ContactSection() {
       <section
         id="contact"
         className="relative z-[1] w-full border-t bg-background">
-        <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+        <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 md:py-32 xl:px-20">
           <div
             ref={contactSectionRef}
             className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -121,7 +132,7 @@ export function ContactSection() {
                 <Badge className="glass-button rounded-full border-none px-4 py-1 text-sm font-bold text-primary sm:px-6">
                   Contact
                 </Badge>
-                <h2 className="text-3xl leading-tight font-bold tracking-tight sm:text-4xl md:text-6xl">
+                <h2 className="text-2xl leading-tight font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                   함께 성장할
                   <br />
                   <span className="text-primary">기회를 찾고 있습니다.</span>

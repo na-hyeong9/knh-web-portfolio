@@ -23,18 +23,18 @@ export function HeroSection() {
         <ConveyorBelt />
       </div>
 
-      <div className="container mx-auto mt-10 flex flex-col items-center gap-10 px-1 sm:mt-14 sm:gap-12">
+      <div className="container mx-auto mt-10 flex flex-col items-center gap-10 px-4 sm:mt-14 sm:gap-12 sm:px-6 xl:px-20">
         <div
           ref={heroTitleRef}
           className="flex max-w-5xl flex-col items-center space-y-5 text-center sm:items-start sm:space-y-6 sm:text-left">
           <div className="relative inline-block">
-            <h1 className="text-4xl font-display font-bold leading-[1.1] tracking-tighter sm:text-5xl lg:text-6xl">
+            <h1 className="text-3xl font-display font-bold leading-[1.1] tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
               Web Publisher & <br />
               <span className="text-primary">Frontend Developer</span>
             </h1>
           </div>
 
-          <p className="mx-auto flex max-w-2xl flex-col px-4 font-medium leading-relaxed sm:block sm:text-lg md:px-0 md:text-xl lg:text-2xl">
+          <p className="mx-auto flex max-w-2xl flex-col px-2 font-medium leading-relaxed sm:block sm:px-0 sm:text-base md:text-lg lg:text-xl">
             안녕하세요, 꾸준한 성장을 지향하는 웹 퍼블리셔 김나형입니다.
             <span className="mt-5 block md:mt-4" />
             사용성과 접근성을 기반으로 직관적인 인터페이스를 만드는 일을 즐기며,

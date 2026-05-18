@@ -213,7 +213,7 @@ export function ProjectImage({
     <>
       <div className="space-y-3">
         <div
-          className={`relative h-[500px] overflow-hidden border shadow-xl group/img cursor-zoom-in ${className}`}>
+          className={`relative h-[220px] overflow-hidden border shadow-xl group/img cursor-zoom-in sm:h-[320px] md:h-[500px] ${className}`}>
           <Image
             src={src}
             alt={alt}
