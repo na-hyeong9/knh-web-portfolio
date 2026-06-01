@@ -91,7 +91,7 @@ export function ProjectsSection() {
         />
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 flex min-h-screen items-center">
         <div className="container mx-auto w-full px-4 py-16 md:py-20 xl:px-20">
           <header
             ref={headerRef}

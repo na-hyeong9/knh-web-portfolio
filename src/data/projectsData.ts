@@ -405,8 +405,7 @@ export const workData: Work[] = [
     mainImageCaption:
       "4개 브랜드 사이트를 동시에 개편하는 대규모 프로젝트로 기획, 디자인, 개발 파트와 함께 애자일 방식으로 팀과 협업했습니다. 프로젝트 초기 세팅부터 참여해 구조를 익힐 수 있었으며, jQuery 기반 인터랙션과 Swiper.js를 활용한 캐러셀 컴포넌트를 구현했습니다.",
     subImages01: ["/images/work/kbiz/kbiz-02.png"],
-    subCaption01:
-      "디바이스별 최적화된 적응형 페이지 하드코딩하여 구현하였습니다.",
+    subCaption01: "디바이스별 최적화된 적응형 페이지",
     link: [
       "https://www.kbiz.or.kr/ko/index/index.do",
       "https://www.8899.or.kr/yuma/index.do",
