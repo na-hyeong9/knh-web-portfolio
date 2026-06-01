@@ -3,7 +3,6 @@
 import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { allProjects } from "@/data/homeData";
 import { ProjectGrid } from "@/app/_features/home/ProjectGrid";
 
 if (typeof window !== "undefined") {
@@ -12,38 +11,19 @@ if (typeof window !== "undefined") {
 
 export function ProjectsSection() {
   const sectionRef = React.useRef<HTMLElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
   const headerRef = React.useRef<HTMLElement>(null);
   const textRef = React.useRef<HTMLSpanElement>(null);
-  const desktopScrollHeight = `${Math.max(
-    200,
-    100 + (allProjects.length - 1) * 34,
-  )}vh`;
 
   React.useEffect(() => {
     const section = sectionRef.current;
-    const content = contentRef.current;
     const header = headerRef.current;
     const text = textRef.current;
 
-    if (!section || !content || !header || !text) {
-      return;
-    }
+    if (!section || !header || !text) return;
 
     const ctx = gsap.context(() => {
       gsap.set(text, { opacity: 0, y: 40 });
       gsap.set(header.children, { opacity: 0, y: 40 });
-
-      const mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px)", () => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top top",
-          end: "bottom bottom",
-          pin: content,
-          pinSpacing: false,
-        });
-      });
 
       gsap.to(header.children, {
         opacity: 1,
@@ -67,22 +47,8 @@ export function ProjectsSection() {
             scrub: true,
           },
         })
-        .to(text, {
-          opacity: 1,
-          y: 0,
-          ease: "none",
-          duration: 0.35,
-        })
-        .to(
-          text,
-          {
-            opacity: 0,
-            y: -40,
-            ease: "none",
-            duration: 0.25,
-          },
-          0.75,
-        );
+        .to(text, { opacity: 1, y: 0, ease: "none", duration: 0.35 })
+        .to(text, { opacity: 0, y: -40, ease: "none", duration: 0.25 }, 0.75);
     }, section);
 
     return () => ctx.revert();
@@ -125,26 +91,18 @@ export function ProjectsSection() {
         />
       </div>
 
-      <div
-        className="relative z-10 lg:min-h-[var(--projects-scroll-height)]"
-        style={
-          {
-            "--projects-scroll-height": desktopScrollHeight,
-          } as React.CSSProperties
-        }>
-        <div ref={contentRef} className="flex min-h-screen items-center">
-          <div className="container mx-auto w-full px-4 py-8 md:py-10 lg:py-6 xl:px-20">
-            <header
-              ref={headerRef}
-              className="mx-auto mb-6 max-w-3xl space-y-4 text-center md:mb-10 lg:mb-8">
-              <h2 className="font-display text-2xl font-bold sm:text-4xl md:text-5xl">
-                Projects
-              </h2>
-              <p className="text-base text-muted-foreground md:text-xl" />
-            </header>
+      <div className="relative z-10">
+        <div className="container mx-auto w-full px-4 py-16 md:py-20 xl:px-20">
+          <header
+            ref={headerRef}
+            className="mx-auto mb-6 max-w-3xl space-y-4 text-center md:mb-10 lg:mb-8">
+            <h2 className="font-display text-2xl font-bold sm:text-4xl md:text-5xl">
+              Projects
+            </h2>
+            <p className="text-base text-muted-foreground md:text-xl" />
+          </header>
 
-            <ProjectGrid sectionRef={sectionRef} />
-          </div>
+          <ProjectGrid />
         </div>
       </div>
     </section>
