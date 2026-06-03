@@ -86,7 +86,7 @@ export const projectsData: Project[] = [
     id: "1",
     title: "Next.js와 TypeScript로 개발한 웹 포트폴리오",
     description: "나의 포트폴리오 사이트 제작 프로젝트",
-    period: "2024.04~",
+    period: "2026.04~",
     role: "기획 · 디자인 · 프론트엔드 개발",
     contribution: "100%",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
