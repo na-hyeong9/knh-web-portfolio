@@ -49,7 +49,8 @@ export default async function ProjectDetailPage({
         <HistoryBackButton
           fallbackHref="/#projects"
           ariaLabel="프로젝트 목록으로 돌아가기"
-          className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary">
+          className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary"
+        >
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to Projects
         </HistoryBackButton>
@@ -67,7 +68,7 @@ export default async function ProjectDetailPage({
               ))}
             </div>
 
-            <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="font-display text-2xl font-bold tracking-tight md:text-4xl">
               {project.title}
             </h1>
 
@@ -84,7 +85,8 @@ export default async function ProjectDetailPage({
                   className={cn(
                     buttonVariants({ variant: "default", size: "lg" }),
                     "rounded-full shadow-lg",
-                  )}>
+                  )}
+                >
                   <Github className="mr-2 h-5 w-5" />
                   GitHub Repository
                 </a>
@@ -98,7 +100,8 @@ export default async function ProjectDetailPage({
                   className={cn(
                     buttonVariants({ variant: "outline", size: "lg" }),
                     "rounded-full bg-white/50 shadow-sm backdrop-blur-sm",
-                  )}>
+                  )}
+                >
                   <ExternalLink className="mr-2 h-5 w-5" />
                   Live Demo
                 </a>
@@ -115,7 +118,8 @@ export default async function ProjectDetailPage({
                     <li key={section.id}>
                       <a
                         href={`#${section.id}`}
-                        className="group flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary">
+                        className="group flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
+                      >
                         <span className="text-xs font-bold tabular-nums text-primary/60">
                           {String(index + 1).padStart(2, "0")}
                         </span>
@@ -131,7 +135,8 @@ export default async function ProjectDetailPage({
                 <section
                   key={section.id}
                   id={section.id}
-                  className="scroll-mt-24 space-y-6">
+                  className="scroll-mt-24 space-y-6"
+                >
                   <h2 className="flex items-center gap-3 border-b pb-4 text-2xl font-bold">
                     <span className="text-base font-bold tabular-nums text-primary/60">
                       {String(index + 1).padStart(2, "0")}
@@ -142,7 +147,8 @@ export default async function ProjectDetailPage({
                     {section.items.map((item) => (
                       <div
                         key={item.heading}
-                        className="rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20">
+                        className="rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20"
+                      >
                         <h3 className="mb-2 font-bold text-foreground">
                           {item.heading}
                         </h3>
@@ -244,7 +250,8 @@ export default async function ProjectDetailPage({
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "rounded-full px-8",
-              )}>
+              )}
+            >
               프로젝트 목록으로 돌아가기
             </HistoryBackButton>
           </div>

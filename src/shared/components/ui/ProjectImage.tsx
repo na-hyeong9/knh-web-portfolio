@@ -105,18 +105,21 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-      onClick={onClose}>
+      onClick={onClose}
+    >
       <motion.div
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
         transition={{ type: "spring", damping: 28, stiffness: 320 }}
         className="relative w-full max-w-[1280px]"
-        onClick={(event) => event.stopPropagation()}>
+        onClick={(event) => event.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="fixed right-10 top-7 z-7 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25"
-          aria-label="닫기">
+          className="fixed right-4 top-4 z-50 rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/25 sm:right-6 sm:top-6 md:right-10 md:top-7"
+          aria-label="닫기"
+        >
           <X className="h-5 w-5 text-white" />
         </button>
 
@@ -125,14 +128,16 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
             <button
               onClick={prev}
               className="absolute -left-20 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
-              aria-label="이전 이미지">
+              aria-label="이전 이미지"
+            >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <button
               onClick={next}
               className="absolute -right-20 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
-              aria-label="다음 이미지">
+              aria-label="다음 이미지"
+            >
               <ChevronRight className="h-5 w-5" />
             </button>
           </>
@@ -144,7 +149,8 @@ function Lightbox({ images, alt, initialIndex, onClose }: LightboxProps) {
           onPointerUp={handlePointerUp}
           onPointerCancel={() => {
             pointerStartX.current = null;
-          }}>
+          }}
+        >
           <div className="mx-auto w-fit max-w-[1280px]">
             <Image
               key={images[current]}
@@ -213,7 +219,8 @@ export function ProjectImage({
     <>
       <div className="space-y-3">
         <div
-          className={`relative h-[220px] overflow-hidden border shadow-xl group/img cursor-zoom-in sm:h-[320px] md:h-[500px] ${className}`}>
+          className={`relative h-[220px] overflow-hidden border shadow-xl group/img cursor-zoom-in sm:h-[320px] md:h-[500px] ${className}`}
+        >
           <Image
             src={src}
             alt={alt}
@@ -225,7 +232,8 @@ export function ProjectImage({
           <button
             onClick={() => setOpen(true)}
             className="absolute inset-0 flex items-end justify-end bg-black/0 p-4 transition-all group-hover/img:bg-black/20"
-            aria-label="이미지 크게 보기">
+            aria-label="이미지 크게 보기"
+          >
             <div className="flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-xs font-bold text-white opacity-0 transition-opacity group-hover/img:opacity-100">
               <ZoomIn className="h-3.5 w-3.5" />
               이미지 크게 보기
@@ -233,7 +241,7 @@ export function ProjectImage({
           </button>
         </div>
         {caption ? (
-          <p className="flex justify-center p-4 text-sm font-medium text-muted-foreground lg:text-md">
+          <p className="flex justify-center px-4 text-sm font-medium text-muted-foreground lg:text-md">
             {caption}
           </p>
         ) : null}

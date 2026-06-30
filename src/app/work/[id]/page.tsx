@@ -45,7 +45,8 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
         <HistoryBackButton
           fallbackHref="/#projects"
           ariaLabel="경력 목록으로 돌아가기"
-          className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary">
+          className="group mb-12 inline-flex items-center text-muted-foreground transition-colors hover:text-primary"
+        >
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to Work
         </HistoryBackButton>
@@ -63,7 +64,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
               ))}
             </div>
 
-            <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="font-display text-2xl font-bold tracking-tight md:text-4xl">
               {work.title}
             </h1>
 
@@ -121,7 +122,8 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                    >
                       <ExternalLink className="h-4 w-4 shrink-0" />
                       {url}
                     </a>
@@ -137,7 +139,8 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
               {work.achievements.map((achievement, index) => (
                 <li
                   key={`${work.id}-${index}`}
-                  className="flex gap-4 rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20">
+                  className="flex gap-4 rounded-3xl border border-transparent bg-secondary/20 p-6 transition-colors hover:border-primary/20"
+                >
                   <span className="text-xl font-black text-primary">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -192,7 +195,8 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "rounded-full px-8",
-              )}>
+              )}
+            >
               목록으로 돌아가기
             </HistoryBackButton>
           </div>

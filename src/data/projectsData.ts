@@ -56,30 +56,6 @@ export interface Work {
   link?: string[];
 }
 
-export interface Education {
-  id: string;
-  school: string;
-  period: string;
-  major: string;
-}
-
-export interface Certification {
-  id: string;
-  name: string;
-  issuer: string;
-  period: string;
-}
-
-export interface Experience {
-  id: string;
-  company: string;
-  rank: string;
-  position: string;
-  role: string;
-  team: string;
-  period: string;
-}
-
 // 개인 프로젝트
 export const projectsData: Project[] = [
   {
@@ -200,8 +176,6 @@ export const workData: Work[] = [
       "/images/work/techmk/tech-03.png",
     ],
     subCaption01: "반응형 레이아웃 적용",
-    subImages02: ["/images/work/techmk/tech-04.png"],
-    subCaption02: "스타일 가이드 작성",
     link: ["https://www.techmarket.kr/"],
   },
   {
@@ -239,7 +213,7 @@ export const workData: Work[] = [
       "/images/work/nova/nova-02-03.png",
       "/images/work/nova/nova-02-04.png",
     ],
-    subCaption01: "공통 컴포넌트 라이브러리 — 재사용 UI 모듈 15종 구현",
+    subCaption01: "재사용 UI 모듈 15종 구현",
     subImages02: [
       "/images/work/nova/nova-03-01.png",
       "/images/work/nova/nova-03-02.png",
@@ -266,8 +240,7 @@ export const workData: Work[] = [
     techStack: ["React", "Git"],
     thumbnail: "/images/work/uj/uj-01.png",
     mainImage: "/images/work/uj/uj-01.png",
-    mainImageCaption:
-      "클라우드 네이티브 행정 시스템 메인 화면 — 통합 업무 포털",
+    mainImageCaption: "클라우드 네이티브 행정 시스템 메인 화면",
   },
   {
     id: "exp4",
@@ -297,13 +270,6 @@ export const workData: Work[] = [
     thumbnail: "/images/work/hicc/hicc-01.png",
     mainImage: "/images/work/hicc/hicc-01.png",
     mainImageCaption: "Vue.js 반응형 레이아웃 고객센터 메인 화면",
-    subImages01: [
-      "/images/work/hicc/hicc-02-00.png",
-      "/images/work/hicc/hicc-02-01.png",
-      "/images/work/hicc/hicc-02-02.png",
-      "/images/work/hicc/hicc-02-03.png",
-    ],
-    subCaption01: "SCSS 스타일 가이드 기반 공통 컴포넌트",
   },
   {
     id: "exp5",
@@ -411,68 +377,5 @@ export const workData: Work[] = [
       "https://www.8899.or.kr/yuma/index.do",
       "https://www.8899.or.kr/wlfr/index.do",
     ],
-  },
-];
-
-export const educationData: Education[] = [
-  {
-    id: "edu1",
-    school: "[멀티잇]풀스택 개발자 취업캠프(Python)",
-    period: "2022.07 ~ 2022.12",
-    major: "django 기반 풀스택 웹 개발 (수료)",
-  },
-  {
-    id: "edu2",
-    school: "호서대학교",
-    period: "2014.03 ~ 2018.02",
-    major: "글로벌창업전공 (졸업)",
-  },
-  {
-    id: "edu3",
-    school: "영등포여자고등학교",
-    period: "2011.03 ~ 2014.02",
-    major: "졸업",
-  },
-];
-
-export const certificationData: Certification[] = [
-  {
-    id: "cert1",
-    name: "정보처리기사",
-    issuer: "한국산업인력공단",
-    period: "2022.11",
-  },
-  {
-    id: "cert2",
-    name: "컴퓨터활용능력 2급",
-    issuer: "대한상공회의소",
-    period: "2020.11",
-  },
-  {
-    id: "cert3",
-    name: "2종보통운전면허",
-    issuer: "경찰청(운전면허시험관리단)",
-    period: "2017.05",
-  },
-];
-
-export const experienceData: Experience[] = [
-  {
-    id: "exp1",
-    company: "(주)시아나",
-    rank: "대리",
-    position: "팀원",
-    role: "웹 퍼블리셔",
-    team: "Front-end팀",
-    period: "2023.06 ~ 2025.12",
-  },
-  {
-    id: "exp2",
-    company: "(주)오티씨",
-    rank: "주임",
-    position: "팀원",
-    role: "GIS 전산처리 및 공사 정산 업무",
-    team: "유선망구축",
-    period: "2018. 05 ~ 2022. 06",
   },
 ];

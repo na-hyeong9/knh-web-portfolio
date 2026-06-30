@@ -10,6 +10,7 @@ import { SliderCard } from "@/app/_features/home/SliderCard";
 
 const DRAG_THRESHOLD = 50;
 const VELOCITY_THRESHOLD = 300;
+const STORAGE_KEY = "projectGrid:activeIndex";
 
 export function ProjectGrid() {
   const items = allProjects;
@@ -29,9 +30,30 @@ export function ProjectGrid() {
       const next = Math.max(0, Math.min(items.length - 1, idx));
       activeIndexMV.set(next);
       setActiveIndex(next);
+      try {
+        sessionStorage.setItem(STORAGE_KEY, String(next));
+      } catch {
+        // sessionStorage 접근 불가 시 무시
+      }
     },
     [items.length, activeIndexMV],
   );
+
+  // 상세 페이지에서 뒤로가기로 돌아왔을 때 마지막으로 선택했던 카드 복원
+  React.useEffect(() => {
+    let saved: number;
+    try {
+      saved = Number(sessionStorage.getItem(STORAGE_KEY));
+    } catch {
+      return;
+    }
+    if (!Number.isInteger(saved) || saved <= 0 || saved > items.length - 1) {
+      return;
+    }
+    activeIndexMV.set(saved);
+    activeIndexSpring.jump(saved); // 애니메이션 없이 즉시 복원
+    setActiveIndex(saved);
+  }, [items.length, activeIndexMV, activeIndexSpring]);
 
   const handleActivate = React.useCallback(
     (idx: number) => {

@@ -40,7 +40,8 @@ export function ImageCarousel({
       <div className="relative overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${current * 100}%)` }}>
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
           {valid.map((src, i) => (
             <div key={src} className="w-full shrink-0">
               <ProjectImage
@@ -57,13 +58,15 @@ export function ImageCarousel({
         <button
           onClick={prev}
           aria-label="이전 이미지"
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
+        >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
           onClick={next}
           aria-label="다음 이미지"
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60">
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
+        >
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
@@ -85,7 +88,7 @@ export function ImageCarousel({
       </div>
 
       {caption && (
-        <p className="flex justify-center text-md lg:text-md text-muted-foreground font-medium px-4">
+        <p className="flex justify-center text-sm lg:text-md text-muted-foreground font-medium px-4">
           {caption}
         </p>
       )}

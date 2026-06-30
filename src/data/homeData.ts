@@ -22,6 +22,30 @@ export interface CoreValue {
   detail: string;
 }
 
+export interface Education {
+  id: string;
+  school: string;
+  period: string;
+  major: string;
+}
+
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  period: string;
+}
+
+export interface Experience {
+  id: string;
+  company: string;
+  rank: string;
+  position: string;
+  role: string;
+  team: string;
+  period: string;
+}
+
 export const coreValues: CoreValue[] = [
   {
     title: "Web Standards",
@@ -127,3 +151,66 @@ export const allProjects = [
 ];
 
 export type ProjectItem = (typeof allProjects)[number];
+
+export const educationData: Education[] = [
+  {
+    id: "edu1",
+    school: "[멀티잇]풀스택 개발자 취업캠프(Python)",
+    period: "2022.07 ~ 2022.12",
+    major: "django 기반 풀스택 웹 개발 (수료)",
+  },
+  {
+    id: "edu2",
+    school: "호서대학교",
+    period: "2014.03 ~ 2018.02",
+    major: "글로벌창업전공 (졸업)",
+  },
+  {
+    id: "edu3",
+    school: "영등포여자고등학교",
+    period: "2011.03 ~ 2014.02",
+    major: "졸업",
+  },
+];
+
+export const certificationData: Certification[] = [
+  {
+    id: "cert1",
+    name: "정보처리기사",
+    issuer: "한국산업인력공단",
+    period: "2022.11",
+  },
+  {
+    id: "cert2",
+    name: "컴퓨터활용능력 2급",
+    issuer: "대한상공회의소",
+    period: "2020.11",
+  },
+  {
+    id: "cert3",
+    name: "2종보통운전면허",
+    issuer: "경찰청(운전면허시험관리단)",
+    period: "2017.05",
+  },
+];
+
+export const experienceData: Experience[] = [
+  {
+    id: "exp1",
+    company: "(주)시아나",
+    rank: "대리",
+    position: "팀원",
+    role: "웹 퍼블리셔",
+    team: "Front-end팀",
+    period: "2023.06 ~ 2025.12",
+  },
+  {
+    id: "exp2",
+    company: "(주)오티씨",
+    rank: "주임",
+    position: "팀원",
+    role: "GIS 전산처리 및 공사 정산 업무",
+    team: "유선망구축",
+    period: "2018. 05 ~ 2022. 06",
+  },
+];

@@ -96,7 +96,7 @@ export function ProjectsSection() {
           <header
             ref={headerRef}
             className="mx-auto mb-6 max-w-3xl space-y-4 text-center md:mb-10 lg:mb-8">
-            <h2 className="font-display text-2xl font-bold sm:text-4xl md:text-5xl">
+            <h2 className="font-display text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
               Projects
             </h2>
             <p className="text-base text-muted-foreground md:text-xl" />

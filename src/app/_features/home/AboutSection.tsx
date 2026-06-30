@@ -6,12 +6,13 @@ import { Github, Mail, MapPin } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CoreValuesList } from "@/app/_features/home/CoreValuesList";
-import { skills, profileInfo } from "@/data/homeData";
 import {
+  skills,
+  profileInfo,
   certificationData,
   educationData,
   experienceData,
-} from "@/data/projectsData";
+} from "@/data/homeData";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card, CardContent } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/lib/utils";
@@ -82,16 +83,18 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative z-[1] w-full border-t bg-background">
+      className="relative z-[1] w-full border-t bg-background"
+    >
       <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 xl:px-20">
         <div className="mb-24 space-y-8">
           <header
             ref={coreValuesHeaderRef}
-            className="mb-12 space-y-4 text-center">
+            className="mb-12 space-y-4 text-center"
+          >
             <Badge className="glass-button rounded-full border-none px-6 py-1 text-sm font-bold text-primary">
               핵심 역량
             </Badge>
-            <h3 className="text-2xl font-bold md:text-4xl">
+            <h3 className="text-2xl font-bold sm:text-3xl md:text-4xl">
               유연한 사고 방식을 지향합니다.
             </h3>
           </header>
@@ -115,13 +118,16 @@ export function AboutSection() {
               </div>
 
               <div className="space-y-4">
-                <h2 className="text-3xl font-bold">{profileInfo.name}</h2>
+                <h2 className="text-2xl font-bold sm:text-3xl">
+                  {profileInfo.name}
+                </h2>
 
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 shrink-0 text-primary" />
                   <a
                     href={`mailto:${profileInfo.email}`}
-                    className="transition-colors hover:text-primary">
+                    className="transition-colors hover:text-primary"
+                  >
                     {profileInfo.email}
                   </a>
                 </div>
@@ -132,7 +138,8 @@ export function AboutSection() {
                     href={profileInfo.github.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="transition-colors hover:text-primary">
+                    className="transition-colors hover:text-primary"
+                  >
                     {profileInfo.github.text}
                   </a>
                 </div>
@@ -148,7 +155,7 @@ export function AboutSection() {
           <main className="m-auto space-y-24 lg:col-span-8">
             <div className="grid grid-cols-1 gap-12">
               <section className="gsap-reveal space-y-8">
-                <h3 className="border-b pb-4 font-display text-3xl font-bold">
+                <h3 className="border-b pb-4 font-display text-2xl font-bold sm:text-3xl">
                   Experience
                 </h3>
 
@@ -189,7 +196,7 @@ export function AboutSection() {
               </section>
 
               <section className="gsap-reveal space-y-8">
-                <h3 className="border-b pb-4 font-display text-3xl font-bold">
+                <h3 className="border-b pb-4 font-display text-2xl font-bold sm:text-3xl">
                   Education
                 </h3>
 
@@ -227,7 +234,7 @@ export function AboutSection() {
               </section>
 
               <section className="gsap-reveal space-y-8">
-                <h3 className="border-b pb-4 font-display text-3xl font-bold">
+                <h3 className="border-b pb-4 font-display text-2xl font-bold sm:text-3xl">
                   Certifications
                 </h3>
 
@@ -266,7 +273,7 @@ export function AboutSection() {
             </div>
 
             <section className="gsap-reveal space-y-8">
-              <h3 className="border-b pb-4 font-display text-3xl font-bold">
+              <h3 className="border-b pb-4 font-display text-2xl font-bold sm:text-3xl">
                 Skills
               </h3>
 
@@ -274,7 +281,8 @@ export function AboutSection() {
                 {skills.map((skill) => (
                   <Card
                     key={skill.name}
-                    className="group rounded-2xl border-none bg-secondary/20 transition-all duration-300 hover:bg-secondary/50">
+                    className="group rounded-2xl border-none bg-secondary/20 transition-all duration-300 hover:bg-secondary/50"
+                  >
                     <CardContent className="flex flex-col items-center justify-center gap-2">
                       <div className="relative h-8 w-8 transition-transform group-hover:scale-110">
                         <Image
