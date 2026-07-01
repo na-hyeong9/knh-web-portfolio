@@ -251,19 +251,19 @@ export const workData: Work[] = [
     contribution: "50%",
     achievements: [
       {
-        keyword: "스타일 가이드 표준화",
+        keyword: "개발 기간 20% 단축",
         description:
-          "반복되는 UI 패턴을 분석해 공통 컴포넌트로 추출하고 SCSS 스타일 가이드를 표준화해 팀 전체 코드 일관성 확보 및 개발 기간 약 20% 단축에 기여",
+          "UI 컴포넌트 모듈화로 반복 마크업을 줄여 개발 기간 약 20% 단축에 기여",
       },
       {
-        keyword: "코드 리뷰 비용 절감",
+        keyword: "코드 컨벤션 문서화",
         description:
-          "스타일 가이드가 없어 팀원마다 코드 스타일이 달랐던 문제를 해결하기 위해 SCSS/SASS 기반 표준 가이드를 수립, 코드 리뷰 비용 절감",
+          "SCSS·JS 코드 컨벤션 문서화 및 Notion 공유로 팀 코드 스타일 통일에 기여",
       },
       {
         keyword: "60본 납기 완료",
         description:
-          "대시보드를 포함한 복잡한 화면 구조를 분석하고 컴포넌트 단위로 분리해 총 60본의 화면을 기한 내 완료",
+          "대시보드 포함 총 60본 화면을 컴포넌트 단위로 분리해 기한 내 구현",
       },
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
