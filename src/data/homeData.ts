@@ -7,6 +7,7 @@ export const skills = [
   { name: "CSS3", icon: "/icons/skills/css3.svg" },
   { name: "Sass", icon: "/icons/skills/sass.svg" },
   { name: "JavaScript", icon: "/icons/skills/javaScript.svg" },
+  { name: "jQuery", icon: "/icons/skills/jQuery.svg" },
   { name: "TypeScript", icon: "/icons/skills/typeScript.svg" },
   { name: "Vuejs", icon: "/icons/skills/vuejs.svg" },
   { name: "React", icon: "/icons/skills/react.svg" },
