@@ -141,30 +141,35 @@ export const projectsData: Project[] = [
 export const workData: Work[] = [
   {
     id: "exp1",
-    title: "중소기업기술마켓 정식플랫폼 구축 사업",
-    company: "중소기업기술마켓",
+    title: "중소기업기술마켓 마켓 정식플랫폼 구축 사업",
+    company: "시아나",
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱",
-    contribution: "80%",
+    contribution: "50%",
     achievements: [
       {
-        keyword: "협업 기반 마련",
+        keyword: "협업 기반 사전 정립",
         description:
-          "버전관리 체계가 없던 초기 환경에서 GitHub 브랜치 전략과 퍼블리싱 환경을 직접 수립해 팀 전체의 협업 기반을 마련",
+          "퍼블리싱 전용 브랜치를 분리하고 커밋 메시지 규칙을 사전에 정립해 팀 협업 기반 마련",
       },
       {
-        keyword: "공통 컴포넌트 모듈화",
+        keyword: "CSS 네이밍 컨벤션 구축",
         description:
-          "반복되는 UI 패턴을 분석해 공통 컴포넌트로 모듈화하고, 화면 전반의 재사용성을 확보해 작업 효율 향상에 기여",
+          "CSS 클래스 네이밍 컨벤션을 구축해 스타일 충돌을 방지하고 유지보수성 확보",
       },
       {
-        keyword: "반응형 퍼블리싱",
+        keyword: "공통 컴포넌트 설계",
         description:
-          "PC·모바일 멀티 디바이스 환경을 고려한 반응형 퍼블리싱을 적용해 다양한 사용자 환경에서의 일관된 UI 제공",
+          "공통 UI 컴포넌트를 설계·모듈화해 화면 전반의 재사용성 확보 및 가이드 구축",
       },
       {
-        keyword: "108본 납기 완료",
-        description: "위 기반 위에서 총 108본 이상의 화면을 기한 내 완료",
+        keyword: "반응형 108페이지 퍼블리싱",
+        description:
+          "반응형 기준(모바일, 태블릿, 웹)을 사전 정의한 뒤 PC·모바일 총 108페이지 화면을 퍼블리싱",
+      },
+      {
+        keyword: "코드 스타일 통일 기여",
+        description: "Notion 공유로 팀 코드 스타일 통일에 기여",
       },
     ],
     techStack: ["HTML", "CSS", "jQuery", "Git"],
@@ -181,25 +186,24 @@ export const workData: Work[] = [
   {
     id: "exp2",
     title: "현대건설 원전 사업관리 시스템 구축",
-    company: "현대건설",
+    company: "시아나",
     period: "2025.04 ~ 2025.06",
     role: "화면 퍼블리싱",
     contribution: "80%",
     achievements: [
       {
-        keyword: "버전 관리 체계 구축",
+        keyword: "IBChart 그러데이션 구현",
         description:
-          "GitHub 기반 버전 관리 체계를 전담 구축하고 퍼블리싱 환경 초기 세팅을 완료해 팀 전체의 협업 및 배포 흐름 확립, BEM 방법론 도입으로 클래스 충돌 방지 및 유지보수성 확보",
+          "IBChart가 미지원하는 그러데이션 스타일을 SVG linearGradient 직접 주입 방식으로 구현하고, 리렌더링 시 커스텀 스타일이 초기화되는 문제를 resize 이벤트 재주입 로직으로 해결",
       },
       {
-        keyword: "대시보드 공통 레이아웃 설계",
+        keyword: "대용량 그리드 커스터마이징",
         description:
-          "시스템 내 반복되는 패널·위젯 레이아웃을 분석해 공통 구조로 통일, 대시보드 화면 전반의 일관성 확보 및 신규 화면 구현 효율 향상",
+          "IBSheet 기반 대용량 그리드 UI를 디자인 가이드에 맞게 커스터마이징",
       },
       {
-        keyword: "대용량 UI 구현 및 성능 최적화",
-        description:
-          "IBSheet·IBChart 기반 대용량 그리드·차트 UI를 구현하고 렌더링 성능을 최적화해 데이터 집약적 화면의 안정적인 동작 확보",
+        keyword: "디렉토리 운영 정의",
+        description: "공통 UI 컴포넌트 기반 디렉토리 구조 설계",
       },
     ],
     techStack: ["HTML", "CSS", "JavaScript", "Git"],
@@ -225,27 +229,57 @@ export const workData: Work[] = [
   },
   {
     id: "exp3",
-    title: "울주군청 클라우드 네이티브 시스템",
-    company: "울주군청",
+    title: "공공기관 클라우드 네이티브 시스템",
+    company: "시아나",
     period: "2025.03 ~ 2025.04",
-    role: "화면 퍼블리싱",
+    role: "컴포넌트 설계",
     contribution: "100%",
     achievements: [
       {
-        keyword: "공통 컴포넌트 설계",
-        description:
-          "화면마다 중복 구현되던 그리드/테이블, 탭, 드롭다운 셀렉트, 통계 카드, 지도 마커/팝업, 바로가기 버튼 패널, 뉴스 리스트 등 15종을 직접 설계·구현, 전체 화면 재사용률 약 70% 달성",
+        keyword: "React 공통 컴포넌트 15종",
+        description: "React 공통 UI 컴포넌트 15종을 설계·구현",
       },
     ],
-    techStack: ["React", "Git"],
+    techStack: ["React", "CSS", "Git"],
     thumbnail: "/images/work/uj/uj-01.png",
     mainImage: "/images/work/uj/uj-01.png",
     mainImageCaption: "클라우드 네이티브 행정 시스템 메인 화면",
   },
   {
+    id: "exp9",
+    title: "현대건설 그로잉투게더 숏폼 콘텐츠",
+    company: "시아나",
+    period: "2024.12 ~ 2025.01",
+    role: "화면 퍼블리싱",
+    contribution: "100%",
+    achievements: [
+      {
+        keyword: "숏폼 UI 디자인 제작",
+        description:
+          "유튜브·네이버 숏폼을 벤치마킹한 뒤 피그마로 UI 디자인을 직접 제작해 콘텐츠 화면을 설계",
+      },
+      {
+        keyword: "노출 비율 기반 자동재생 제어",
+        description:
+          "getBoundingClientRect()로 영상의 뷰포트 노출 비율을 계산해 50% 노출 시 음소거 자동재생, 100% 노출 시 소리 재생되도록 제어",
+      },
+      {
+        keyword: "영상 재생 제어 구현",
+        description: "video.js를 활용해 영상 재생·정지·음소거 제어 기능을 구현",
+      },
+    ],
+    techStack: ["HTML", "CSS", "JavaScript", "Git"],
+    thumbnail: "/images/work/growing/growing-00.png",
+    mainImage: "/images/work/growing/growing-01.gif",
+    mainImageCaption: "숏폼 기능 구현 화면",
+    subImages01: ["/images/work/growing/growing-02.gif"],
+    subCaption01: "웹, 태블릿, 모바일 반응형 사이트",
+    link: ["/demos/growing-together-shorts.html"],
+  },
+  {
     id: "exp4",
     title: "현대건설 고객센터 시스템 구축",
-    company: "현대건설",
+    company: "시아나",
     period: "2024.07 ~ 2024.12",
     role: "화면 퍼블리싱",
     contribution: "50%",
@@ -256,14 +290,8 @@ export const workData: Work[] = [
           "UI 컴포넌트 모듈화로 반복 마크업을 줄여 개발 기간 약 20% 단축에 기여",
       },
       {
-        keyword: "코드 컨벤션 문서화",
-        description:
-          "SCSS·JS 코드 컨벤션 문서화 및 Notion 공유로 팀 코드 스타일 통일에 기여",
-      },
-      {
-        keyword: "60본 납기 완료",
-        description:
-          "대시보드 포함 총 60본 화면을 컴포넌트 단위로 분리해 기한 내 구현",
+        keyword: "60본 화면 구현",
+        description: "대시보드 포함 총 60본 화면 구현",
       },
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
@@ -274,23 +302,18 @@ export const workData: Work[] = [
   {
     id: "exp5",
     title: "중소기업중앙회 통합경영정보시스템 (K-ERP) 기능 고도화",
-    company: "중소기업중앙회",
+    company: "시아나",
     period: "2024.05 ~ 2024.06",
     role: "화면 퍼블리싱",
     contribution: "100%",
     achievements: [
       {
-        keyword: "멀티 디바이스 접근성 확보",
+        keyword: "신규 기능 UI 적용",
         description:
-          "기존 시스템의 UI 구조를 분석해 신규 기능과의 일관성을 유지하면서 적응형 웹·모바일 퍼블리싱을 100% 단독 담당, 멀티 디바이스 접근성 확보",
-      },
-      {
-        keyword: "레거시 스타일 통합",
-        description:
-          "레거시 K-ERP 시스템의 마크업·스타일 패턴을 분석해 신규 컴포넌트를 설계·구현하고 기존 화면에 통합, 기존 UI와의 이질감 없이 기능 고도화 완료",
+          "기존 시스템을 분석한 뒤 신규 기능 UI를 기존 화면과 일관되게 적용",
       },
     ],
-    techStack: ["HTML", "CSS", "jQuery"],
+    techStack: ["HTML", "CSS", "jQuery", "Git"],
     thumbnail: "/images/work/kerp/kbiz-01.png",
     mainImage: "/images/work/kerp/kbiz-01.png",
     mainImageCaption: "K-ERP 통합경영정보 시스템 메인 화면",
@@ -303,69 +326,70 @@ export const workData: Work[] = [
   // {
   //   id: "exp6",
   //   title: "중소기업중앙회 유공자포상 시스템 이관",
+  //   company: "시아나",
   //   period: "2024.04 ~ 2024.05",
   //   role: "화면 퍼블리싱",
+  //   contribution: "100%",
   //   achievements: [
-  //     "이관 전 기존 화면을 정밀 분석해 고객사의 수정 요구사항을 누락 없이 전수 반영, 이관 후 재작업 없이 검수 통과",
-  //     "시스템 이관으로 인한 UI 변경 최소화 원칙 하에 작업해 기존 사용자의 혼란을 줄이고 안정적인 서비스 전환 완료",
+  //     {
+  //       keyword: "화면 이관 및 요구사항 반영",
+  //       description:
+  //         "기존 화면 마크업을 신규 시스템 환경에 맞게 이관하며 고객사 수정 요구사항을 함께 반영, 화면 간 구조·스타일 일관성 유지",
+  //     },
   //   ],
-  //   techStack: ["HTML", "CSS"],
+  //   techStack: ["HTML", "CSS", "Git"],
   //   thumbnail: "",
   //   mainImage: "",
-  //   subImage01: "",
-  //   subImage02: "",
   // },
   {
     id: "exp7",
     title: "SC제일은행 웹 접근성 향상 프로젝트",
-    company: "SC제일은행",
+    company: "시아나",
     period: "2023.10 ~ 2024.02",
     role: "화면 퍼블리싱",
     contribution: "30%",
     achievements: [
       {
-        keyword: "웹 접근성 인증 획득",
+        keyword: "접근성 전수 검수 (약 400페이지)",
         description:
-          "접근성 기준을 충족하지 못했던 금융 서비스의 마크업 전반을 KWCAG 2.1 기준에 맞게 개선하고 전수 검수, 한국웹접근성인증마크(WA) 담당 영역 마크업 개선 완료 및 검수 참여",
+          "기존 화면 약 400페이지에 대해 KWCAG 2.1 기준 준수 여부를 검수(대체텍스트·시맨틱 태그·키보드 접근성 등 항목별 점검)",
       },
       {
-        keyword: "시맨틱 마크업 개선",
+        keyword: "담당 화면 마크업 개선",
+        description: "검수 결과를 바탕으로 담당 화면 마크업 개선 작업 수행",
+      },
+      {
+        keyword: "WA 인증 획득 기여",
         description:
-          "폼 레이블 연결 및 placeholder 단독 사용 제거, 키보드 핸들러(Enter/Space) 적용, 모달 포커스 트랩·열림/닫힘 포커스 이동·aria-modal 처리, 장식 이미지 alt 비움 및 아이콘 버튼 aria-label 부여를 통해 스크린리더·키보드 사용자 환경의 서비스 접근성 확보",
+          "팀 단위 개선 작업 결과 한국웹접근성인증마크(WA) 획득에 기여",
       },
     ],
-    techStack: ["HTML", "CSS"],
+    techStack: ["HTML", "CSS", "Git"],
     thumbnail: "/images/work/sc/sc-01.png",
     mainImage: "/images/work/sc/sc-01.png",
-    mainImageCaption:
-      "SC제일은행 웹 접근성 개선 화면 KWCAG 2.1 기준 시맨틱 마크업 적용",
+    mainImageCaption: "웹 접근성 개선 화면 KWCAG 2.1 기준 시맨틱 마크업 적용",
     link: ["https://www.standardchartered.co.kr/np/kr/Intro.jsp"],
   },
   {
     id: "exp8",
     title: "중소기업중앙회 대고객 시스템 개편",
-    company: "중소기업중앙회",
+    company: "시아나",
     period: "2023.06 ~ 2023.09",
     role: "화면 퍼블리싱",
     contribution: "50%",
     achievements: [
       {
-        keyword: "117페이지 단독 완료",
+        keyword: "모바일 파트 전담",
         description:
-          "개편 범위가 넓고 일정이 촉박한 상황에서 화면 구조를 체계적으로 분류하고 우선순위를 정해 117페이지 퍼블리싱 완료",
+          "전체 프로젝트(PC/모바일) 중 모바일 파트(117페이지) 화면 퍼블리싱 및 유지보수 전담",
       },
       {
-        keyword: "모바일 적응형 설계",
+        keyword: "모바일 전 영역 단독 담당",
         description:
-          "모바일 사용자 비율 증가에 대응해 적응형 모바일 페이지를 설계, 디바이스별 최적화된 사용자 경험 제공",
-      },
-      {
-        keyword: "4개 브랜드 총괄",
-        description:
-          "중소기업중앙회, 노란우산, 노란우산 복지플러스(휴양시설) Mobile 총괄 퍼블리싱 담당 및 PC 퍼블리싱 서포트",
+          "도메인별 역할 분담 구조에서 모바일 전 영역을 단독으로 담당하여 효율적 일정 운용에 기여",
       },
     ],
-    techStack: ["HTML", "CSS", "jQuery"],
+    techStack: ["HTML", "CSS", "jQuery", "Git"],
     thumbnail: "/images/work/kbiz/kbiz-01.png",
     mainImage: "/images/work/kbiz/kbiz-01.png",
     mainImageCaption:
