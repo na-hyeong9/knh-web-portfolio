@@ -125,7 +125,7 @@ export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
                       className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
                     >
                       <ExternalLink className="h-4 w-4 shrink-0" />
-                      {url}
+                      {url.startsWith("/") ? "라이브 데모 보기" : url}
                     </a>
                   </li>
                 ))}
