@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>growing together shorts</title>
+
+  <!-- Video.js CSS -->
+  <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Video.js JS → publish script 순서로, DOM 파싱 후 실행 -->
+  <script src="https://vjs.zencdn.net/8.16.1/video.min.js" defer></script>
+  <script src="./pub.js" defer></script>
+
+</head>
+
+<body>
+
+  <div class="logo">growing<br>together<em>shorts</em></div>
+
+  <div class="stage">
+    <!-- 슬라이드 한 칸 = 영상(.player) + 액션(.actions). 트랙째 세로로 움직인다. -->
+    <div class="video-stack" id="videoStack"></div>
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn" type="button" aria-label="이전 영상">
+      <svg viewBox="0 0 24 24">
+        <path d="m6 15 6-6 6 6" />
+      </svg>
+    </button>
+    <button id="nextBtn" type="button" aria-label="다음 영상">
+      <svg viewBox="0 0 24 24">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+  </div>
+
+  <aside class="comments" id="comments" aria-label="댓글">
+    <div class="comments-head">
+      <h2>댓글 <span id="commentTotal">640개</span></h2>
+      <button class="close" id="closeBtn" type="button" aria-label="댓글 닫기">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+    </div>
+    <div class="comment-list" id="commentList"></div>
+    <div class="comment-form">
+      <span class="avatar"></span>
+      <input type="text" id="commentInput" placeholder="댓글 추가..." aria-label="댓글 입력">
+      <button id="postBtn" type="button" disabled>게시</button>
+    </div>
+  </aside>
+
+</body>
+
+</html>
