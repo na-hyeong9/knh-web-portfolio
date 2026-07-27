@@ -141,7 +141,7 @@ export const projectsData: Project[] = [
 export const workData: Work[] = [
   {
     id: "exp1",
-    title: "중소기업기술마켓 마켓 정식플랫폼 구축 사업",
+    title: "한국도로공사 중소기업기술마켓 마켓 정식플랫폼 구축 사업",
     company: "시아나",
     period: "2025.07 ~ 2025.11",
     role: "화면 퍼블리싱",
@@ -229,9 +229,9 @@ export const workData: Work[] = [
   },
   {
     id: "exp3",
-    title: "공공기관 클라우드 네이티브 시스템",
+    title: "울주군청 클라우드 네이티브 시스템",
     company: "시아나",
-    period: "2025.03 ~ 2025.04",
+    period: "2025.01 ~ 2025.03",
     role: "컴포넌트 설계",
     contribution: "100%",
     achievements: [
@@ -290,8 +290,8 @@ export const workData: Work[] = [
           "UI 컴포넌트 모듈화로 반복 마크업을 줄여 개발 기간 약 20% 단축에 기여",
       },
       {
-        keyword: "60본 화면 구현",
-        description: "대시보드 포함 총 60본 화면 구현",
+        keyword: "60페이지 화면 구현",
+        description: "대시보드 및 팝업 총 60페이지 화면 구현",
       },
     ],
     techStack: ["Vue.js", "SCSS", "Git"],
